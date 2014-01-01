@@ -55,12 +55,12 @@ public abstract class Event implements IEvent, IActor {
 		_count = Math.max(0, --_count);
 	}
 	
-	public String name()
+	public String getName()
 	{
 		return _name;
 	}
 	
-	public HashMap<IActor, ITransition> getTransitions()
+	public HashMap<IActor, ITransition> getEnabledTransitions()
 	{
 		HashMap<IActor, ITransition> result = new HashMap<IActor, ITransition>();
 		
@@ -88,9 +88,9 @@ public abstract class Event implements IEvent, IActor {
 			return false;
 		Actor other = (Actor) obj;
 		if (_name == null) {
-			if (other.name() != null)
+			if (other.getName() != null)
 				return false;
-		} else if (!_name.equals(other.name()))
+		} else if (!_name.equals(other.getName()))
 			return false;
 		return true;
 	}

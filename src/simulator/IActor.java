@@ -10,20 +10,20 @@ public interface IActor {
 	 * in sub-actors and their transitions should be passed through this method.
 	 * @return
 	 */
-	HashMap<IActor, ITransition> getTransitions();
+	HashMap<IActor, ITransition> getEnabledTransitions();
 	
 	/**
 	 * Returns the unique name of the Actor.
 	 * @return
 	 */
-	String name();
+	String getName();
 
 	/**
 	 * 
 	 * @return the current state of the actor
 	 */
 	IState getCurrentState();
-	
-//	int getWorkload();
+
+	void updateTransitions();
 	
 }

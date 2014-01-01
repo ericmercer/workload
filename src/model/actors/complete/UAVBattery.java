@@ -36,7 +36,7 @@ public UAVBattery(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, DEAD, Duration.TIME_TO_DIE.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_UAVBAT_OGUI_COMM.name(), UAVBattery.DATA_UAVBAT_OGUI_COMM.UAVBAT_DEAD_OGUI);
+			setTempOutput(Channels.DATA_UAVBAT_OGUI_COMM.getName(), UAVBattery.DATA_UAVBAT_OGUI_COMM.UAVBAT_DEAD_OGUI);
 			setTempOutput(Channels.DATA_UAVBAT_UAV_COMM.name(), UAVBattery.DATA_UAVBAT_UAV_COMM.UAVBAT_DEAD_UAV);
 			return true;
 		}
@@ -71,7 +71,7 @@ public UAVBattery(ComChannelList inputs, ComChannelList outputs) {
 	ACTIVE.add(new Transition(_internal_vars, inputs, outputs, LOW, Duration.BATTERY_DUR.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_UAVBAT_OGUI_COMM.name(), UAVBattery.DATA_UAVBAT_OGUI_COMM.UAVBAT_LOW_OGUI);
+			setTempOutput(Channels.DATA_UAVBAT_OGUI_COMM.getName(), UAVBattery.DATA_UAVBAT_OGUI_COMM.UAVBAT_LOW_OGUI);
 			setTempOutput(Channels.DATA_UAVBAT_UAV_COMM.name(), UAVBattery.DATA_UAVBAT_UAV_COMM.UAVBAT_LOW_UAV);
 			return true;
 		}

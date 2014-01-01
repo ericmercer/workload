@@ -1,6 +1,7 @@
 package simulator;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface ITransition {
 
@@ -19,7 +20,7 @@ public interface ITransition {
 	 * If the transition is possible then this method will return true. It also clears out the temporary data from previous checks.
 	 * @return
 	 */
-	boolean updateTransition();
+	void updateTransition();
 	
 	/**
 	 * return an int from the range of durations
@@ -41,4 +42,6 @@ public interface ITransition {
 
 	void setIndex(int indexOf);
 	int getIndex();
+
+	List getActiveInputs();
 }

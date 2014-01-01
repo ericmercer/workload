@@ -2,24 +2,30 @@ package simulator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Team implements ITeam {
 	
 	ArrayList<IEvent> _events = new ArrayList<IEvent>();
 	ArrayList<IActor> _actors = new ArrayList<IActor>();
 	public ComChannelList _com_channels;
-	
 
 	@Override
-	public HashMap<IActor, ITransition> getActorTransitions() {
-		HashMap<IActor, ITransition> result = new HashMap<IActor, ITransition>();
-		for( IActor a : _actors ) {
-			HashMap<IActor, ITransition> transitions = a.getTransitions();
+	public HashMap<IActor, ITransition> getEnabledTransitions() {
+		HashMap<IActor, ITransition> enabledTransitions = new HashMap<IActor, ITransition>();
+		for( IActor actor : _actors ) {
+			HashMap<IActor, ITransition> transitions = actor.getEnabledTransitions();
 			if(transitions != null)
-				result.putAll(transitions);
+				enabledTransitions.putAll(transitions);
 		}
-		
-		return result;
+		return enabledTransitions;
+	}
+	
+	@Override
+	public void updateTransitions() {
+		for (IActor actor : _actors ) {
+			actor.updateTransitions();
+		}
 	}
 	
 	@Override
@@ -57,22 +63,8 @@ public abstract class Team implements ITeam {
 	{
 		return _com_channels.get(name);
 	}
-	
-//	public HashMap<Actor, Integer> getWorkload(){
-//		HashMap<Actor, Integer> workload = new HashMap<Actor, Integer>();
-//		for(IActor a : _actors){
-//			workload.put((Actor)a, a.getWorkload());
-//		}
-//		return workload;
-//	}
-	
-	public String getStateName(String actorName){
-		String state = null;
-		
-		for(IActor actor : _actors)
-			if(actorName.equals(actor.name()))
-				state = actor.getCurrentState().toString();
-		
-		return state;
+
+	public List<IActor> getActors() {
+		return _actors;
 	}
 }

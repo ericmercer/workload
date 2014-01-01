@@ -2,6 +2,7 @@ package simulator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ITeam {
 	
@@ -9,8 +10,9 @@ public interface ITeam {
 	 * Return a list of current actor transitions
 	 * @return
 	 */
-	HashMap<IActor, ITransition> getActorTransitions();
+	HashMap<IActor, ITransition> getEnabledTransitions();
 	
+	void updateTransitions();
 	
 	/**
 	 * Return a list of current event transitions
@@ -23,11 +25,7 @@ public interface ITeam {
 	
 	ComChannelList getAllChannels();
 
-	/**
-	 * 
-	 * @param actor's name
-	 * @return the current state of the referenced actor
-	 */
-	String getStateName(String actor);
+
+	List<IActor> getActors();
 
 }

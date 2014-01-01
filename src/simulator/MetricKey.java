@@ -2,58 +2,25 @@ package simulator;
 
 public class MetricKey implements Comparable<MetricKey>{
 	private int _time = -1;
-	private String _actor_name = "";
-	private String _state_name = "";
-	private int _transition = -1;
-	
-	public void setTime(int time) {
-		_time = time;
-	}
+	private String _actorName = "";
+	private String _stateName = "";
 	
 	public int getTime() {
 		return _time;
 	}
 	
-	public void setActor(String actor_name) {
-		_actor_name = actor_name;
-	}
-	
 	public String getActor() {
-		return _actor_name;
-	}
-	
-	public void setState(String state_name) {
-		_state_name = state_name;
+		return _actorName;
 	}
 	
 	public String getState() {
-		return _state_name;
-	}
-	
-	public void setTransition(int transition) {
-		_transition = transition;
-	}
-	
-	public int getTransition() {
-		return _transition;
-	}
-	
-	public MetricKey(int time, String actor_name) {
-		_time = time;
-		_actor_name = actor_name;
+		return _stateName;
 	}
 	
 	public MetricKey(int time, String actor_name, String state_name){
 		_time = time;
-		_actor_name = actor_name;
-		_state_name  = state_name;
-	}
-	
-	public MetricKey(int time, String actor_name, String state_name, int transition_number) {
-		_time = time;
-		_actor_name = actor_name;
-		_state_name  = state_name;
-		_transition = transition_number;
+		_actorName = actor_name;
+		_stateName  = state_name;
 	}
 	
 	public String toString() {
@@ -64,16 +31,12 @@ public class MetricKey implements Comparable<MetricKey>{
 			result += _time;
 		}
 		result += " ";
-		if(_actor_name != null){
-			result += _actor_name;
+		if(_actorName != null){
+			result += _actorName;
 		}
 		result += " ";
-		if (_state_name != null){
-			result += _state_name;
-		}
-		result += " ";
-		if (_transition != -1){
-			result += _transition;
+		if (_stateName != null){
+			result += _stateName;
 		}
 		result += ")";
 		
@@ -81,8 +44,8 @@ public class MetricKey implements Comparable<MetricKey>{
 	}
 
 	@Override
-	public int compareTo(MetricKey o) {
-		if (_time < o._time) {
+	public int compareTo(MetricKey other) {
+		if (_time < other._time) {
 			return -1;
 		} else {
 			return 1;
@@ -94,10 +57,9 @@ public class MetricKey implements Comparable<MetricKey>{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((_actor_name == null) ? 0 : _actor_name.hashCode());
-		result = prime * result + ((_state_name == null) ? 0 : _state_name.hashCode());
+				+ ((_actorName == null) ? 0 : _actorName.hashCode());
+		result = prime * result + ((_stateName == null) ? 0 : _stateName.hashCode());
 		result = prime * result + _time;
-		result = prime * result + _transition;
 		return result;
 	}
 }

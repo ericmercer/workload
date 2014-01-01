@@ -9,10 +9,6 @@ import java.util.*;
  *
  */
 public abstract class Actor implements IActor {
-	/**
-	 * this variable represents the name we give to the actor
-	 */
-//	protected String _name = "";
 	
 	private int _workload = 0;
 	
@@ -29,26 +25,27 @@ public abstract class Actor implements IActor {
 	 * This method must be implemented by the Actor.  
 	 * @return
 	 */
-	public HashMap<IActor, ITransition> getTransitions(){
+	public HashMap<IActor, ITransition> getEnabledTransitions(){
 		
-		State state = this.getCurrentState();
+		State state = getCurrentState();
 		ArrayList<ITransition> enabledTransitions = state.getEnabledTransitions();
-		
-		//Log this with JPF
-		if(enabledTransitions.size() > 0)
-			MetricManager.instance().setDecisionWorkload(Simulator.getSim().getClockTime(), this.name(), this.getCurrentState().getName(), enabledTransitions.size());
 		
 		if(enabledTransitions.size() == 0)
 			return null;
 		ITransition nextTransition = enabledTransitions.get(0);
-		for(ITransition t : enabledTransitions){
-			if(nextTransition.priority() < t.priority()){
-				nextTransition = t;
+		for(ITransition enabledTransition : enabledTransitions){
+			if(nextTransition.priority() < enabledTransition.priority()){
+				nextTransition = enabledTransition;
 			}
 		}
 		HashMap<IActor, ITransition> transitions = new HashMap<IActor, ITransition>();
 		transitions.put(this, nextTransition);
 		return transitions;
+	}
+	
+	public void updateTransitions() {
+		State state = getCurrentState();
+		state.updateTransitions();
 	}
 	
 	/**
@@ -65,7 +62,7 @@ public abstract class Actor implements IActor {
 		return (State) _internal_vars.getVariable("currentState");
 	}
 	
-	public String name()
+	public String getName()
 	{
 		return (String) _internal_vars.getVariable("name");
 	}
@@ -138,9 +135,9 @@ public abstract class Actor implements IActor {
 			return false;
 		Actor other = (Actor) obj;
 		if (_internal_vars.getVariable("name") == null) {
-			if (other.name() != null)
+			if (other.getName() != null)
 				return false;
-		} else if (!_internal_vars.getVariable("name").equals(other.name()))
+		} else if (!_internal_vars.getVariable("name").equals(other.getName()))
 			return false;
 		return true;
 	}

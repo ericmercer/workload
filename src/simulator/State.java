@@ -1,6 +1,7 @@
 package simulator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * this class represents a the state of an actor (state machine)
@@ -38,26 +39,13 @@ public class State implements IState {
 	
 	@Override
 	public ArrayList<ITransition> getEnabledTransitions() {
-		//TODO Send state to the metric manager
-//		Simulator.getSim()._metrics.currentKey.setState(this.getName());
-		
-		ArrayList<ITransition> enabled = new ArrayList<ITransition>();
-		for (int i = 0; i < _transitions.size(); i++) {//ITransition t : _transitions) {
-			ITransition t = _transitions.get(i);
-			
-			//TODO send transition to the metric manager
-//			Simulator.getSim()._metrics.currentKey.setTransition(t.getIndex());
-			
-			
-			if ( t.updateTransition() ) {
-				//Copy the transition if it is enabled
-				enabled.add((ITransition) new Transition((Transition)t));
-				
-				//TODO send enabled metric
-//				Simulator.getSim().addMetric(MetricEnum.ENABLED, "TRANSITION");
+		ArrayList<ITransition> enabledTransitions = new ArrayList<ITransition>();
+		for (ITransition transition : _transitions) {
+			if ( transition.isEnabled() ) {
+				enabledTransitions.add((ITransition) new Transition((Transition)transition));
 			}
 		}
-		return enabled;
+		return enabledTransitions;
 	}
 
 	@Override
@@ -101,9 +89,25 @@ public class State implements IState {
 		return _name;
 	}
 
-//	public int getWorkload() {
-//		int temp_workload = _workload + ((Transition)_transitions.get(0)).getWorkload();
-//		return temp_workload;
-//	}
+	@Override
+	public List<ITransition> getTransitions() {
+		return _transitions;
+	}
+
+	@Override
+	public List<ComChannel<?>> getActiveInputs() {
+		List<ComChannel<?>> activeInputs = new ArrayList<ComChannel<?>>();
+		for(ITransition transition : _transitions) {
+			transition.isEnabled();
+			activeInputs.addAll(transition.getActiveInputs());
+		}
+		return activeInputs;
+	}
+
+	public void updateTransitions() {
+		for (ITransition transition : _transitions) {
+			transition.updateTransition();
+		}
+	}
 
 }

@@ -55,7 +55,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).value()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_F", "__");
@@ -78,7 +78,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).value()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_T", "__");

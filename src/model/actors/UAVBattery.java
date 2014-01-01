@@ -71,7 +71,7 @@ public class UAVBattery extends Actor {
 	}
 
 	@Override
-	public HashMap<IActor, ITransition> getTransitions() {
+	public HashMap<IActor, ITransition> getEnabledTransitions() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -22,7 +22,7 @@ public class Listener extends ListenerAdapter {
 	/**
 	 * stores the metrics
 	 */
-	Path _rootPath = new Path( null, 0, 0, 0, new TreeMap<MetricKey, Metric>(), new TreeMap<MetricKey, Metric>(), new TreeMap<MetricKey, Metric>() );
+	Path _rootPath = new Path( null, new TreeMap<MetricKey, Metric>() );
 	Path _currentPath = _rootPath;
 	
 	/**
@@ -50,14 +50,7 @@ public class Listener extends ListenerAdapter {
 	}
 	
 	private void advancePath( ) {
-		System.out.println( "point of non-determinism" );
-		Path newPath = new Path( _currentPath,
-				_currentPath._cumulativeDecisionWorkload,
-				_currentPath._cumulativeResourceWorkload,
-				_currentPath._cumulativeTemporalWorkload,
-				_currentPath._cumulativeDecisionMetrics,
-				_currentPath._cumulativeResourceMetrics,
-				_currentPath._cumulativeTemporalMetrics );
+		Path newPath = new Path( _currentPath, _currentPath._values );
 		newPath._parentPath = _currentPath;
 		_currentPath._childPaths.add( newPath );
 		_currentPath = newPath;
@@ -79,10 +72,8 @@ public class Listener extends ListenerAdapter {
 			storeEnabledTransitions( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "setActiveInputs" ) )
 			storeActiveInputs( ti, insnToExecute, mi );
-		else if ( fullMethodName.contains( "setActiveOutputs" ) )
-			storeActiveOutputs( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "endSimulation" ) )
-			Printer.getInstance();//.compareAndPrintCumlativeWorkload( _currentPath );
+			Printer.getInstance().compareAndPrintCumlativeWorkload( _currentPath );
 	}
 
 	private void storeEnabledTransitions(ThreadInfo ti,
@@ -137,6 +128,12 @@ public class Listener extends ListenerAdapter {
 		}
 		
 		return parameters;
+	}
+	
+	private boolean isMock( String actor ) {
+		if (actor.contains("ater"))
+			return true;
+		return false;
 	}
 
 	/**

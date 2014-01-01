@@ -357,7 +357,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	WAITING.add(new Transition(_internal_vars, inputs, outputs, TARGET_SIGHTED, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_TRUE.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_TRUE.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_TRUE.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_TRUE.getName()).value()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_T", true);
@@ -368,7 +368,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	WAITING.add(new Transition(_internal_vars, inputs, outputs, TARGET_SIGHTED, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_FALSE.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_FALSE.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_FALSE.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_FALSE.getName()).value()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_F", true);
@@ -379,7 +379,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	WAITING.add(new Transition(_internal_vars, inputs, outputs, PATH_COMPLETION, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_OP_COMM.OGUI_SEARCH_COMPLETE_OP.equals(_inputs.get(Channels.DATA_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_OP_COMM.OGUI_SEARCH_COMPLETE_OP.equals(_inputs.get(Channels.DATA_OGUI_OP_COMM.getName()).value())) {
 				return false;
 			}
 			return true;

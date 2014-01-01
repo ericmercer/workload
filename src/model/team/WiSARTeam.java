@@ -1,8 +1,8 @@
 package model.team;
 
-import model.actors.MissionCompletionWatcher;
+import java.util.List;
+
 import model.actors.MissionManager;
-import model.actors.MissionManager.DATA_MM_VGUI_COMM;
 import model.actors.Operator;
 import model.actors.OperatorGui;
 import model.actors.ParentSearch;
@@ -10,11 +10,11 @@ import model.actors.UAV;
 import model.actors.UAV_OGUI_WateredDown;
 import model.actors.VO_WateredDown;
 import model.actors.VideoOperator;
-import model.actors.VideoOperatorGui;
 import model.actors.VideoOperatorGui.VIDEO_VGUI_MM_COMM;
 import model.events.NewSearchEvent;
 import simulator.ComChannel;
 import simulator.ComChannelList;
+import simulator.IActor;
 import simulator.Team;
 
 /**

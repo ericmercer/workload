@@ -54,35 +54,11 @@ public class ComChannel<T> {
 	@SuppressWarnings("unchecked")
 	public void set(Object value) 
 	{
-//		Simulator.getSim().addMetric(MetricEnum.CHANNEL_FIRE_A, _name);
-//		assert (value instanceof classType):"Invalid ComChannel datatype.";
 		_value = (T) value;
 	}
 	
 	public T value()
 	{
-		Object data = _value;
-//		if(data != null
-//				|| (data instanceof Boolean && (Boolean)data)
-//				|| (data instanceof Integer && (Integer)data != 0)){
-//			if(_type == Type.AUDIO)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_ACTIVE_A, _name);
-//			else if(_type == Type.VISUAL)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_ACTIVE_V, _name);
-//			else if (_type == Type.DATA)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_ACTIVE_D, _name);
-//			else
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_ACTIVE_O, _name);
-//		}else{
-//			if(_type == Type.AUDIO)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_INACTIVE_A, _name);
-//			else if(_type == Type.VISUAL)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_INACTIVE_V, _name);
-//			else if (_type == Type.DATA)
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_INACTIVE_D, _name);
-//			else
-//				Simulator.getSim().addMetric(MetricEnum.CHANNEL_INACTIVE_O, _name);
-//		}
 		return _value;
 	}
 	
@@ -113,15 +89,13 @@ public class ComChannel<T> {
 		if ( obj == this )
 			return true;
 
-		if (obj instanceof ComChannel) {
+		if (obj instanceof ComChannel)
 			if ( ((ComChannel<?>) obj).name().equals(this._name) )
 				return true;
-		}
-		if (obj instanceof String) {
+		
+		if (obj instanceof String)
 			if ( ((String) obj).equals(this._name) )
 				return true;
-		}
-		
 		
 		return false;
 	}

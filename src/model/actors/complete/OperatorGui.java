@@ -31,10 +31,10 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	ALARM.add(new Transition(_internal_vars, inputs, outputs, NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI.equals(_inputs.get(Channels.DATA_UAVS_OGUI_COMM.name()).value())) {
+			if(UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI.equals(_inputs.get(Channels.DATA_UAVS_OGUI_COMM.getName()).value())) {
 				return false;
 			}
-			if(!UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI.equals(_inputs.get(Channels.DATA_UAVHAG_OGUI_COMM.name()).value())) {
+			if(!UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI.equals(_inputs.get(Channels.DATA_UAVHAG_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			if(!UAV.DATA_UAV_OGUI_COMM.UAVB_LOW_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
@@ -47,7 +47,7 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	ALARM.add(new Transition(_internal_vars, inputs, outputs, ALARM, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).value())) {
+			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("FLIGHT_PLANS") instanceof Integer && new Integer(0) > (Integer) _internal_vars.getVariable ("FLIGHT_PLANS")) {
@@ -173,7 +173,7 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	NORMAL.add(new Transition(_internal_vars, inputs, outputs, ALARM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI.equals(_inputs.get(Channels.DATA_UAVS_OGUI_COMM.name()).value())) {
+			if(!UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI.equals(_inputs.get(Channels.DATA_UAVS_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_SIGNAL_LOST_OP);
@@ -185,7 +185,7 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	NORMAL.add(new Transition(_internal_vars, inputs, outputs, ALARM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI.equals(_inputs.get(Channels.DATA_UAVHAG_OGUI_COMM.name()).value())) {
+			if(!UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI.equals(_inputs.get(Channels.DATA_UAVHAG_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_HAG_LOW_OP);
@@ -209,7 +209,7 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	NORMAL.add(new Transition(_internal_vars, inputs, outputs, NORMAL, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).value())) {
+			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("FLIGHT_PLANS") instanceof Integer && new Integer(1) > (Integer) _internal_vars.getVariable ("FLIGHT_PLANS")) {
@@ -224,7 +224,7 @@ public OperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	NORMAL.add(new Transition(_internal_vars, inputs, outputs, NORMAL, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).value())) {
+			if(!UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI.equals(_inputs.get(Channels.DATA_UAVFP_OGUI_COMM.getName()).value())) {
 				return false;
 			}
 			if(!new Integer(1).equals(_internal_vars.getVariable ("FLIGHT_PLANS"))) {

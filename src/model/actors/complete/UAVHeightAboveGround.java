@@ -46,9 +46,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_INACTIVE_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_INACTIVE_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_INACTIVE_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_INACTIVE_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_INACTIVE_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_INACTIVE_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_INACTIVE_UAV);
 			return true;
 		}
@@ -60,9 +60,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 			if(_inputs.get(Channels.HAG_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.HAG_EVENT.name()).value()) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_LOW_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_LOW_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_LOW_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_LOW_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_LOW_UAV);
 			return true;
 		}
@@ -74,9 +74,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.UAVHAG_LOW_TO_CRASH.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_CRASHED_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_CRASHED_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_CRASHED_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_CRASHED_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_CRASHED_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_CRASHED_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_CRASHED_UAV);
 			return true;
 		}
@@ -88,9 +88,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_INACTIVE_VGUI);
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_INACTIVE_OGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_INACTIVE_OP);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_INACTIVE_VGUI);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_INACTIVE_OGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_INACTIVE_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_INACTIVE_UAV);
 			return true;
 		}
@@ -99,12 +99,12 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.HAG_CRASHED_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.HAG_CRASHED_EVENT.name()).value()) {
+			if(_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).value()) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_CRASHED_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_CRASHED_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_CRASHED_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_CRASHED_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_CRASHED_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_CRASHED_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_CRASHED_UAV);
 			return true;
 		}
@@ -116,9 +116,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_GOOD_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAGF_GOOD_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_GOOD_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAGF_GOOD_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_GOOD_UAV);
 			return true;
 		}
@@ -133,9 +133,9 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);
-			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_GOOD_VGUI);
-			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.name(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_GOOD_OP);
+			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);
+			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_GOOD_VGUI);
+			setTempOutput(Channels.VIDEO_UAVHAG_OP_COMM.getName(), UAVHeightAboveGround.VIDEO_UAVHAG_OP_COMM.UAVHAG_GOOD_OP);
 			setTempOutput(Channels.DATA_UAVHAG_UAV_COMM.name(), UAVHeightAboveGround.DATA_UAVHAG_UAV_COMM.UAVHAG_GOOD_UAV);
 			return true;
 		}

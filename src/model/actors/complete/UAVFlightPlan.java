@@ -42,7 +42,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("START_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
@@ -60,7 +60,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -72,7 +72,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, COMPLETE, Duration.UAV_PATH_DUR.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_COMPLETE_UAV);
 			return true;
 		}
@@ -84,7 +84,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_COMPLETE_UAV);
 			return true;
 		}
@@ -93,10 +93,10 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.name()).value())) {
+			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -111,7 +111,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -126,7 +126,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -141,7 +141,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -156,7 +156,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -171,7 +171,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_RESUME_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
@@ -183,7 +183,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
@@ -192,10 +192,10 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	PAUSED.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.name()).value())) {
+			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
@@ -207,7 +207,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
 		}
@@ -219,7 +219,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	COMPLETE.add(new Transition(_internal_vars, inputs, outputs, NO_PATH, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_NO_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_NO_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_NO_PATH_UAV);
 			return true;
 		}
@@ -234,7 +234,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!"TIME".equals(_internal_vars.getVariable ("START_TIME"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
@@ -249,7 +249,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}

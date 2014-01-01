@@ -36,9 +36,9 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.name(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_OK_OGUI);
-			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.name(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_OK_VGUI);
-			setTempOutput(Channels.DATA_UAVS_UAV_COMM.name(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_OK_UAV);
+			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_OK_OGUI);
+			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.getName(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_OK_VGUI);
+			setTempOutput(Channels.DATA_UAVS_UAV_COMM.getName(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_OK_UAV);
 			return true;
 		}
 	});
@@ -49,12 +49,12 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 	OK.add(new Transition(_internal_vars, inputs, outputs, LOST, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.name()).value()) {
+			if(_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).value()) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.name(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI);
-			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.name(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_LOST_VGUI);
-			setTempOutput(Channels.DATA_UAVS_UAV_COMM.name(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV);
+			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI);
+			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.getName(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_LOST_VGUI);
+			setTempOutput(Channels.DATA_UAVS_UAV_COMM.getName(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV);
 			return true;
 		}
 	});
@@ -65,12 +65,12 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 	LOST.add(new Transition(_internal_vars, inputs, outputs, RESUMED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.name()).value()) {
+			if(_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).value()) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.name(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_RESUMED_OGUI);
-			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.name(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_RESUMED_VGUI);
-			setTempOutput(Channels.DATA_UAVS_UAV_COMM.name(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV);
+			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_RESUMED_OGUI);
+			setTempOutput(Channels.DATA_UAVS_VGUI_COMM.getName(), UAVSignal.DATA_UAVS_VGUI_COMM.UAVS_RESUMED_VGUI);
+			setTempOutput(Channels.DATA_UAVS_UAV_COMM.getName(), UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV);
 			return true;
 		}
 	});

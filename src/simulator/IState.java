@@ -1,6 +1,7 @@
 package simulator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IState {
 
@@ -11,4 +12,8 @@ public interface IState {
 	ArrayList<ITransition> getEnabledTransitions();
 	
 	String getName();
+
+	List<ITransition> getTransitions();
+
+	List<ComChannel<?>> getActiveInputs();
 }

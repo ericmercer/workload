@@ -2,12 +2,8 @@ package simulator;
 
 import gov.nasa.jpf.vm.Verify;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
 public class Simulator {
 	
@@ -31,7 +27,6 @@ public class Simulator {
 	private DebugMode _mode;
 	private DurationMode _duration;
 	private Random _random;
-	public MetricManager _metrics;
 	
 	//Singleton variables
 	private boolean _setup = false;
@@ -53,7 +48,6 @@ public class Simulator {
 	private Simulator() {
 		_clock = new DeltaClock();
 		_date = new Date();
-		
 	}
 	
 	public void setup(ITeam team, DebugMode mode, DurationMode duration)
@@ -67,8 +61,6 @@ public class Simulator {
 		
 		initializeRandom();
 		_setup = true;
-		
-		
 	}
 	
 	/**
@@ -79,33 +71,37 @@ public class Simulator {
 		assert _setup : "Simulator not setup correctly";
 	
 		do {
-			//Get all event and team transitions
-			loadTransitions();
+			updateTransitions();
 			
-			//Advance Time
+			getEnabledTransitions();
+			
 			_clock.advanceTime();
-			//debug mode
-			System.out.printf("Time: %d\n",_clock.getElapsedTime());
+			
+			storeMetrics();
 			
 			//Process Ready Transitions
 			_ready_transitions.clear();
 			_ready_transitions.putAll(_clock.getReadyTransitions());
-			for(Entry<IActor, ITransition> e : _ready_transitions.entrySet()){
-				//debug mode
-				System.out.println(e.toString());
-				
-				//Set metric key
-				IActor a = (IActor) e.getKey();
-				ITransition t = (ITransition) e.getValue();
-				
-				t.fire();
+			for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
+				//System.out.println(_clock.getElapsedTime() + "\n\t" + readyTransition.toString());
+				//Fire Transition
+				ITransition transition = (ITransition) readyTransition.getValue();
+				transition.fire();
 			}
 		} while (!_ready_transitions.isEmpty());
 		
-		MetricManager.instance().endSimulation();
+		MetricManager.getInstance().endSimulation();
 	}
 
-	private void loadTransitions()
+	/**
+	 * HELPER METHODS
+	 */
+	
+	private void updateTransitions() {
+		_team.updateTransitions();
+	}
+	
+	private void getEnabledTransitions()
 	{
 		//Get Transitions from the Events
 		for(IEvent e : _team.getEvents() ) {
@@ -124,7 +120,7 @@ public class Simulator {
 		}
 		
 		//Get Transitions from the Actor
-		HashMap<IActor, ITransition> transitions = _team.getActorTransitions();
+		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
 		for(Map.Entry<IActor, ITransition> entry : transitions.entrySet() ) {
 			ITransition t = entry.getValue();
 			_clock.addTransition(entry.getKey(), t, duration(t.getDurationRange()));
@@ -138,11 +134,20 @@ public class Simulator {
 			}
 		}
 	}
+
+	private void storeMetrics() {
+		int time = _clock.getElapsedTime();
+		List<IActor> actors = _team.getActors();
+		for(IActor actor : actors) {
+			String actorName = actor.getName();
+			IState state = actor.getCurrentState();
+			String stateName = state.getName();
+			state.getEnabledTransitions();
+			List<ComChannel<?>> activeInputs = state.getActiveInputs();
+			MetricManager.getInstance().setActiveInputs(time, actorName, stateName, activeInputs.size());
+		}
+	}
 	
-	
-	/**
-	 * HELPER METHODS
-	 */
 	private void initializeRandom() {
 		_random = new Random();
 		_random.setSeed(0); //Always use the same seed
