@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import simulator.ITransition;
 import simulator.Metric;
 import simulator.MetricKey;
 
@@ -50,9 +51,9 @@ public class Listener extends ListenerAdapter {
 	}
 	
 	private void advancePath( ) {
-		Path newPath = new Path( _currentPath, _currentPath._values );
-		newPath._parentPath = _currentPath;
-		_currentPath._childPaths.add( newPath );
+		Path newPath = new Path( _currentPath, _currentPath.getValues() );
+		newPath.setParent( _currentPath );
+		_currentPath.addChild( newPath );
 		_currentPath = newPath;
 	}
 	
@@ -68,54 +69,74 @@ public class Listener extends ListenerAdapter {
 		//only act on these methods
 		if ( fullMethodName.contains( "setTransitionDuration" ) )
 			storeTransitionDuration( ti, insnToExecute, mi );
-		if ( fullMethodName.contains( "setEnabledTransitions" ) )
+		if ( fullMethodName.contains( "setEnabledTransition" ) )
 			storeEnabledTransitions( ti, insnToExecute, mi );
-		else if ( fullMethodName.contains( "setActiveInputs" ) )
+		else if ( fullMethodName.contains( "setActiveInput" ) )
 			storeActiveInputs( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "endSimulation" ) )
-			Printer.getInstance().compareAndPrintCumlativeWorkload( _currentPath );
-	}
-
-	private void storeEnabledTransitions(ThreadInfo ti,
-			Instruction insnToExecute, MethodInfo mi) {
-		// TODO Auto-generated method stub
-		
+			Printer.getInstance( ).print( "workloadMetrics.csv", WorkloadBuilder.build(_rootPath) );
 	}
 
 	private void storeTransitionDuration(ThreadInfo ti,
 			Instruction insnToExecute, MethodInfo mi) {
+		
+		//get parameters
 		ArrayList<Object> parameters = getParameters(ti, insnToExecute, mi);
-//		int time = getIntParameter( 1, ti, insnToExecute, mi );
-//		String actorName = getStringParameter( 2, ti, insnToExecute, mi );
-//		String stateName = getStringParameter( 3, ti, insnToExecute, mi );
-//		int availableTransitions = getIntParameter( 4, ti, insnToExecute, mi );
-//		
-//		//don't measure mock (watered down) model objects
-//		if( isMock( actorName ) )
-//			return;
-//		
-//		//form metrics and keys
-//		MetricKey currentKey = new MetricKey( time, actorName, stateName );
-//		Metric currentMetric = new Metric( Metric.TypeEnum.setDecisionWorkload, availableTransitions );
-//		
-//		//store metric
-//		Metric metric = _currentPath._cumulativeDecisionMetrics.get( currentKey );
-//		if ( metric == null )
-//			_currentPath._cumulativeDecisionMetrics.put( currentKey, currentMetric );
-//		else
-//			 metric.add( availableTransitions );
-//		_currentPath._cumulativeDecisionWorkload += availableTransitions;
+		int time = (int) parameters.get(1);
+		String actorName = DEIToString( parameters.get(2) );
+		String stateName = DEIToString( parameters.get(3) );
+		int duration = (int) parameters.get(4);
+		
+		//don't measure mock (watered down) model objects
+		if( isMock( actorName ) )
+			return;
+		
+		//form metrics and keys
+		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.TRANSITION_DURATION );
+		Metric currentMetric = new Metric( duration, null );
+		storeMetric(currentKey, currentMetric);
+		
+	}
+
+	private void storeEnabledTransitions(ThreadInfo ti,
+			Instruction insnToExecute, MethodInfo mi) {
+
+		//get parameters
+		ArrayList<Object> parameters = getParameters(ti, insnToExecute, mi);
+		int time = (int) parameters.get(1);
+		String actorName = DEIToString( parameters.get(2) );
+		String stateName = DEIToString( parameters.get(3) );
+		int transition = (int) parameters.get(4);
+
+		//don't measure mock (watered down) model objects
+		if( isMock( actorName ) )
+			return;
+
+		//form metrics and keys
+		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ENABLED_TRANSITION );
+		Metric currentMetric = new Metric( 1, transition );
+		storeMetric(currentKey, currentMetric);
+		
 	}
 
 	private void storeActiveInputs(ThreadInfo ti, Instruction insnToExecute,
 			MethodInfo mi) {
-		// TODO Auto-generated method stub
 		
-	}
+		//get parameters
+		ArrayList<Object> parameters = getParameters(ti, insnToExecute, mi);
+		int time = (int) parameters.get(1);
+		String actorName = DEIToString( parameters.get(2) );
+		String stateName = DEIToString( parameters.get(3) );
+		String input = DEIToString( parameters.get(4) );
 
-	private void storeActiveOutputs(ThreadInfo ti, Instruction insnToExecute,
-			MethodInfo mi) {
-		// TODO Auto-generated method stub
+		//don't measure mock (watered down) model objects
+		if( isMock( actorName ) )
+			return;
+
+		//form metrics and keys
+		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ACTIVE_INPUT );
+		Metric currentMetric = new Metric( 1, input );
+		storeMetric(currentKey, currentMetric);
 		
 	}
 	
@@ -124,7 +145,8 @@ public class Listener extends ListenerAdapter {
 		
 		int parameterSize = ti.getStackFrameExecuting( insnToExecute, 0 ).getLocalVariableCount();
 		for ( int i = 0; i < parameterSize; i++ ) {
-			parameters.add( ti.getStackFrameExecuting( insnToExecute, 0 ).getLocalOrFieldValue( mi.getLocalVar( i, ti.getPC( ).getPosition( ) ).getName() ) );
+			Object parameter = ti.getStackFrameExecuting( insnToExecute, 0 ).getLocalOrFieldValue( mi.getLocalVar( i, ti.getPC( ).getPosition( ) ).getName() );
+			parameters.add( parameter );
 		}
 		
 		return parameters;
@@ -134,6 +156,14 @@ public class Listener extends ListenerAdapter {
 		if (actor.contains("ater"))
 			return true;
 		return false;
+	}
+	
+	private void storeMetric( MetricKey currentKey, Metric currentMetric) {
+		Metric metric = _currentPath.get( currentKey );
+		if ( metric == null )
+			_currentPath.put( currentKey, currentMetric );
+		else
+			 metric.add( metric );
 	}
 
 	/**

@@ -185,9 +185,9 @@ public class Transition implements ITransition {
 	public void fire(){
 		if(!_temp_outputs.isEmpty()){
 			for(ComChannel<?> output : _outputs.values()){
-				Object temp = _temp_outputs.get(output.name());
+				Object temp = _temp_outputs.get(output.getName());
 				output.set(temp);
-				_temp_outputs.put(output.name(), null);
+				_temp_outputs.put(output.getName(), null);
 			}
 		}
 		
@@ -251,7 +251,7 @@ public class Transition implements ITransition {
 	{
 		_temp_outputs = new HashMap<String, Object>();
 		for( ComChannel<?> c : _outputs.values()) {
-			_temp_outputs.put(c.name(), null);
+			_temp_outputs.put(c.getName(), null);
 		}
 	}
 	
@@ -289,9 +289,9 @@ public class Transition implements ITransition {
 		//inputs
 		if(_inputs != null){
 			for(Entry<String, ComChannel<?>> input : _inputs.entrySet()) {
-				if(input.getValue().value() != null
-						&& (!(input.getValue().value() instanceof Boolean) || (Boolean)input.getValue().value())
-						&& (!(input.getValue().value() instanceof Integer) || (Integer)input.getValue().value() != 0))
+				if(input.getValue().getValue() != null
+						&& (!(input.getValue().getValue() instanceof Boolean) || (Boolean)input.getValue().getValue())
+						&& (!(input.getValue().getValue() instanceof Integer) || (Integer)input.getValue().getValue() != 0))
 					result.append(input.toString() + ", ");
 			}
 		}
@@ -340,7 +340,7 @@ public class Transition implements ITransition {
 		ArrayList<ComChannel<?>> activeInputs = new ArrayList<ComChannel<?>>();
 		
 		for(Entry<String, ComChannel<?>> input : _inputs.entrySet())
-			if(input.getValue().value() != null)
+			if(input.getValue().getValue() != null)
 				activeInputs.add(input.getValue());
 		
 		return activeInputs;

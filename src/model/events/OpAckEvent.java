@@ -29,7 +29,7 @@ public class OpAckEvent extends simulator.Event {
 				
 				//TODO Check the simulator to see if we have a transition already
 				ComChannel<Boolean> mm_comm_op = (ComChannel<Boolean>) _inputs.get(Channels.AUDIO_MM_OP_COMM.name());
-				if ( MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(mm_comm_op.value()) ) {
+				if ( MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(mm_comm_op.getValue()) ) {
 					this.setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);
 					return true;
 				} else

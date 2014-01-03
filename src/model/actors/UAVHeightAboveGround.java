@@ -22,7 +22,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	GOOD.add(new Transition(_internal_vars, inputs, outputs, INACTIVE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_COMM.UAV_LANDED_UAVHAG.equals(_inputs.get(Channels.DATA_UAV_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_COMM.UAV_LANDED_UAVHAG.equals(_inputs.get(Channels.DATA_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_INACTIVE_UAV);
@@ -33,7 +33,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	GOOD.add(new Transition(_internal_vars, inputs, outputs, LOW, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.HAG_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.HAG_EVENT.name()).value()) {
+			if(_inputs.get(Channels.HAG_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.HAG_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_LOW_UAV);
@@ -47,7 +47,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, INACTIVE, Duration.NEXT.getRange(), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_COMM.UAV_LANDED_UAVHAG.equals(_inputs.get(Channels.DATA_UAV_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_COMM.UAV_LANDED_UAVHAG.equals(_inputs.get(Channels.DATA_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_INACTIVE_UAV);
@@ -58,7 +58,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.CRASHED_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.CRASHED_EVENT.name()).value()) {
+			if(_inputs.get(Channels.CRASHED_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.CRASHED_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_CRASHED_UAV);
@@ -69,7 +69,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, GOOD, Duration.UAV_ADJUST_PATH.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.VISUAL_OP_UAV_COMM.OP_MODIFY_FLIGHT_PLAN_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).value())) {
+			if(!Operator.VISUAL_OP_UAV_COMM.OP_MODIFY_FLIGHT_PLAN_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_GOOD_UAV);
@@ -83,7 +83,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	INACTIVE.add(new Transition(_internal_vars, inputs, outputs, GOOD, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.VISUAL_OP_UAV_COMM.OP_TAKE_OFF_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).value())) {
+			if(!Operator.VISUAL_OP_UAV_COMM.OP_TAKE_OFF_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_GOOD_UAV);
@@ -94,7 +94,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	INACTIVE.add(new Transition(_internal_vars, inputs, outputs, GOOD, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_TAKE_OFF_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_TAKE_OFF_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAV_UAV_COMM.name(), UAV.DATA_UAV_COMM.UAVHAG_GOOD_UAV);

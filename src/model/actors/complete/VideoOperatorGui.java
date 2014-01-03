@@ -43,7 +43,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_F_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_F_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FALSE_POSITIVE_VO);
@@ -55,7 +55,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).getValue() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_F_END_EVENT.getName()).getValue()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_F", "__");
@@ -66,7 +66,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_T_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_T_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_TRUE_POSITIVE_VO);
@@ -78,7 +78,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).value()) {
+			if(_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).getValue() == null && !(Boolean)_inputs.get(Channels.TARGET_SIGHTED_T_END_EVENT.getName()).getValue()) {
 				return false;
 			}
 			setTempInternalVar("TARGET_SIGHTED_T", "__");
@@ -89,7 +89,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_POSSIBLE_ANOMALY_DETECTED_F_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_POSSIBLE_ANOMALY_DETECTED_F_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_MM_COMM.name(), VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_F_MM);
@@ -102,7 +102,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_POSSIBLE_ANOMALY_DETECTED_T_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_POSSIBLE_ANOMALY_DETECTED_T_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_MM_COMM.name(), VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM);
@@ -115,7 +115,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_REQ_T_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_REQ_T_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VGUI_OGUI_COMM.name(), VideoOperatorGui.DATA_VGUI_OGUI_COMM.VGUI_FLYBY_REQ_OGUI);
@@ -126,7 +126,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_REQ_F_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_REQ_F_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VGUI_OGUI_COMM.name(), VideoOperatorGui.DATA_VGUI_OGUI_COMM.VGUI_FLYBY_REQ_OGUI);
@@ -137,7 +137,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_FLYBY, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_VGUI_COMM.OGUI_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_OGUI_VGUI_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_VGUI_COMM.OGUI_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_OGUI_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"NORMAL".equals(_internal_vars.getVariable ("STREAMING"))) {
@@ -151,7 +151,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_F_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).value())) {
+			if(!MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_F_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("VALIDATION_REQ_F") instanceof Integer && new Integer(0) > (Integer) _internal_vars.getVariable ("VALIDATION_REQ_F")) {
@@ -166,7 +166,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_T_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).value())) {
+			if(!MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_T_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("VALIDATION_REQ_T") instanceof Integer && new Integer(0) > (Integer) _internal_vars.getVariable ("VALIDATION_REQ_T")) {
@@ -181,7 +181,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_F_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).value())) {
+			if(!MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_F_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("VALIDATION_REQ_F") instanceof Integer && new Integer(0) > (Integer) _internal_vars.getVariable ("VALIDATION_REQ_F")) {
@@ -195,7 +195,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_T_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).value())) {
+			if(!MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_T_VGUI.equals(_inputs.get(Channels.DATA_MM_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("VALIDATION_REQ_T") instanceof Integer && new Integer(0) > (Integer) _internal_vars.getVariable ("VALIDATION_REQ_T")) {
@@ -209,7 +209,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_READY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_READY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_READY_VO);
@@ -220,7 +220,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_TAKE_OFF_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_TAKE_OFF_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_TAKE_OFF_VO);
@@ -231,7 +231,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_NORMAL_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_NORMAL_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_FLYING_NORMA_VO);
@@ -242,7 +242,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_FLYBY, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_FLYING_FLYBY_VO);
@@ -253,7 +253,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LOITERING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LOITERING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LOITERING_VO);
@@ -264,7 +264,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LANDING_VO);
@@ -275,7 +275,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LANDED_VO);
@@ -286,7 +286,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_CRASHED_VO);
@@ -308,7 +308,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_OK_VGUI.equals(_inputs.get(Channels.DATA_UAVVF_VGUI_COMM.name()).value())) {
+			if(!UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_OK_VGUI.equals(_inputs.get(Channels.DATA_UAVVF_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_SIGNAL_OK_VO);
@@ -319,7 +319,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_BAD_VGUI.equals(_inputs.get(Channels.DATA_UAVVF_VGUI_COMM.name()).value())) {
+			if(!UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_BAD_VGUI.equals(_inputs.get(Channels.DATA_UAVVF_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_SIGNAL_BAD_VO);
@@ -333,7 +333,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_END_FAILED_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_END_FAILED_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"FLYBY".equals(_internal_vars.getVariable ("STREAMING"))) {
@@ -347,7 +347,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_END_SUCCESS_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).value())) {
+			if(!VideoOperator.DATA_VO_VGUI_COMM.VO_FLYBY_END_SUCCESS_VGUI.equals(_inputs.get(Channels.DATA_VO_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"FLYBY".equals(_internal_vars.getVariable ("STREAMING"))) {
@@ -383,7 +383,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_READY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_READY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_READY_VO);
@@ -394,7 +394,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_TAKE_OFF_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_TAKE_OFF_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_TAKE_OFF_VO);
@@ -405,7 +405,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_NORMAL_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_NORMAL_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_FLYING_NORMA_VO);
@@ -416,7 +416,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_FLYBY, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_FLYING_FLYBY_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_FLYING_FLYBY_VO);
@@ -427,7 +427,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LOITERING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LOITERING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LOITERING_VO);
@@ -438,7 +438,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LANDING_VO);
@@ -449,7 +449,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_LANDED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_LANDED_VO);
@@ -460,7 +460,7 @@ public VideoOperatorGui(ComChannelList inputs, ComChannelList outputs) {
 	STREAMING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, STREAMING_NORMAL, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_VGUI_COMM.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_VGUI_COMM.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.VIDEO_VGUI_VO_COMM.name(), VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_UAV_CRASHED_VO);

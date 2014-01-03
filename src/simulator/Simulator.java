@@ -24,7 +24,7 @@ public class Simulator {
 	private IDeltaClock _clock;
 	private HashMap<IActor, ITransition> _ready_transitions = new HashMap<IActor, ITransition>();
 	private ArrayList<IActor> _active_events = new ArrayList<IActor>();
-	private DebugMode _mode;
+	private DebugMode _debugMode;
 	private DurationMode _duration;
 	private Random _random;
 	
@@ -32,7 +32,6 @@ public class Simulator {
 	private boolean _setup = false;
 	private static Simulator _instance = null;
 	private Date _date = null;
-	
 	
 	/**
 	 * Get simulator singleton
@@ -56,10 +55,11 @@ public class Simulator {
 		_clock = new DeltaClock();
 		
 		_team = team;
-		_mode = mode;
+		_debugMode = mode;
 		_duration = duration;
 		
-		initializeRandom();
+		_random = new Random();
+		_random.setSeed(0);
 		_setup = true;
 	}
 	
@@ -77,25 +77,15 @@ public class Simulator {
 			
 			_clock.advanceTime();
 			
-			storeMetrics();
-			
-			//Process Ready Transitions
-			_ready_transitions.clear();
-			_ready_transitions.putAll(_clock.getReadyTransitions());
-			for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
-				//System.out.println(_clock.getElapsedTime() + "\n\t" + readyTransition.toString());
-				//Fire Transition
-				ITransition transition = (ITransition) readyTransition.getValue();
-				transition.fire();
-			}
+			processReadyTransitions();
 		} while (!_ready_transitions.isEmpty());
 		
 		MetricManager.getInstance().endSimulation();
 	}
 
-	/**
-	 * HELPER METHODS
-	 */
+	//
+	//	HELPER METHODS
+	//
 	
 	private void updateTransitions() {
 		_team.updateTransitions();
@@ -103,7 +93,7 @@ public class Simulator {
 	
 	private void getEnabledTransitions()
 	{
-		//Get Transitions from the Events
+		//Get transitions from the events
 		for(IEvent e : _team.getEvents() ) {
 			
 			ITransition t = e.getEnabledTransition();
@@ -119,14 +109,25 @@ public class Simulator {
 			}
 		}
 		
-		//Get Transitions from the Actor
+		//Get transitions from the actors
 		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
-		for(Map.Entry<IActor, ITransition> entry : transitions.entrySet() ) {
-			ITransition t = entry.getValue();
-			_clock.addTransition(entry.getKey(), t, duration(t.getDurationRange()));
+		for(Map.Entry<IActor, ITransition> transitionEntry : transitions.entrySet() ) {
+			IActor actor = transitionEntry.getKey();
+			ITransition transition = transitionEntry.getValue();
+			int duration = getDuration(transition.getDurationRange());
+			_clock.addTransition(actor, transition, duration);
+			
+			//Store enabled transition data
+			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), transition.getIndex());
+			//Store transition duration data
+			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
+			//Store active input data
+			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
+				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getName());
+			}
 		}
 		
-		//deactivate outputs from events after one cycle
+		//Deactivate outputs from events after one cycle
 		for(IEvent e : _team.getEvents() ) {
 			ITransition t = e.getEnabledTransition();
 			if(t == null){
@@ -135,25 +136,22 @@ public class Simulator {
 		}
 	}
 
-	private void storeMetrics() {
-		int time = _clock.getElapsedTime();
-		List<IActor> actors = _team.getActors();
-		for(IActor actor : actors) {
-			String actorName = actor.getName();
-			IState state = actor.getCurrentState();
-			String stateName = state.getName();
-			state.getEnabledTransitions();
-			List<ComChannel<?>> activeInputs = state.getActiveInputs();
-			MetricManager.getInstance().setActiveInputs(time, actorName, stateName, activeInputs.size());
+	private void processReadyTransitions() {
+		_ready_transitions.clear();
+		_ready_transitions.putAll(_clock.getReadyTransitions());
+		for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
+			if(_debugMode == DebugMode.DEBUG)
+				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
+			ITransition transition = (ITransition) readyTransition.getValue();
+			transition.fire();
 		}
 	}
 	
-	private void initializeRandom() {
-		_random = new Random();
-		_random.setSeed(0); //Always use the same seed
-	}
+	//
+	//	public access
+	//
 	
-	public int duration(Range range)
+	public int getDuration(Range range)
 	{
 		switch(_duration) {
 			case MIN:

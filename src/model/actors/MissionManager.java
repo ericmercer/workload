@@ -95,7 +95,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_END_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_END_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
@@ -106,7 +106,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_NEW_SEARCH_AOI_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_NEW_SEARCH_AOI_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
@@ -120,7 +120,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TARGET_DESCRIPTION_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TARGET_DESCRIPTION_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
@@ -133,7 +133,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TERMINATE_SEARCH_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TERMINATE_SEARCH_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
@@ -194,7 +194,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_OP, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_POKE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).value())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_POKE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP);
@@ -206,7 +206,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_VO, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_POKE_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())) {
+			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_POKE_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO);
@@ -218,7 +218,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_PS, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
@@ -353,7 +353,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_PS.add(new Transition(_internal_vars, inputs, outputs, TX_PS, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_ACK_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_ACK_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -363,7 +363,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_PS.add(new Transition(_internal_vars, inputs, outputs, RX_PS, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
@@ -451,7 +451,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_VO.add(new Transition(_internal_vars, inputs, outputs, TX_VO, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())) {
+			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -461,7 +461,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_VO.add(new Transition(_internal_vars, inputs, outputs, RX_PS, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
@@ -490,7 +490,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_VGUI.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("FLYBY_REQ_T", true);
@@ -501,7 +501,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_VGUI.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("ANOMALY_DISMISSED_T", true);
@@ -512,7 +512,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_VGUI.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_F_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_F_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("FLYBY_REQ_F", true);
@@ -523,7 +523,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_VGUI.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_F_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_F_MM.equals(_inputs.get(Channels.VIDEO_VGUI_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("ANOMALY_DISMISSED_F", true);
@@ -537,7 +537,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_OP.add(new Transition(_internal_vars, inputs, outputs, TX_OP, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_ACK_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).value())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_ACK_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -547,7 +547,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_OP.add(new Transition(_internal_vars, inputs, outputs, RX_PS, Duration.NEXT.getRange(), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).value())) {
+			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_END_OP);
@@ -562,7 +562,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).value())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
@@ -575,7 +575,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).value())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
@@ -683,7 +683,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_VO.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())) {
+			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
@@ -695,7 +695,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_VO.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())) {
+			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);

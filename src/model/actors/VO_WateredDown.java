@@ -30,7 +30,7 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.NEXT.getRange(),10,1.0){
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())){
+				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return true;
 				}
 				return false;
@@ -39,11 +39,11 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE,Duration.NEXT.getRange(),5,1.0){
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())){
+				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return false; 
 				}
-				if(VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_outputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())
-						|| VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_outputs.get(Channels.AUDIO_VO_MM_COMM.name()).value())){
+				if(VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_outputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())
+						|| VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_outputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())){
 					return true;
 				}
 				return false;
@@ -52,10 +52,10 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE){//(IDLE, [], [])->(IDLE , [], [])
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())){
+				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return false;
 				}
-				Object AUDIO_MM_VO_COMM = _inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value();
+				Object AUDIO_MM_VO_COMM = _inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue();
 				Integer NEW_TARGET_SIGHTED_F = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_F");
 				Integer NEW_TARGET_SIGHTED_T = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_T");
 				if(MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(AUDIO_MM_VO_COMM)){

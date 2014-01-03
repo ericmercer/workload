@@ -1,36 +1,36 @@
 package simulator;
 
+import java.util.*;
+
 public class Metric {
+
+	private int _value = -1;
+	private List<Object> _data = new ArrayList<Object>();
 	
-	public enum TypeEnum {
-		setDecisionWorkload,
-		setChannelConflict,
-		setChannelLoad,
-		setActorOutputs,
-		_unknown
+	public Metric(int value, Object data) {
+		_value = value;
+		_data.add(data);
+	}
+	
+	public int getValue() {
+		return _value;
+	}
+	
+	public List<Object> getData() {
+		return _data;
 	}
 
-	public TypeEnum _type = TypeEnum._unknown;
-	public int _value = -1;
-	public String _valueString = "";
-	
-	public Metric (TypeEnum type, int value) {
-		_type = type;
-		_value = value;
-	}
-	
-	public Metric (TypeEnum type, String valueString) {
-		_type = type;
-		_valueString = valueString;
+	public void add(Metric other) {
+		_value += other._value;
+		_data.addAll(other.getData());
 	}
 	
 	public String toString() {
-		return (_value == -1) ?
-				("(" + _type.name() + ", " + _valueString + ")")
-				: ("(" + _type.name() + ", " + _value + ")");
-	}
-
-	public void add(int value) {
-		_value += value;
+		String result = Integer.toString(_value);
+		
+		for(Object data : _data)
+			result += ", " + data;
+		
+		return result;
 	}
 }

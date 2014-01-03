@@ -59,7 +59,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_MM, new Range(1, 1), 3, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM);
@@ -182,7 +182,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, RX_MM, new Range(1, 1), 3, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM);
@@ -193,7 +193,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, POKE_OP, new Range(1, 1), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_BAD_STREAM_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_BAD_STREAM_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_OP_COMM.name(), VideoOperator.AUDIO_VO_OP_COMM.VO_POKE_OP);
@@ -205,7 +205,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .3) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FALSE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FALSE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -217,7 +217,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .3) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FALSE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FALSE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -240,7 +240,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .3) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_TRUE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_TRUE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -252,7 +252,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_NORMAL.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .3) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_TRUE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_TRUE_POSITIVE_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -426,7 +426,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, RX_MM, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM);
@@ -437,7 +437,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_OP, new Range(1, 1), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_BAD_STREAM_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_BAD_STREAM_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_OP_COMM.name(), VideoOperator.AUDIO_VO_OP_COMM.VO_POKE_OP);
@@ -449,7 +449,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .5) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_F_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_F_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -462,7 +462,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .5) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_F_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_F_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -474,7 +474,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .5) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_T_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_T_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -487,7 +487,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_VGUI, new Range(1, 1), 1, .5) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_T_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).value())) {
+			if(!VideoOperatorGui.VIDEO_VGUI_VO_COMM.VGUI_FLYBY_ANOMALY_T_VO.equals(_inputs.get(Channels.VIDEO_VGUI_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_VO_VGUI_COMM.name(), VideoOperator.DATA_VO_VGUI_COMM.VO_POKE_VGUI);
@@ -734,7 +734,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	POKE_OP.add(new Transition(_internal_vars, inputs, outputs, TX_OP, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_VO_COMM.OP_ACK_VO.equals(_inputs.get(Channels.AUDIO_OP_VO_COMM.name()).value())) {
+			if(!Operator.AUDIO_OP_VO_COMM.OP_ACK_VO.equals(_inputs.get(Channels.AUDIO_OP_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -958,7 +958,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -968,7 +968,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_BUSY_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_BUSY_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -978,7 +978,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, RX_MM, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_ACK_MM);
@@ -999,7 +999,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_TARGET_DESCRIPTION_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_TARGET_DESCRIPTION_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("TARGE_DESCRIPTION", "NEW");
@@ -1010,7 +1010,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_TERMINATE_SEARCH_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_TERMINATE_SEARCH_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("SEARCH_ACTIVE", false);
@@ -1021,7 +1021,7 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, new Range(1, 1), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_VO_COMM.MM_END_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_VO_COMM.MM_END_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;

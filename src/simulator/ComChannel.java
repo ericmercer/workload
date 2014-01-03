@@ -57,22 +57,22 @@ public class ComChannel<T> {
 		_value = (T) value;
 	}
 	
-	public T value()
+	public T getValue()
 	{
 		return _value;
 	}
 	
-	public String name()
+	public String getName()
 	{
 		return _name;
 	}
 	
-	public String source()
+	public String getSource()
 	{
 		return _source;
 	}
 	
-	public String target()
+	public String getTarget()
 	{
 		return _target;
 	}
@@ -90,7 +90,7 @@ public class ComChannel<T> {
 			return true;
 
 		if (obj instanceof ComChannel)
-			if ( ((ComChannel<?>) obj).name().equals(this._name) )
+			if ( ((ComChannel<?>) obj).getName().equals(this._name) )
 				return true;
 		
 		if (obj instanceof String)

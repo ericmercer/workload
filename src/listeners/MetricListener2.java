@@ -95,7 +95,7 @@ public class MetricListener2 extends ListenerAdapter {
 		
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName );
-		Metric currentMetric = new Metric( Metric.TypeEnum.setDecisionWorkload, availableTransitions );
+		Metric currentMetric = new Metric( Metric.Type.TRANSITION_DURATION, availableTransitions );
 		
 		//store metric
 		Metric metric = _currentPath._cumulativeDecisionMetrics.get( currentKey );
@@ -118,7 +118,7 @@ public class MetricListener2 extends ListenerAdapter {
 		
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, targetActor );
-		Metric currentMetric = new Metric( Metric.TypeEnum.setChannelConflict, channelConflicts );
+		Metric currentMetric = new Metric( Metric.Type.ENABLED_TRANSITION, channelConflicts );
 		
 		//store metric
 		Metric metric = _currentPath._cumulativeResourceMetrics.get( currentKey );
@@ -142,8 +142,8 @@ public class MetricListener2 extends ListenerAdapter {
 		
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time + channelLoad, targetActor );
-		Metric currentOutput = new Metric( Metric.TypeEnum.setActorOutputs, outputName );
-		Metric currentMetric = new Metric( Metric.TypeEnum.setChannelLoad, channelLoad );
+		Metric currentOutput = new Metric( Metric.Type.setActorOutputs, outputName );
+		Metric currentMetric = new Metric( Metric.Type.ACTIVE_INPUT, channelLoad );
 		
 		//store metric
 		Metric metric = _currentPath._cumulativeTemporalMetrics.get( currentKey );

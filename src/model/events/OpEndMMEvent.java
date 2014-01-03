@@ -18,7 +18,7 @@ public class OpEndMMEvent extends simulator.Event {
 		_transition = new Transition(getInternalVars(), inputs, outputs, state, Duration.OP_TX_MM.getRange()) {
 			@Override 
 			public boolean isEnabled() {
-				if(MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())){
+				if(MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())){
 					this.setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_END_MM);
 					return true;
 				}

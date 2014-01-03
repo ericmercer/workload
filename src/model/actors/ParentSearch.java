@@ -40,7 +40,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.NEW_SEARCH_EVENT.name()).value() == null || !(Boolean)_inputs.get(Channels.NEW_SEARCH_EVENT.name()).value()) {
+			if(_inputs.get(Channels.NEW_SEARCH_EVENT.name()).getValue() == null || !(Boolean)_inputs.get(Channels.NEW_SEARCH_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_PS_MM_COMM.name(), ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM);
@@ -56,7 +56,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.NEW_SEARCH_AREA_EVENT.name()).value() == null || !(Boolean)_inputs.get(Channels.NEW_SEARCH_AREA_EVENT.name()).value()) {
+			if(_inputs.get(Channels.NEW_SEARCH_AREA_EVENT.name()).getValue() == null || !(Boolean)_inputs.get(Channels.NEW_SEARCH_AREA_EVENT.name()).getValue()) {
 				return false;
 			}
 			if(!new Boolean(false).equals(_internal_vars.getVariable ("SEARCH_ACTIVE"))) {
@@ -73,7 +73,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TARGET_DESCRIPTION_EVENT.name()).value() == null || !(Boolean)_inputs.get(Channels.TARGET_DESCRIPTION_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TARGET_DESCRIPTION_EVENT.name()).getValue() == null || !(Boolean)_inputs.get(Channels.TARGET_DESCRIPTION_EVENT.name()).getValue()) {
 				return false;
 			}
 			if(!new Boolean(false).equals(_internal_vars.getVariable ("SEARCH_ACTIVE"))) {
@@ -90,7 +90,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.TERMINATE_SEARCH_EVENT.name()).value() == null || !(Boolean)_inputs.get(Channels.TERMINATE_SEARCH_EVENT.name()).value()) {
+			if(_inputs.get(Channels.TERMINATE_SEARCH_EVENT.name()).getValue() == null || !(Boolean)_inputs.get(Channels.TERMINATE_SEARCH_EVENT.name()).getValue()) {
 				return false;
 			}
 			if(!new Boolean(false).equals(_internal_vars.getVariable ("SEARCH_ACTIVE"))) {
@@ -139,7 +139,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_PS_MM_COMM.name(), ParentSearch.AUDIO_PS_MM_COMM.PS_ACK_MM);
@@ -203,7 +203,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -233,7 +233,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_COMPLETE_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_COMPLETE_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_STOP_LISTEN_TO_MM_PS);
@@ -246,7 +246,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_FAILED_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_FAILED_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_STOP_LISTEN_TO_MM_PS);
@@ -259,7 +259,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_T_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_T_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_STOP_LISTEN_TO_MM_PS);
@@ -271,7 +271,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_F_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_F_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_STOP_LISTEN_TO_MM_PS);

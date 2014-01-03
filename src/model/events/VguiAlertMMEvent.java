@@ -21,7 +21,7 @@ public class VguiAlertMMEvent extends simulator.Event {
 			@Override 
 			public boolean isEnabled() {
 				ComChannel<VIDEO_VGUI_MM_COMM> alert_event = (ComChannel<VIDEO_VGUI_MM_COMM>) _inputs.get(Channels.VIDEO_VGUI_MM_COMM.name());
-				if ( !VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_ALERT_MM.equals(alert_event.value()) ) {
+				if ( !VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_ALERT_MM.equals(alert_event.getValue()) ) {
 					this.setTempOutput(Channels.VIDEO_VGUI_MM_COMM.name(), VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_ALERT_MM);
 					return true;
 				} else

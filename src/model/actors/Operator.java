@@ -67,7 +67,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);
@@ -100,7 +100,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, LAUNCH_UAV, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).value())) {
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("NEW_SEARCH_AOI") instanceof Integer && new Integer(0) >= (Integer) _internal_vars.getVariable ("NEW_SEARCH_AOI")) {
@@ -115,7 +115,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).value())) {
+			if(UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			if(_internal_vars.getVariable("NEW_SEARCH_AOI") instanceof Integer && new Integer(0) >= (Integer) _internal_vars.getVariable ("NEW_SEARCH_AOI")) {
@@ -131,7 +131,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_UAV.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.VIDEO_UAV_OP_COMM.UAV_CRASHED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).value())) {
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_CRASHED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_POKE_MM);
@@ -143,7 +143,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_UAV.add(new Transition(_internal_vars, inputs, outputs, POST_FLIGHT, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).value())) {
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("LAND_UAV", false);
@@ -154,7 +154,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_UAV.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);
@@ -175,7 +175,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	LAUNCH_UAV.add(new Transition(_internal_vars, inputs, outputs, OBSERVE_GUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LAUNCH_OP);
@@ -224,7 +224,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -237,7 +237,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_NEW_SEARCH_AOI_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_NEW_SEARCH_AOI_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LISTEN_TO_MM_OP);
@@ -250,7 +250,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_TERMINATE_SEARCH_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_TERMINATE_SEARCH_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LISTEN_TO_MM_OP);
@@ -263,7 +263,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_END_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_END_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LISTEN_TO_MM_OP);
@@ -277,7 +277,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_END_FAILED_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_END_FAILED_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("END_FLYBY", true);
@@ -288,7 +288,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_END_SUCCESS_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_END_SUCCESS_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("END_FLYBY", true);
@@ -299,7 +299,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_BATTERY_LOW_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_BATTERY_LOW_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("LAND_UAV", true);
@@ -313,7 +313,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	RX_VO.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_OP_COMM.VO_BAD_STREAM_OP.equals(_inputs.get(Channels.AUDIO_VO_OP_COMM.name()).value())) {
+			if(!VideoOperator.AUDIO_VO_OP_COMM.VO_BAD_STREAM_OP.equals(_inputs.get(Channels.AUDIO_VO_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempInternalVar("BAD_STREAM", true);
@@ -408,7 +408,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_REQ_F_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_REQ_F_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -418,7 +418,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_REQ_T_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYBY_REQ_T_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -438,7 +438,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, OBSERVE_UAV, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_LANDED_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).value())) {
+			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_LANDED_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -448,7 +448,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).value())) {
+			if(!MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);

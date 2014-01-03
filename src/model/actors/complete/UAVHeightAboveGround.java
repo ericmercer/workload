@@ -43,7 +43,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	GOOD.add(new Transition(_internal_vars, inputs, outputs, INACTIVE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_INACTIVE_OGUI);
@@ -57,7 +57,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	GOOD.add(new Transition(_internal_vars, inputs, outputs, LOW, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.HAG_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.HAG_EVENT.name()).value()) {
+			if(_inputs.get(Channels.HAG_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.HAG_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_LOW_OGUI);
@@ -85,7 +85,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, INACTIVE, Duration.NEXT.getRange(), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_VGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_VGUI_COMM.UAVHAG_INACTIVE_VGUI);
@@ -99,7 +99,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).value()) {
+			if(_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).getValue() == null && !(Boolean)_inputs.get(Channels.HAG_CRASHED_EVENT.getName()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_CRASHED_OGUI);
@@ -113,7 +113,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	LOW.add(new Transition(_internal_vars, inputs, outputs, GOOD, Duration.UAV_ADJUST_PATH.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);
@@ -130,7 +130,7 @@ public UAVHeightAboveGround(ComChannelList inputs, ComChannelList outputs) {
 	INACTIVE.add(new Transition(_internal_vars, inputs, outputs, GOOD, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
+			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVHAG_OGUI_COMM.getName(), UAVHeightAboveGround.DATA_UAVHAG_OGUI_COMM.UAVHAG_GOOD_OGUI);

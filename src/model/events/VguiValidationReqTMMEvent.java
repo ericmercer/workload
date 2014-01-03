@@ -20,7 +20,7 @@ public class VguiValidationReqTMMEvent extends simulator.Event {
 			@Override 
 			public boolean isEnabled() {
 				ComChannel<VideoOperatorGui.VIDEO_VGUI_MM_COMM> request = (ComChannel<VideoOperatorGui.VIDEO_VGUI_MM_COMM>) _inputs.get(Channels.VIDEO_VGUI_MM_COMM.name());
-				if ( VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_ALERT_MM.equals(request.value()) ) {
+				if ( VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_ALERT_MM.equals(request.getValue()) ) {
 					this.setTempOutput(Channels.VIDEO_VGUI_MM_COMM.name(), VideoOperatorGui.VIDEO_VGUI_MM_COMM.VGUI_VALIDATION_REQ_T_MM);
 					return true;
 				} else

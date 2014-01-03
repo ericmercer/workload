@@ -27,7 +27,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, OK, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
+			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_OK_VGUI);
@@ -42,7 +42,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	OK.add(new Transition(_internal_vars, inputs, outputs, BAD, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.VSIGNAL_BAD_EVENT.name()).value() == null && !(Boolean)_inputs.get(Channels.VSIGNAL_BAD_EVENT.name()).value()) {
+			if(_inputs.get(Channels.VSIGNAL_BAD_EVENT.name()).getValue() == null && !(Boolean)_inputs.get(Channels.VSIGNAL_BAD_EVENT.name()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_BAD_VGUI);
@@ -54,7 +54,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	OK.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_IDLE_VGUI);
@@ -66,7 +66,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	OK.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_CRASHED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_CRASHED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_IDLE_VGUI);
@@ -81,7 +81,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	BAD.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LANDED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_IDLE_VGUI);
@@ -93,7 +93,7 @@ public UAVVideoFeed(ComChannelList inputs, ComChannelList outputs) {
 	BAD.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_CRASHED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_CRASHED_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVVF_VGUI_COMM.name(), UAVVideoFeed.DATA_UAVVF_VGUI_COMM.UAVVF_IDLE_VGUI);

@@ -14,15 +14,15 @@ public class MetricManager {
 		return _metricManager;
 	}
 	
-	public void setTransitionDuration(int time, String actorName, String stateName, int value) {
+	public void setTransitionDuration(int time, String actorName, String stateName, int duration) {
 		//Do nothing, JPF handles this.
 	}
 	
-	public void setEnabledTransitions(int time, String actorName, String stateName, int value) {
+	public void setEnabledTransition(int time, String actorName, String stateName, int transition) {
 		//Do nothing, JPF handles this.
 	}
 	
-	public void setActiveInputs(int time, String actorName, String stateName, int value) {
+	public void setActiveInput(int time, String actorName, String stateName, String input) {
 		//Do nothing, JPF handles this.
 	}
 

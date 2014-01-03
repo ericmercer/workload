@@ -55,7 +55,7 @@ public abstract class Team implements ITeam {
 	
 	protected void addComChannel(ComChannel<?> c)
 	{
-		assert _com_channels.containsKey(c.name()):"Com channel already defined";
+		assert _com_channels.containsKey(c.getName()):"Com channel already defined";
 		_com_channels.add(c);
 	}
 

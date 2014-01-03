@@ -33,7 +33,7 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, OK, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
+			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_OK_OGUI);
@@ -49,7 +49,7 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 	OK.add(new Transition(_internal_vars, inputs, outputs, LOST, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).value()) {
+			if(_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).getValue() == null && !(Boolean)_inputs.get(Channels.SIGNAL_LOST_UAVS_EVENT.getName()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_LOST_OGUI);
@@ -65,7 +65,7 @@ public UAVSignal(ComChannelList inputs, ComChannelList outputs) {
 	LOST.add(new Transition(_internal_vars, inputs, outputs, RESUMED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).value() == null && !(Boolean)_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).value()) {
+			if(_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).getValue() == null && !(Boolean)_inputs.get(Channels.SIGNAL_BACK_UAVS_EVENT.getName()).getValue()) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVS_OGUI_COMM.getName(), UAVSignal.DATA_UAVS_OGUI_COMM.UAVS_RESUMED_OGUI);

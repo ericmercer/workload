@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class ComChannelList extends HashMap<String, ComChannel<?> > {
 
 	public ComChannelList add(ComChannel<?> item) {
-		this.put(item.name(), item);
+		this.put(item.getName(), item);
 		return this;
 	}
 
@@ -54,7 +54,7 @@ public class ComChannelList extends HashMap<String, ComChannel<?> > {
 	{
 		ComChannelList result = new ComChannelList();
 		for( ComChannel<?> channel : this.values() ) {
-			if ( channel.value() != null ) {
+			if ( channel.getValue() != null ) {
 				result.add(channel);
 			}
 		}
@@ -65,7 +65,7 @@ public class ComChannelList extends HashMap<String, ComChannel<?> > {
 	{
 		ComChannelList result = new ComChannelList();
 		for( ComChannel<?> channel : this.values() ) {
-			if ( channel.value() != null && channel.type() == type ) {
+			if ( channel.getValue() != null && channel.type() == type ) {
 				result.add(channel);
 			}
 		}
@@ -79,7 +79,7 @@ public class ComChannelList extends HashMap<String, ComChannel<?> > {
 	{
 		int count = 0;
 		for( ComChannel<?> channel : this.values() ) {
-			if ( channel.value() != null ) {
+			if ( channel.getValue() != null ) {
 				count++;
 			}
 		}
@@ -90,7 +90,7 @@ public class ComChannelList extends HashMap<String, ComChannel<?> > {
 	{
 		int count = 0;
 		for( ComChannel<?> channel : this.values() ) {
-			if ( channel.value() != null && channel.type() == type ) {
+			if ( channel.getValue() != null && channel.type() == type ) {
 				count++;
 			}
 		}

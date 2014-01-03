@@ -1,9 +1,18 @@
 package simulator;
 
 public class MetricKey implements Comparable<MetricKey>{
+	
+	public enum Type {
+		TRANSITION_DURATION,
+		ENABLED_TRANSITION,
+		ACTIVE_INPUT,
+		UNKNOWN
+	}
+	
 	private int _time = -1;
 	private String _actorName = "";
 	private String _stateName = "";
+	private Type _type = Type.UNKNOWN;
 	
 	public int getTime() {
 		return _time;
@@ -17,10 +26,15 @@ public class MetricKey implements Comparable<MetricKey>{
 		return _stateName;
 	}
 	
-	public MetricKey(int time, String actor_name, String state_name){
+	public Type getType() {
+		return _type;
+	}
+	
+	public MetricKey(int time, String actorName, String stateName, Type type){
 		_time = time;
-		_actorName = actor_name;
-		_stateName  = state_name;
+		_actorName = actorName;
+		_stateName  = stateName;
+		_type = type;
 	}
 	
 	public String toString() {
@@ -37,6 +51,10 @@ public class MetricKey implements Comparable<MetricKey>{
 		result += " ";
 		if (_stateName != null){
 			result += _stateName;
+		}
+		result += " ";
+		if (_type != null){
+			result += _type;
 		}
 		result += ")";
 		

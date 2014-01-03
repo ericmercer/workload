@@ -33,10 +33,10 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	NO_PATH.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("START_TIME"))) {
@@ -51,7 +51,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	NO_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("START_TIME"))) {
@@ -81,7 +81,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, COMPLETE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_MODIFY_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
@@ -93,7 +93,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).value())) {
+			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_LOST_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
@@ -105,7 +105,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_LAND_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_LAND_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
@@ -120,7 +120,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_LOITER_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_LOITER_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
@@ -135,7 +135,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_FLYBY_START_T_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_FLYBY_START_T_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
@@ -150,7 +150,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_FLYBY_START_F_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_FLYBY_START_F_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("PAUSE_TIME"))) {
@@ -168,7 +168,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	PAUSED.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_RESUME_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_RESUME_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
@@ -180,7 +180,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	PAUSED.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
@@ -192,7 +192,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	PAUSED.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).value())) {
+			if(!UAVSignal.DATA_UAVS_UAV_COMM.UAVS_RESUMED_UAV.equals(_inputs.get(Channels.DATA_UAVS_UAV_COMM.getName()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
@@ -204,7 +204,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	PAUSED.add(new Transition(_internal_vars, inputs, outputs, RESUME_AFTER_LAUNCH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).value())) {
+			if(!Operator.DATA_OP_UAV_COMM.OP_LAUNCH_UAV.equals(_inputs.get(Channels.DATA_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
@@ -228,7 +228,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	COMPLETE.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).value())) {
+			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			if(!"TIME".equals(_internal_vars.getVariable ("START_TIME"))) {
@@ -246,7 +246,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	RESUME_AFTER_LAUNCH.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).value())) {
+			if(!UAV.DATA_UAV_OGUI_COMM.UAV_LOITERING_OGUI.equals(_inputs.get(Channels.DATA_UAV_OGUI_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.getName(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
