@@ -8,7 +8,8 @@ import simulator.MetricKey;
 
 public class WorkloadBuilder {
 
-	public static String build( Path path ) {
+	public static String build( WorkloadPath path ) {
+		
 		String result = "time, resource data (Actor State Value)*, resource workload, temporal data (Actor State Value)*, temporal workload, decision data (Actor State Value)*, decision workload";
 		
 		int currentTime = 0;
@@ -34,7 +35,7 @@ public class WorkloadBuilder {
 				currentDecisionData = "";
 			}
 			
-			System.out.println(metricKey.toString() + "\n\t" + metric.toString());
+//			System.out.println(metricKey.toString() + "\n\t" + metric.toString());
 			
 			currentTime = metricKey.getTime();
 			

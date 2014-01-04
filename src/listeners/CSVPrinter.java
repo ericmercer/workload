@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Printer {
-	static Printer _printer;
+public class CSVPrinter {
+	static CSVPrinter _printer;
 	
-	public static Printer getInstance( ) {
+	public static CSVPrinter getInstance( ) {
 		// TODO Auto-generated method stub
 		if( _printer == null )
-			_printer = new Printer( );
+			_printer = new CSVPrinter( );
 		return _printer;
 	}
 	
