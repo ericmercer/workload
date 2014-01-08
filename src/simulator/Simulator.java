@@ -62,14 +62,16 @@ public class Simulator {
 		_random.setSeed(0);
 		_setup = true;
 	}
-	
+
 	/**
 	 * Main Simulation method.
 	 */
-	public void run()
+	public String run()
 	{
 		assert _setup : "Simulator not setup correctly";
-	
+		
+		StringBuilder debugged_output = new StringBuilder();
+		
 		do {
 			updateTransitions();
 			
@@ -77,16 +79,79 @@ public class Simulator {
 			
 			_clock.advanceTime();
 			
-			processReadyTransitions();
+			processReadyTransitions(debugged_output);
 		} while (!_ready_transitions.isEmpty());
 		
 		MetricManager.getInstance().endSimulation();
+		if(_debugMode == DebugMode.DEBUG)
+			return debugged_output.toString();
+		else
+			return null;
 	}
 
+	//safety check run
+	public String runSafe(String checkSafe) {
+
+		assert _setup : "Simulator not setup correctly";
+		
+		StringBuilder debugged_output = new StringBuilder();
+		
+		do {
+			updateTransitions();
+			
+			getEnabledTransitions();
+			
+			_clock.advanceTime();
+			
+			checkSafe = processReadyTransitionsWithChecking(debugged_output, checkSafe);
+		} while (!_ready_transitions.isEmpty() && checkSafe != null);
+		if(checkSafe == null || checkSafe.length() > 0){
+			int ending_index = 0;
+			for(int i = 0; i < 5; i++){
+				int temp = checkSafe.indexOf("\n\n", ending_index+1);
+				if(temp > 0)
+					ending_index = temp;
+			}
+			System.out.println("lost lines:\n" + checkSafe.substring(0, ending_index));
+			System.out.println("failed");
+		}
+		MetricManager.getInstance().endSimulation();
+		if(_debugMode == DebugMode.DEBUG)
+			return debugged_output.toString();
+		else
+			return null;
+	}
 	//
 	//	HELPER METHODS
 	//
 	
+	private String processReadyTransitionsWithChecking(
+			StringBuilder debugged_output, String checkSafe) {
+		_ready_transitions.clear();
+		_ready_transitions.putAll(_clock.getReadyTransitions());
+		for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
+			String new_line = _clock.getElapsedTime() + "\t" + readyTransition.toString();
+			String check = checkSafe.substring(0, checkSafe.indexOf("\n\n"));
+			debugged_output.append(new_line + "\n\n");
+			if(new_line.equals(check)){
+				System.out.println(new_line);
+				checkSafe = checkSafe.substring(checkSafe.indexOf("\n\n")+2);
+			} else{
+				int ending_index = 0;
+				for(int i = 0; i < 5; i++){
+					int temp = checkSafe.indexOf("\n\n", ending_index+1);
+					if(temp > 0)
+						ending_index = temp;
+				}
+				System.out.println("old lines:\n" + checkSafe.substring(0, ending_index));
+				System.out.println("failed line: " + new_line);
+				return null;
+			}ITransition transition = (ITransition) readyTransition.getValue();
+			transition.fire();
+		}
+		return checkSafe;
+	}
+
 	private void updateTransitions() {
 		_team.updateTransitions();
 	}
@@ -136,12 +201,14 @@ public class Simulator {
 		}
 	}
 
-	private void processReadyTransitions() {
+	private void processReadyTransitions(StringBuilder debugged_output) {
 		_ready_transitions.clear();
 		_ready_transitions.putAll(_clock.getReadyTransitions());
 		for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
-			if(_debugMode == DebugMode.DEBUG)
+			if(_debugMode == DebugMode.DEBUG){
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
+				debugged_output.append(_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n\n");
+			}
 			ITransition transition = (ITransition) readyTransition.getValue();
 			transition.fire();
 		}

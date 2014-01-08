@@ -33,15 +33,15 @@ import java.util.regex.Pattern;
  * OutputValue := boolean||integer||Operation
  * Operation := "++"||"--"
  */
-public class Scaffold {
+public class Interpreter {
 	public static void main(String[] args){
-		Scaffold xml = new Scaffold();
+		Interpreter xml = new Interpreter();
 //		String test = "(IDLE,[V!=UAV_LANDED_OP],[NEW_SEARCH_AOI>0],1,NEXT,1.0)x(POKE_OGUI,[],[])";
 //		if(!xml.correctFormat(test))
 //			System.out.println(test);
 		File f = null;
 		try {
-			f = new File(new File(Scaffold.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
+			f = new File(new File(Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -127,17 +127,17 @@ public class Scaffold {
 							break;
 						}
 					}
-//					for(File temp : new_file.listFiles()){
-//						if(temp.getName().equals("complete")){
-//							new_file = temp;
-//							break;
-//						}
-//					}
+					for(File temp : new_file.listFiles()){
+						if(temp.getName().equals("gen")){
+							new_file = temp;
+							break;
+						}
+					}
 					new_file = new File(new_file.getPath() + "/" + name + ".java");
 					new_file.createNewFile();
 					System.out.println(new_file.toPath());
 					PrintWriter writer = new PrintWriter(new_file);
-					writer.print("package model.actors;\n\nimport model.team.*;\nimport simulator.*;\n\npublic class " + name + " extends Actor {" + enums.toString() + constructor.toString() + body.toString() + memory.toString() + "\n}");
+					writer.print("package model.actors.gen;\n\nimport model.actors.*;\nimport model.team.*;\nimport simulator.*;\n\npublic class " + name + " extends Actor {" + enums.toString() + constructor.toString() + body.toString() + memory.toString() + "\n}");
 					writer.close();
 				}
 //				System.out.println(enums.toString() + constructor.toString() + body.toString() + memory.toString());
@@ -224,12 +224,12 @@ public class Scaffold {
 				if(comparator.equals("="))
 					transition.append("!");
 				transition.append(value_channel[0] + ".equals(_inputs.get(Channels." + 
-						value_channel[1] + ".name()).value())) {\n\t\t\t\treturn false;\n\t\t\t}");
+						value_channel[1] + ".name()).getValue())) {\n\t\t\t\treturn false;\n\t\t\t}");
 			}else{
 				//if event
 				transition.append("\n\t\t\tif(_inputs.get(Channels." +
-						division[1] + ".name()).value() == null || !(Boolean)_inputs.get(Channels." +
-						division[1] + ".name()).value()) {\n\t\t\t\treturn false;\n\t\t\t}");
+						division[1] + ".name()).getValue() == null || !(Boolean)_inputs.get(Channels." +
+						division[1] + ".name()).getValue()) {\n\t\t\t\treturn false;\n\t\t\t}");
 			}
 		}
 		
@@ -286,7 +286,7 @@ public class Scaffold {
 			generateTempInternalAssignment(memory, transition, temp_internal);
 		}
 		//finish the source code and return the needed data
-		transition.append("\n\t\t\treturn true;\n\t\t}\n\t});");
+		transition.append("\n\t\t\treturn true;\n\t\t}\n\t}); // in comments");
 		return new String[]{transition.toString(), endState};
 	}
 	/**
