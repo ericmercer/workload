@@ -2,15 +2,8 @@ package model.team;
 
 import java.util.List;
 
-import model.actors.gen.MissionManager;
-import model.actors.gen.Operator;
-import model.actors.OperatorGui;
-import model.actors.gen.ParentSearch;
-import model.actors.UAV;
-import model.actors.UAV_OGUI_WateredDown;
-import model.actors.VO_WateredDown;
-import model.actors.VideoOperator;
-import model.actors.VideoOperatorGui.VIDEO_VGUI_MM_COMM;
+import model.actors.gen.*;
+import model.actors.gen.VideoOperatorGui.VIDEO_VGUI_MM_COMM;
 import model.events.NewSearchEvent;
 import simulator.ComChannel;
 import simulator.ComChannelList;
@@ -45,16 +38,16 @@ public class NewWiSARTeam extends Team {
 		_com_channels.add( new ComChannel<ParentSearch.AUDIO_PS_MM_COMM>(Channels.AUDIO_PS_MM_COMM.name(), ComChannel.Type.AUDIO, "PS", "MM") );
 		
 		//add MM channels
-		_com_channels.add( new ComChannel<model.actors.MissionManager.AUDIO_MM_PS_COMM>(Channels.AUDIO_MM_PS_COMM.name(), ComChannel.Type.AUDIO, "MM", "PS") );
-		_com_channels.add( new ComChannel<model.actors.MissionManager.AUDIO_MM_VO_COMM>(Channels.AUDIO_MM_VO_COMM.name(), ComChannel.Type.AUDIO, "MM", "VO") );
-		_com_channels.add( new ComChannel<model.actors.MissionManager.AUDIO_MM_OP_COMM>(Channels.AUDIO_MM_OP_COMM.name(), ComChannel.Type.AUDIO, "MM", "OP") );
-		_com_channels.add( new ComChannel<model.actors.MissionManager.DATA_MM_VGUI_COMM>(Channels.VIDEO_MM_VGUI_COMM.name(), ComChannel.Type.VISUAL, "MM", "VGUI") );
-		_com_channels.add(new ComChannel<model.actors.MissionManager.DATA_MM_VGUI_COMM>(Channels.VISUAL_MM_VGUI_COMM.name(), ComChannel.Type.DATA, "MM", "VGUI") );
+		_com_channels.add( new ComChannel<MissionManager.AUDIO_MM_PS_COMM>(Channels.AUDIO_MM_PS_COMM.name(), ComChannel.Type.AUDIO, "MM", "PS") );
+		_com_channels.add( new ComChannel<MissionManager.AUDIO_MM_VO_COMM>(Channels.AUDIO_MM_VO_COMM.name(), ComChannel.Type.AUDIO, "MM", "VO") );
+		_com_channels.add( new ComChannel<MissionManager.AUDIO_MM_OP_COMM>(Channels.AUDIO_MM_OP_COMM.name(), ComChannel.Type.AUDIO, "MM", "OP") );
+		_com_channels.add( new ComChannel<MissionManager.DATA_MM_VGUI_COMM>(Channels.VIDEO_MM_VGUI_COMM.name(), ComChannel.Type.VISUAL, "MM", "VGUI") );
+		_com_channels.add(new ComChannel<MissionManager.DATA_MM_VGUI_COMM>(Channels.VISUAL_MM_VGUI_COMM.name(), ComChannel.Type.DATA, "MM", "VGUI") );
 		
 		//add OP channels
-		_com_channels.add(new ComChannel<model.actors.Operator.AUDIO_OP_MM_COMM>(Channels.AUDIO_OP_MM_COMM.name(), ComChannel.Type.AUDIO, "OP", "MM"));
-		_com_channels.add(new ComChannel<model.actors.Operator.AUDIO_OP_MM_COMM>(Channels.DATA_OP_OGUI_COMM.name(), ComChannel.Type.VISUAL, "OP", "OGUI"));
-		_com_channels.add(new ComChannel<model.actors.Operator.AUDIO_OP_MM_COMM>(Channels.DATA_OP_UAV_COMM.name(), ComChannel.Type.VISUAL, "OP", "UAV"));
+		_com_channels.add(new ComChannel<Operator.AUDIO_OP_MM_COMM>(Channels.AUDIO_OP_MM_COMM.name(), ComChannel.Type.AUDIO, "OP", "MM"));
+		_com_channels.add(new ComChannel<Operator.AUDIO_OP_MM_COMM>(Channels.DATA_OP_OGUI_COMM.name(), ComChannel.Type.VISUAL, "OP", "OGUI"));
+		_com_channels.add(new ComChannel<Operator.AUDIO_OP_MM_COMM>(Channels.DATA_OP_UAV_COMM.name(), ComChannel.Type.VISUAL, "OP", "UAV"));
 		
 		//add VGUI channels
 		_com_channels.add( new ComChannel<VIDEO_VGUI_MM_COMM>(Channels.VIDEO_VGUI_MM_COMM.name(), ComChannel.Type.VISUAL, "VGUI", "MM") );
@@ -73,8 +66,8 @@ public class NewWiSARTeam extends Team {
 		_com_channels.add(new ComChannel<VideoOperator.VISUAL_VO_VGUI_COMM>(Channels.VISUAL_VO_VGUI.name(), ComChannel.Type.VISUAL, "VO", "VGUI"));
 
 		_com_channels.add(new ComChannel<ParentSearch.DATA_PS_PS_COMM>(Channels.DATA_PS_PS_COMM.name(), ComChannel.Type.DATA,"PS", "PS"));
-		_com_channels.add(new ComChannel<model.actors.MissionManager.DATA_MM_MM_COMM>(Channels.DATA_MM_MM_COMM.name(), ComChannel.Type.DATA,"MM", "MM"));
-		_com_channels.add(new ComChannel<model.actors.Operator.DATA_OP_OP_COMM>(Channels.DATA_OP_OP_COMM.name(), ComChannel.Type.DATA,"OP", "OP"));
+		_com_channels.add(new ComChannel<MissionManager.DATA_MM_MM_COMM>(Channels.DATA_MM_MM_COMM.name(), ComChannel.Type.DATA,"MM", "MM"));
+		_com_channels.add(new ComChannel<Operator.DATA_OP_OP_COMM>(Channels.DATA_OP_OP_COMM.name(), ComChannel.Type.DATA,"OP", "OP"));
 		
 		//initialize inputs and outputs (temporary lists)
 		ComChannelList inputs = new ComChannelList();

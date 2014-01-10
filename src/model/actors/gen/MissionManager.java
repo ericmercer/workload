@@ -99,7 +99,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_END_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
 			return true;
 		}
 	}); // in comments
@@ -110,9 +110,9 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_NEW_SEARCH_AOI_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_AOI_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_AOI_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_SEARCH_MM);
 			setTempInternalVar("AREA_OF_INTEREST", "NEW");
 			return true;
 		}
@@ -124,8 +124,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TARGET_DESCRIPTION_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TARGET_DESCRIPTION_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TARGET_DESCRIPTION_MM);
 			setTempInternalVar("TARGET_DESCRIPTION", "NEW");
 			return true;
 		}
@@ -137,8 +137,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TERMINATE_SEARCH_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TERMINATE_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TERMINATE_SEARCH_MM);
 			setTempInternalVar("TERMINATE_SEARCH_VO", "NEW");
 			setTempInternalVar("TERMINATE_SEARCH_OP", "NEW");
 			return true;
@@ -154,7 +154,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TERMINATE_SEARCH_VO"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO);
 			return true;
 		}
 	}); // in comments
@@ -165,7 +165,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TERMINATE_SEARCH_OP"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
 			return true;
 		}
 	}); // in comments
@@ -176,7 +176,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_F"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
 			return true;
 		}
 	}); // in comments
@@ -187,7 +187,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_T"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
 			return true;
 		}
 	}); // in comments
@@ -195,11 +195,11 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, RX_OP, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!model.actors.Operator.AUDIO_OP_MM_COMM.OP_POKE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_POKE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_OP_MM);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_OP_MM);
 			return true;
 		}
 	}); // in comments
@@ -210,8 +210,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_POKE_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_VO_MM);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_VO_MM);
 			return true;
 		}
 	}); // in comments
@@ -222,8 +222,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_PS_MM);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_LISTEN_TO_PS_MM);
 			return true;
 		}
 	}); // in comments
@@ -234,7 +234,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TARGET_DESCRIPTION"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_POKE_VO);
 			return true;
 		}
 	}); // in comments
@@ -245,7 +245,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("AREA_OF_INTEREST"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_POKE_OP);
 			return true;
 		}
 	}); // in comments
@@ -300,7 +300,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_F"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
 			return true;
 		}
 	}); // in comments
@@ -311,7 +311,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_T"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
 			return true;
 		}
 	}); // in comments
@@ -322,7 +322,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("SEARCH_COMPLETE"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
 			return true;
 		}
 	}); // in comments
@@ -333,7 +333,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("SEARCH_FAILED"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_POKE_PS);
 			return true;
 		}
 	}); // in comments
@@ -367,7 +367,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
 			return true;
 		}
 	}); // in comments
@@ -391,9 +391,9 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("SEARCH_COMPLETE"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_COMPLETE_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_COMPLETE_PS);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
 			setTempInternalVar("SEARCH_COMPLETE", false);
 			return true;
 		}
@@ -405,8 +405,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("SEARCH_FAILED"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_FAILED_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_FAILED_PS);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
 			setTempInternalVar("SEARCH_FAILED", false);
 			return true;
 		}
@@ -418,8 +418,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_T"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_T_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_T_PS);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
 			setTempInternalVar("TARGET_SIGHTED_T", false);
 			return true;
 		}
@@ -431,8 +431,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("TARGET_SIGHTED_F"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_F_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_TARGET_SIGHTED_F_PS);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
 			setTempInternalVar("TARGET_SIGHTED_F", false);
 			return true;
 		}
@@ -441,7 +441,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	TX_PS.add(new Transition(_internal_vars, inputs, outputs, END_PS, Duration.MM_TX_PS.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_END_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_END_PS);
 			return true;
 		}
 	}); // in comments
@@ -465,7 +465,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
 			return true;
 		}
 	}); // in comments
@@ -483,7 +483,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	OBSERVING_VGUI.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.MM_TO_IDLE.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
 			return true;
 		}
 	}); // in comments
@@ -538,7 +538,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	POKE_OP.add(new Transition(_internal_vars, inputs, outputs, TX_OP, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!model.actors.Operator.AUDIO_OP_MM_COMM.OP_ACK_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_ACK_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -551,8 +551,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_END_OP);
-			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), model.actors.MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_END_OP);
+			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS);
 			return true;
 		}
 	}); // in comments
@@ -563,11 +563,11 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!model.actors.Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_SEARCH_COMPLETE_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_SEARCH_COMPLETE_MM);
 			setTempInternalVar("SEARCH_COMPLETE", true);
 			return true;
 		}
@@ -576,10 +576,10 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!model.actors.Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
 			setTempInternalVar("SEARCH_FAILED", true);
 			return true;
 		}
@@ -594,8 +594,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("FLYBY_REQ_T"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), model.actors.MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_T_VGUI);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
+			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_T_VGUI);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
 			setTempInternalVar("FLYBY_REQ_T", false);
 			return true;
 		}
@@ -607,8 +607,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("FLYBY_REQ_F"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), model.actors.MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_F_VGUI);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
+			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), MissionManager.DATA_MM_VGUI_COMM.MM_FLYBY_REQ_F_VGUI);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
 			setTempInternalVar("FLYBY_REQ_F", false);
 			return true;
 		}
@@ -620,8 +620,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("ANOMALY_DISMISSED_T"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), model.actors.MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_T_VGUI);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
+			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_T_VGUI);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
 			setTempInternalVar("ANOMALY_DISMISSED_T", false);
 			return true;
 		}
@@ -633,8 +633,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("ANOMALY_DISMISSED_F"))) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), model.actors.MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_F_VGUI);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
+			setTempOutput(Channels.DATA_MM_VGUI_COMM.name(), MissionManager.DATA_MM_VGUI_COMM.MM_ANOMALY_DISMISSED_F_VGUI);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_VERIFICATION_MM);
 			setTempInternalVar("ANOMALY_DISMISSED_F", false);
 			return true;
 		}
@@ -659,8 +659,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("AREA_OF_INTEREST"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_NEW_SEARCH_AOI_OP);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_AOI_MM);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_NEW_SEARCH_AOI_OP);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_AOI_MM);
 			setTempInternalVar("AREA_OF_INTEREST", "CURRENT");
 			return true;
 		}
@@ -672,7 +672,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TERMINATE_SEARCH_OP"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), model.actors.MissionManager.AUDIO_MM_OP_COMM.MM_TERMINATE_SEARCH_OP);
+			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_TERMINATE_SEARCH_OP);
 			setTempInternalVar("TERMINATE_SEARCH_OP", "CURRENT");
 			return true;
 		}
@@ -687,7 +687,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
 			setTempInternalVar("TARGET_SIGHTED_F", true);
 			return true;
 		}
@@ -699,7 +699,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
 			setTempInternalVar("TARGET_SIGHTED_T", true);
 			return true;
 		}
@@ -714,8 +714,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TARGET_DESCRIPTION"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_TARGET_DESCRIPTION_VO);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), model.actors.MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_TARGET_DESCRIPTION_MM);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_TARGET_DESCRIPTION_VO);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_TARGET_DESCRIPTION_MM);
 			setTempInternalVar("TARGET_DESCRIPTION", "CURRENT");
 			return true;
 		}
@@ -727,8 +727,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			if(!"NEW".equals(_internal_vars.getVariable ("TERMINATE_SEARCH_VO"))) {
 				return false;
 			}
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_TERMINATE_SEARCH_VO);
-			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), model.actors.MissionManager.AUDIO_MM_VO_COMM.MM_END_VO);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_TERMINATE_SEARCH_VO);
+			setTempOutput(Channels.AUDIO_MM_VO_COMM.name(), MissionManager.AUDIO_MM_VO_COMM.MM_END_VO);
 			setTempInternalVar("TERMINATE_SEARCH_VO", "CURRENT");
 			return true;
 		}
