@@ -6,30 +6,30 @@ import simulator.*;
 
 public class ParentSearch extends Actor {
 public enum DATA_PS_PS_COMM{
-	PS_STOP_LISTEN_TO_MM_PS,
-	PS_STOP_TRANSMIT_AOI_PS,
-	PS_STOP_TRANSMIT_TARGET_DESCRIPTION_PS,
-	PS_STOP_TRANSMIT_TERMINATE_SEARCH_PS,
 	PS_START_TRANSMIT_TARGET_DESCRIPTION_PS,
 	PS_START_TRANSMIT_AOI_PS,
 	PS_START_TRANSMIT_TERMINATE_SEARCH_PS,
 	PS_START_LISTEN_TO_MM_PS,
+	PS_STOP_LISTEN_TO_MM_PS,
+	PS_STOP_TRANSMIT_AOI_PS,
+	PS_STOP_TRANSMIT_TARGET_DESCRIPTION_PS,
+	PS_STOP_TRANSMIT_TERMINATE_SEARCH_PS,
 }
 public enum AUDIO_PS_MM_COMM{
+	PS_POKE_MM,
+	PS_ACK_MM,
 	PS_NEW_SEARCH_AOI_MM,
 	PS_TARGET_DESCRIPTION_MM,
 	PS_TERMINATE_SEARCH_MM,
 	PS_END_MM,
-	PS_POKE_MM,
-	PS_ACK_MM,
 }
 public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	setName("ParentSearch");
-	State POKE_MM = new State("POKE_MM");
 	State TX_MM = new State("TX_MM");
 	State END_MM = new State("END_MM");
-	State IDLE = new State("IDLE");
 	State RX_MM = new State("RX_MM");
+	State POKE_MM = new State("POKE_MM");
+	State IDLE = new State("IDLE");
 	initializeInternalVariables();
 	initializeIDLE(inputs, outputs, RX_MM, IDLE, POKE_MM);
 	initializeTX_MM(inputs, outputs, TX_MM, END_MM);
@@ -288,12 +288,12 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 }
 @Override
 protected void initializeInternalVariables() {
-	_internal_vars.addVariable("SEARCH_COMPLETE", false);
 	_internal_vars.addVariable("SEARCH_ACTIVE", false);
-	_internal_vars.addVariable("SEARCH_FAILED", false);
-	_internal_vars.addVariable("TARGET_FOUND", false);
 	_internal_vars.addVariable("NEW_SEARCH_AOI", 0);
 	_internal_vars.addVariable("NEW_TARGET_DESCRIPTION", 0);
 	_internal_vars.addVariable("NEW_TERMINATE_SEARCH", 0);
+	_internal_vars.addVariable("SEARCH_COMPLETE", false);
+	_internal_vars.addVariable("SEARCH_FAILED", false);
+	_internal_vars.addVariable("TARGET_FOUND", false);
 }
 }

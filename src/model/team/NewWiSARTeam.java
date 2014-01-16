@@ -57,8 +57,10 @@ public class NewWiSARTeam extends Team {
 		
 		//add UAV channels
 		_com_channels.add(new ComChannel<UAV.VIDEO_UAV_OP_COMM>(Channels.VIDEO_UAV_OP_COMM.name(), ComChannel.Type.VISUAL, "UAV", "OP"));
-		_com_channels.add(new ComChannel<UAV.DATA_UAV_OGUI>(Channels.DATA_UAV_OGUI_COMM.name(), ComChannel.Type.DATA, "UAV", "OGUI"));
+		_com_channels.add(new ComChannel<UAV.DATA_UAV_OGUI_COMM>(Channels.DATA_UAV_OGUI_COMM.name(), ComChannel.Type.DATA, "UAV", "OGUI"));
 		_com_channels.add(new ComChannel<UAV.DATA_UAV_VGUI>(Channels.DATA_UAV_VGUI_COMM.name(), ComChannel.Type.DATA, "UAV", "VGUI"));
+		
+		_com_channels.add(new ComChannel<UAVBattery.DATA_UAVBAT_UAV_COMM>(Channels.DATA_UAVBAT_UAV_COMM.name(), ComChannel.Type.DATA,"UAVBAT","UAV"));
 		
 		//add VO channels
 		_com_channels.add(new ComChannel<VideoOperator.AUDIO_VO_MM_COMM>(Channels.AUDIO_VO_MM_COMM.name(), ComChannel.Type.AUDIO, "VO", "MM"));
@@ -142,6 +144,7 @@ public class NewWiSARTeam extends Team {
 
 		//add the uav gui (watered down)
 		inputs.clear();
+		inputs.add(_com_channels.get(Channels.DATA_UAVBAT_UAV_COMM.name()));
 		inputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
 		inputs.add(_com_channels.get(Channels.DATA_OP_OGUI_COMM.name()));
 		inputs.add(_com_channels.get(Channels.DATA_OP_UAV_COMM.name()));
@@ -153,6 +156,17 @@ public class NewWiSARTeam extends Team {
 		outputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
 		outputs.add(_com_channels.get(Channels.DATA_UAV_VGUI_COMM.name()));
 		this.addActor(new UAV_OGUI_WateredDown(inputs,outputs));
+		
+		//add the uav battery
+		inputs.clear();
+		inputs.add(_com_channels.get(Channels.VIDEO_OGUI_OP_COMM.name()));
+		inputs.add(_com_channels.get(Channels.VIDEO_UAV_OP_COMM.name()));
+		inputs.add(_com_channels.get(Channels.DATA_OP_OGUI_COMM.name()));
+		inputs.add(_com_channels.get(Channels.DATA_OP_UAV_COMM.name()));
+		outputs.clear();
+		outputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
+		outputs.add(_com_channels.get(Channels.DATA_UAVBAT_UAV_COMM.name()));
+		this.addActor(new UAVBattery(inputs,outputs));
 		
 		//add the video operator (watered down)
 		inputs.clear();

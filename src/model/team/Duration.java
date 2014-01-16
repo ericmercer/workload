@@ -24,28 +24,32 @@ public enum Duration {
 	MM_TX_PS(10),
 	MM_TX_VO(10),
 	
-	/* Video Operator Outputs */
+	/* Video Operator Durations */
 
 	VO_RX_MM(20),
 	VO_TX_MM(10),
 	
-	/* Video Operator Gui Outputs */
+	/* Video Operator Gui Durations */
 	
-	/* UAV Operator Outputs */
+	/* UAV Operator Durations */
 	
 	OP_TX_MM(10),
 	OP_TX_OGUI(10),
 	OP_RX_MM(22),
 	
-	/* UAV Operator Gui Outputs*/
+	/* UAV Operator Gui Durations */
 	
-	/* UAV Battery Outputs*/
+	/* UAV Durations */
+	
+	UAV_ADJUST_PATH(60),
+	UAV_LANDING(5,20),
+	UAV_TAKE_OFF(10),
+	
+	/* UAV Battery Durations */
 
 	UAVBAT_ACTIVE_TO_LOW(30),
 	UAVBAT_LOW_TO_DEAD(100),
 	UAVBAT_DURATION(3600),
-	UAV_ADJUST_PATH(60),
-	UAV_LANDING(5,20),
 	
 	/* General */
 	
@@ -57,8 +61,7 @@ public enum Duration {
 	OP_POST_FLIGHT_COMPLETE(10),
 	RANDOM(50),
 	PS_TX_MM(10),
-	PS_RX_MM(10),
-	UAV_TAKE_OFF(10);
+	PS_RX_MM(10), UAV_PATH_DUR(30,100);
 	
 	private Integer _minimum;
 	private Integer _maximum;
