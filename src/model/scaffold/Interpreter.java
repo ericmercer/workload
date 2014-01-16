@@ -67,7 +67,7 @@ public class Interpreter {
 			BufferedReader br;
 			try {
 //				if(!file.getName().equals("MissionManager.txt"))
-				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt"))
+				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
 					continue;
 				br = new BufferedReader(new FileReader(file));
 				StringBuilder constructor = new StringBuilder();
@@ -114,7 +114,7 @@ public class Interpreter {
 					}
 					constructor.insert(0, "\n\tsetName(\"" + name + "\");");
 					constructor.insert(0,"\npublic " + name + "(ComChannelList inputs, ComChannelList outputs) {");
-					constructor.append("\n\tstartState(IDLE);");
+					constructor.append("\n\tstartState(" + states.get(0) + ");");
 					constructor.append("\n}");
 					StringBuilder enums = new StringBuilder();
 					for(Entry<String, String> enumeration : enumerations.entrySet()){
@@ -361,8 +361,12 @@ public class Interpreter {
 					memory.append("false);");
 			} else if(division[1].equals("++")){
 				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") + 1";
+				if(add_to_memory)
+					memory.append("0);");
 			} else if(division[1].equals("--")){
 				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") - 1";
+				if(add_to_memory)
+					memory.append("0);");
 			} else {
 			
 				try{
