@@ -9,7 +9,13 @@ public class UAV extends Actor {
 
 	}
 
-	public enum DATA_UAV_OGUI {
+	public enum DATA_UAV_OGUI_COMM {
+		UAV_BATTERY_GOOD_OGUI,
+		UAV_BATTERY_LOW_OGUI,
+		UAV_FP_PAUSED_OGUI,
+		UAV_FP_COMPLETE_OGUI,
+		UAV_FP_NO_PATH_OGUI,
+		UAV_FP_YES_PATH_OGUI
 
 	}
 

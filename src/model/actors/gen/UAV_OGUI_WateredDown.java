@@ -55,6 +55,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 				Object DATA_OP_OGUI_COMM = _inputs.get(Channels.DATA_OP_OGUI_COMM.name()).getValue();
 				Object DATA_OP_UAV_COMM = _inputs.get(Channels.DATA_OP_UAV_COMM.name()).getValue();
 				Object DATA_UAVBAT_UAV_COMM = _inputs.get(Channels.DATA_UAVBAT_UAV_COMM.name()).getValue();
+				Object DATA_UAVFP_OGUI_COMM = _inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).getValue();
 				
 				if("LANDED".equals(UAV_STATE)){
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
@@ -81,6 +82,15 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 					return true;
 					
 				}
+				if(Operator.DATA_OP_OGUI_COMM.OP_NEW_SEARCH_AOI_OGUI.equals((DATA_OP_OGUI_COMM))){
+					this.setTempOutput(Channels.DATA_OGUI_UAV_COMM.name(), OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV);
+					return true;
+				}
+				if(UAV.DATA_UAV_OGUI_COMM.UAV_FP_COMPLETE_OGUI.equals(DATA_UAVFP_OGUI_COMM)){
+					this.setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_PATH_COMPLETE_OP);
+					return true;
+				}
+				
 				if(Operator.DATA_OP_UAV_COMM.OP_TAKE_OFF_UAV.equals(DATA_OP_UAV_COMM)){
 					this.setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FLYING_NORMAL_OP);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
