@@ -66,7 +66,6 @@ public class Interpreter {
 		for(File file : f.listFiles()){
 			BufferedReader br;
 			try {
-//				if(!file.getName().equals("MissionManager.txt"))
 				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
 					continue;
 				br = new BufferedReader(new FileReader(file));

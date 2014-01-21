@@ -61,7 +61,7 @@ public enum Duration {
 	OP_POST_FLIGHT_COMPLETE(10),
 	RANDOM(50),
 	PS_TX_MM(10),
-	PS_RX_MM(10), UAV_PATH_DUR(30,100);
+	PS_RX_MM(10), UAV_PATH_DUR(70,100);
 	
 	private Integer _minimum;
 	private Integer _maximum;
