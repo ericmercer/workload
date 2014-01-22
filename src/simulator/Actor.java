@@ -95,6 +95,7 @@ public abstract class Actor implements IActor {
 	protected void setName(String name){
 		_internal_vars.setVariable("name", name);
 	}
+	
 	protected void startState(State state)
 	{
 		assert _states.contains(state):"Start state not available.";

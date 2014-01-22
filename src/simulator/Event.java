@@ -75,7 +75,12 @@ public abstract class Event implements IEvent, IActor {
 	
 	protected State getState()
 	{
-		return (State) _internal_vars.getVariable("currentState");
+		if(_internal_vars.canGetVariable("currentState"))
+			return (State) _internal_vars.getVariable("currentState");
+		
+		State IDLE = new State("IDLE");
+		_internal_vars.addVariable("currentState", IDLE);
+		return IDLE;
 	}
 	
 	@Override

@@ -73,8 +73,8 @@ public class Simulator {
 		StringBuilder debugged_output = new StringBuilder();
 		
 		do {
-			if(_clock.getElapsedTime() >= 132)
-				System.out.println("start");
+//			if(_clock.getElapsedTime() >= 132)
+//				System.out.println("start");
 			updateTransitions();
 			
 			getEnabledTransitions();

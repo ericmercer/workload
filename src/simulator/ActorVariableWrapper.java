@@ -21,57 +21,35 @@ public class ActorVariableWrapper {
 		_variables.put(name, o);
 	}
 	
+	public boolean canSetVariable(String name, Object o)
+	{
+		if(!_variables.containsKey(name))
+			return false;
+		if(_variables.get(name).getClass() != o.getClass())
+			return false;
+		return true;
+	}
+	
 	public void setVariable(String name, Object o)
 	{
-		assert _variables.containsKey(name):"variable '"+ name + "' doesn't exist in " + _variables.get("name");
+		if(!canSetVariable(name, o))
+			assert false:"variable '"+ name + "' doesn't exist in " + _variables.get("name") + ", or is of incompatible value type";
 		if(_variables.get(name) != null && o != null){
-			assert _variables.get(name).getClass() == o.getClass() : "Incompatible value type";
-			Object temp = _variables.get(name);
-			if(!name.equals("name") && !name.equals("currentState")){
-				if(o != null){
-					//TODO add metric for setting a variable
-//					Simulator.getSim().addMetric(MetricEnum.MEMORY_FIRE, name);
-				}else{
-					//TODO add metric for clearing a variable ???-rob
-				}
-			}
 			_variables.put(name, o);
 		}
 	}
 	
-	public Object getVariable(String name)
+	public boolean canGetVariable(String name)
 	{
-		assert _variables.containsKey(name):"variable '"+ name + "' doesn't exist in " + _variables.get("name");
-		Object temp = _variables.get(name);
-		if(!name.equals("name") && !name.equals("currentState")){
-			if(temp != null
-					|| (temp instanceof Boolean && (Boolean)temp)
-					|| (temp instanceof Integer && (Integer)temp != 0)){
-				//TODO update metric for referencing active variable
-//				Simulator.getSim().addMetric(MetricEnum.MEMORY_ACTIVE, name);
-			}else{
-				//TODO update metric for referencing a variable
-//				Simulator.getSim().addMetric(MetricEnum.MEMORY_INACTIVE, name);
-			}
-		}
-		return _variables.get(name);
+		if(!_variables.containsKey(name))
+			return false;
+		return true;
 	}
 	
-	public Object getVariable(String name, boolean measuring)
+	public Object getVariable(String name)
 	{
-		assert _variables.containsKey(name):"Variable '"+ name + "' doesn't exist";
-		Object temp = _variables.get(name);
-		if(!name.equals("name") && !name.equals("currentState") && measuring){
-			if(temp != null
-					|| (temp instanceof Boolean && (Boolean)temp)
-					|| (temp instanceof Integer && (Integer)temp != 0)){
-				//TODO update metric for referencing active variable
-//				Simulator.getSim().addMetric(MetricEnum.MEMORY_ACTIVE, name);
-			}else{
-				//TODO update metric for referencing a variable
-//				Simulator.getSim().addMetric(MetricEnum.MEMORY_INACTIVE, name);
-			}
-		}
+		if(!canGetVariable(name))
+			assert false:"variable '"+ name + "' doesn't exist in " + _variables.get("name");
 		return _variables.get(name);
 	}
 	

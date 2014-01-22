@@ -213,8 +213,8 @@ public class Transition implements ITransition {
 	@Override
 	public Range getDurationRange() {
 		//time adaptation - checks if there is a duration variable, if there is then we want to make things change.
-		Integer duration = (Integer)_internal_vars.getVariable("DURATION");
-		if(null != duration){
+		if(_internal_vars.canGetVariable("DURATION")){
+			Integer duration = (Integer)_internal_vars.getVariable("DURATION");
 			if(duration > 0){
 				Integer start = (Integer)_internal_vars.getVariable("START_TIME");
 				Integer pause = (Integer)_internal_vars.getVariable("PAUSE_TIME");
