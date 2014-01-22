@@ -193,9 +193,11 @@ public class Transition implements ITransition {
 		
 		if ( !_temp_internal_vars.isEmpty() ) {
 			for(String var : _temp_internal_vars.keySet()) {
-				Object temp = _temp_internal_vars.get(var);
-				if ( temp != null ){
-					_internal_vars.setVariable(var, temp);
+				Object temp = _temp_internal_vars.get(var);if ( temp != null ){
+					if(var.equals("START_TIME") || var.equals("PAUSE_TIME")){
+						_internal_vars.setVariable(var,Simulator.getSim().getClockTime());
+					}else
+						_internal_vars.setVariable(var, temp);
 					_temp_internal_vars.put(var, null);
 				}
 			}
@@ -210,6 +212,19 @@ public class Transition implements ITransition {
 	 */
 	@Override
 	public Range getDurationRange() {
+		//time adaptation - checks if there is a duration variable, if there is then we want to make things change.
+		Integer duration = (Integer)_internal_vars.getVariable("DURATION");
+		if(null != duration){
+			if(duration > 0){
+				Integer start = (Integer)_internal_vars.getVariable("START_TIME");
+				Integer pause = (Integer)_internal_vars.getVariable("PAUSE_TIME");
+				//gets the duration remaining given how much time has already progressed
+				if(start != null && pause != null)
+					duration = duration - (pause-start);
+				return new Range(duration);
+			}
+		}
+		//default operation
 		return _range;
 	}
 	
