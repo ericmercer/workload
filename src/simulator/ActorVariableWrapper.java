@@ -23,7 +23,7 @@ public class ActorVariableWrapper {
 	
 	public void setVariable(String name, Object o)
 	{
-		assert _variables.containsKey(name):"Variable '"+ name + "' doesn't exist";
+		assert _variables.containsKey(name):"variable '"+ name + "' doesn't exist in " + _variables.get("name");
 		if(_variables.get(name) != null && o != null){
 			assert _variables.get(name).getClass() == o.getClass() : "Incompatible value type";
 			Object temp = _variables.get(name);
@@ -41,7 +41,7 @@ public class ActorVariableWrapper {
 	
 	public Object getVariable(String name)
 	{
-		assert _variables.containsKey(name):"Variable '"+ name + "' doesn't exist";
+		assert _variables.containsKey(name):"variable '"+ name + "' doesn't exist in " + _variables.get("name");
 		Object temp = _variables.get(name);
 		if(!name.equals("name") && !name.equals("currentState")){
 			if(temp != null
