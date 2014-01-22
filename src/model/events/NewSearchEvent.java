@@ -52,4 +52,10 @@ public class NewSearchEvent extends Event {
 		return this.getState();
 	}
 
+	@Override
+	public void updateTransitions() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

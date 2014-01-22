@@ -7,9 +7,12 @@ import model.team.*;
 import simulator.*;
 
 public class UAVBattery extends Actor {
-
+	public enum DATA_UAVBAT_UAV_COMM{
+		UAVBAT_LOW_UAV,
+		UAVBAT_DEAD_UAV
+	}
 	
-	public UAVBattery(HashMap<String, Object> inputs, HashMap<String, Object> outputs) {
+	public UAVBattery(ComChannelList inputs, ComChannelList outputs) {
 		//initialize name
 		setName("UAV_BATTERY");
 		

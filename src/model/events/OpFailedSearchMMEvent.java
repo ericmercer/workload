@@ -19,7 +19,7 @@ public class OpFailedSearchMMEvent extends simulator.Event {
 			@Override 
 			public boolean isEnabled() {
 				if(MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())){
-					this.setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED);
+					this.setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM);
 					return true;
 				}
 				return false;
@@ -40,5 +40,11 @@ public class OpFailedSearchMMEvent extends simulator.Event {
 	public IState getCurrentState() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateTransitions() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -38,4 +38,10 @@ public class VguiValidationReqFMMEvent extends simulator.Event {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateTransitions() {
+		// TODO Auto-generated method stub
+		
+	}
 }
