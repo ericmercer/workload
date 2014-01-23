@@ -14,6 +14,8 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import simulator.Simulator;
+
 /**
  * Builds a team of actors from lists of transitions in the model/transitions package.
  * Transition := (CurrentState,[Channel=InputData*],[Memory{=||>||<...}InputValue*],Priority,Duration,Probability)x(NextState,[Channel=OutputData*],[Memory=OutputValue*])
@@ -183,6 +185,8 @@ public class Interpreter {
 			if(duration.contains("-p")){
 				duration = duration.substring(0, duration.indexOf('-'));
 				persistent = true;
+				memory.append("\n\t_internal_vars.addVariable(\"START_TIME\", -1);");
+				memory.append("\n\t_internal_vars.addVariable(\"DURATION\", -1);");
 			}
 			duration = "Duration." + duration + ".getRange()";
 		}
@@ -294,6 +298,10 @@ public class Interpreter {
 			generateTempInternalAssignment(memory, transition, temp_internal);
 		}
 		//finish the source code and return the needed data
+		if(persistent){
+			transition.append("\n\t\t\tif((Integer)_internal_vars.getVariable(\"DURATION\") <= 0 )"
+					+ "\n\t\t\t\t_internal_vars.setVariable(\"DURATION\", Simulator.getSim().getDuration(this.getDurationRange()));");
+		}
 		transition.append("\n\t\t\treturn true;\n\t\t}\n\t}); // in comments");
 		return new String[]{transition.toString(), endState};
 	}
