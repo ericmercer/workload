@@ -173,16 +173,25 @@ public class Interpreter {
 		String[] endingValues = s.substring(0,s.indexOf(')')).split(",");
 		String probability = endingValues[endingValues.length-1].trim();
 		String duration = endingValues[endingValues.length-2].trim();
+		boolean persistent = false;
 		if(duration.contains("[")){
 			String[] ints = duration.substring(1, duration.length()-1).split("-");
 			String min = ints[0].trim();
 			String max = ints[1].trim();
 			duration = "new Range(" + min + ", " + max + ")";
 		}else{
+			if(duration.contains("-p")){
+				duration = duration.substring(0, duration.indexOf('-'));
+				persistent = true;
+			}
 			duration = "Duration." + duration + ".getRange()";
 		}
 		String priority = endingValues[endingValues.length-3].trim();
-		transition.append(endState + ", " + duration + ", "  + priority + ", "+ probability + ") {");
+		transition.append(endState + ", " + duration + ", "  + priority + ", "+ probability);
+		if(persistent){
+			transition.append(", true");
+		}
+		transition.append(") {");
 		//end method call generation
 		
 		transition.append("\n\t\t@Override\n\t\tpublic boolean isEnabled() { ");
