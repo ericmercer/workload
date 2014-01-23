@@ -298,12 +298,12 @@ public class Interpreter {
 				+ "\\[([ADVE](=|!=)[A-Z_]*)?(,[ADVE](=|!=)[A-Z_]*)*\\],"
 				+ "\\[([A-Z_]*(=|>|<|!=|<=|>=)[A-Z_0-9]*)?(,[A-Z_]*(=|>|<|!=|<=|>=)[A-Z_0-9]*)*\\],"
 				+ "\\d*,"
-				+ "([A-Z_]*|\\[\\d*\\-\\d*\\]),"
+				+ "([A-Z_]*(\\-p)?|\\[\\d*\\-\\d*\\]),"
 				+ "\\d?\\.\\d*\\)"
 				+ "[xX]"
 				+ "\\([[A-Z0-9]_]*,"
 				+ "\\[([ADVE]*=[A-Z_]*)?(,[ADVE]*=[A-Z_]*)*\\],"
-				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)]*)*\\]\\)");
+				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
 		Matcher matcher = pattern.matcher(s);
 		boolean match = matcher.matches();
 		if(s.length() > 0 && s.startsWith("(")){
@@ -319,7 +319,7 @@ public class Interpreter {
 			pattern = Pattern.compile("\\(.*,.*,.*,\\d*,.*,.*\\)[xX]\\(.*,.*,.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(4);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,([A-Z_]*|\\[\\d*\\-\\d*\\]),.*\\)[xX]\\(.*,.*,.*\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,([A-Z_]*(\\-p)?|\\[\\d*\\-\\d*\\]),.*\\)[xX]\\(.*,.*,.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(5);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,\\d?\\.\\d*\\)[xX]\\(.*,.*,.*\\)");
@@ -331,7 +331,7 @@ public class Interpreter {
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_]*)?(,[A-Z_]*=[A-Z_]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(8);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)]*)*\\]\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(9);
 			
