@@ -58,11 +58,13 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 				Object DATA_UAVFP_OGUI_COMM = _inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).getValue();
 				
 				if("LANDED".equals(UAV_STATE)){
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_LANDED_VGUI);
 					if(UAV.DATA_UAV_OGUI_COMM.UAV_FP_PAUSED_OGUI.equals(DATA_UAVFP_OGUI_COMM)){
 						this.setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FP_PAUSED_OP);
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 
@@ -93,11 +95,13 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 				Object DATA_UAVFP_OGUI_COMM = _inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).getValue();
 				
 				if("LANDED".equals(UAV_STATE)){
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_LANDED_VGUI);
 					if(UAV.DATA_UAV_OGUI_COMM.UAV_FP_PAUSED_OGUI.equals(DATA_UAVFP_OGUI_COMM)){
 						this.setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FP_PAUSED_OP);
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 
@@ -128,11 +132,13 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 				Object DATA_UAVFP_OGUI_COMM = _inputs.get(Channels.DATA_UAVFP_OGUI_COMM.name()).getValue();
 				
 				if("LANDED".equals(UAV_STATE)){
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_LANDED_VGUI);
 					if(UAV.DATA_UAV_OGUI_COMM.UAV_FP_PAUSED_OGUI.equals(DATA_UAVFP_OGUI_COMM)){
 						this.setTempOutput(Channels.VIDEO_OGUI_OP_COMM.name(), OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_FP_PAUSED_OP);
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 
@@ -141,7 +147,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 				}
 				if(UAVBattery.DATA_UAVBAT_UAV_COMM.UAVBAT_DEAD_UAV.equals(DATA_UAVBAT_UAV_COMM) && !"CRASHED".equals(_internal_vars.getVariable("UAV_STATE"))){
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_CRASHED_OP);
-					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.CRASHED);
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI);
 					this.setTempInternalVar("UAV_STATE", "CRASHED");
 					return true;
 					
@@ -168,6 +174,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 
@@ -200,6 +207,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 
@@ -234,6 +242,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 					}
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP);
 				}else{
+					this.setTempOutput(Channels.DATA_UAV_VGUI_COMM.name(), UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI);
 					this.setTempOutput(Channels.VIDEO_UAV_OP_COMM.name(), UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP);
 				}
 

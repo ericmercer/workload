@@ -30,7 +30,7 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars, inputs, outputs, CRASHED, Duration.NEXT.getRange(),10,1.0){
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+				if(UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return true;
 				}
 				return false;
@@ -39,7 +39,7 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE,Duration.NEXT.getRange(),5,1.0){
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+				if(UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return false; 
 				}
 				if(VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_outputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())
@@ -52,7 +52,7 @@ public class VO_WateredDown extends Actor {
 		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE){//(IDLE, [], [])->(IDLE , [], [])
 			@Override
 			public boolean isEnabled(){
-				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+				if(UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
 					return false;
 				}
 				Object AUDIO_MM_VO_COMM = _inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue();
@@ -81,31 +81,31 @@ public class VO_WateredDown extends Actor {
 				return false;
 			}
 		});
-//		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE, Duration.RANDOM.getRange()){//(IDLE, [], [])->(IDLE , [], [])
-//			@Override
-//			public boolean isEnabled(){
-//				if(UAV.DATA_UAV_VGUI.CRASHED.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).value())){
-//					return false;
-//				}
-//				Object TARGET_DESCRIPTION = this._internal_vars.getVariable("TARGET_DESCRIPTION");
-//				Integer NEW_TARGET_SIGHTED_F = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_F");
-//				Integer NEW_TARGET_SIGHTED_T = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_T");
-//				if("CURRENT".equals(TARGET_DESCRIPTION) && NEW_TARGET_SIGHTED_F == 0 && NEW_TARGET_SIGHTED_T == 0) {
-//					//randomly choose whether to use a true or false sighting
-//					int randInt = (int) (Math.random() * 10);
-//					if(randInt >= 5){
-//						this.setTempInternalVar("NEW_TARGET_SIGHTED_F", 1);//advance
-//					}else{
-//						this.setTempInternalVar("NEW_TARGET_SIGHTED_T", 1);//advance
-//					}
-//					
-//					this.setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_POKE_MM);//(IDLE, [], [])->(IDLE, [(VO_TARGET_SIGHTED_F | VO_TARGET_SIGHTED_T)], [])
-//					return true;
-//					
-//				}
-//				return false;
-//			}
-//		});
+		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE, Duration.NEXT.getRange()){//(IDLE, [], [])->(IDLE , [], [])
+			@Override
+			public boolean isEnabled(){
+				if(!UAV.DATA_UAV_VGUI.UAV_FLYING_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+					return false;
+				}
+				Object TARGET_DESCRIPTION = this._internal_vars.getVariable("TARGET_DESCRIPTION");
+				Integer NEW_TARGET_SIGHTED_F = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_F");
+				Integer NEW_TARGET_SIGHTED_T = (Integer) this._internal_vars.getVariable("NEW_TARGET_SIGHTED_T");
+				if("CURRENT".equals(TARGET_DESCRIPTION) && NEW_TARGET_SIGHTED_F == 0 && NEW_TARGET_SIGHTED_T == 0) {
+					//randomly choose whether to use a true or false sighting
+					int randInt = (int) (Math.random() * 10);
+					if(randInt >= 5){
+						this.setTempInternalVar("NEW_TARGET_SIGHTED_F", 1);//advance
+					}else{
+						this.setTempInternalVar("NEW_TARGET_SIGHTED_T", 1);//advance
+					}
+					
+					this.setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_POKE_MM);//(IDLE, [], [])->(IDLE, [(VO_TARGET_SIGHTED_F | VO_TARGET_SIGHTED_T)], [])
+					return true;
+					
+				}
+				return false;
+			}
+		});
 		
 		
 		add(IDLE);
