@@ -17,4 +17,4 @@ create eclipse-jpf-plugin folder in your workspace(or wherever)
 use git to get the plugin
 	git clone https://github.com/stepanv/eclipse-jpf-updatesite.git
 Open Eclipse and install plugin
-	help->Install New Software->Add->local->{the plugin just downloaded}
+	help->Install New Software->Add->local->{the plugin just downloaded} go to the folder eclipse-jpf.site and click open
