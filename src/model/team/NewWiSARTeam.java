@@ -174,15 +174,15 @@ public class NewWiSARTeam extends Team {
 		outputs.add(_com_channels.get(Channels.DATA_UAVBAT_UAV_COMM.name()));
 		this.addActor(new UAVBattery(inputs,outputs));
 		
-//		//add the uav flight plan
-//		inputs.clear();
-//		inputs.add(_com_channels.get(Channels.VIDEO_UAV_OP_COMM.name()));
-//		inputs.add(_com_channels.get(Channels.DATA_OP_UAV_COMM.name()));
-//		inputs.add(_com_channels.get(Channels.DATA_OGUI_UAV_COMM.name()));
-//		outputs.clear();
-//		outputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
-//		outputs.add(_com_channels.get(Channels.DATA_UAVFP_UAV_COMM.name()));
-//		this.addActor(new UAVFlightPlan(inputs,outputs));
+		//add the uav flight plan
+		inputs.clear();
+		inputs.add(_com_channels.get(Channels.VIDEO_UAV_OP_COMM.name()));
+		inputs.add(_com_channels.get(Channels.DATA_OP_UAV_COMM.name()));
+		inputs.add(_com_channels.get(Channels.DATA_OGUI_UAV_COMM.name()));
+		outputs.clear();
+		outputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
+		outputs.add(_com_channels.get(Channels.DATA_UAVFP_UAV_COMM.name()));
+		this.addActor(new UAVFlightPlan(inputs,outputs));
 		
 		//add the video operator (watered down)
 		inputs.clear();

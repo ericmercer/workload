@@ -25,7 +25,7 @@ public class ActorVariableWrapper {
 	{
 		if(!_variables.containsKey(name))
 			return false;
-		if(_variables.get(name).getClass() != o.getClass())
+		if(_variables.get(name) != null && _variables.get(name).getClass() != o.getClass() )
 			return false;
 		return true;
 	}

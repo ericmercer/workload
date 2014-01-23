@@ -43,7 +43,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempInternalVar("START_TIME", -1);
+			//setTempInternalVar("START_TIME", -1);
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
 			return true;
@@ -68,9 +68,9 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 }
  public void initializeYES_PATH(ComChannelList inputs, ComChannelList outputs, State PAUSED, State YES_PATH, State COMPLETE) {
 	// (YES_PATH,[],[],0,UAV_PATH_DUR,1.0)X(COMPLETE,[D=UAVFP_COMPLETE_OGUI,D=UAVFP_COMPLETE_UAV],[])
-	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, COMPLETE, Duration.UAV_PATH_DUR.getRange(), 0, 1.0) {
+	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, COMPLETE, Duration.UAV_PATH_DUR.getRange(), 0, 1.0,true) {
 		@Override
-		public boolean isEnabled() { 
+		public boolean isEnabled() {
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_COMPLETE_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_COMPLETE_UAV);
 			if((Integer)_internal_vars.getVariable("DURATION") <= 0 )
@@ -145,6 +145,7 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
+			//setTempInternalVar("START_TIME", -1);
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
 			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
