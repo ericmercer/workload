@@ -105,7 +105,7 @@ public class WorkloadListener extends ListenerAdapter {
 		int duration = (int) parameters.get(4);
 		
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 		
 		//form metrics and keys
@@ -126,7 +126,7 @@ public class WorkloadListener extends ListenerAdapter {
 		int transition = (int) parameters.get(4);
 
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 
 		//form metrics and keys
@@ -147,7 +147,7 @@ public class WorkloadListener extends ListenerAdapter {
 		String input = DEIToString( parameters.get(4) );
 
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 
 		//form metrics and keys
@@ -169,8 +169,10 @@ public class WorkloadListener extends ListenerAdapter {
 		return parameters;
 	}
 	
-	private boolean isMock( String actor ) {
-		if (actor.contains("ater"))
+	private boolean notRecorded( String actorName ) {
+		if (actorName.contains("UAV"))
+			return true;
+		if (actorName.contains("ater"))
 			return true;
 		return false;
 	}
