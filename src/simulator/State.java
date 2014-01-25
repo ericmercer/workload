@@ -99,7 +99,11 @@ public class State implements IState {
 		List<ComChannel<?>> activeInputs = new ArrayList<ComChannel<?>>();
 		for(ITransition transition : _transitions) {
 			transition.isEnabled();
-			activeInputs.addAll(transition.getActiveInputs());
+			for(Object activeInput : transition.getActiveInputs()) {
+				if(!activeInputs.contains((ComChannel<?>) activeInput)) {
+					activeInputs.add((ComChannel<?>) activeInput);
+				}
+			}
 		}
 		return activeInputs;
 	}
@@ -109,7 +113,11 @@ public class State implements IState {
 		List<ComChannel<?>> activeOutputs = new ArrayList<ComChannel<?>>();
 		for(ITransition transition : _transitions) {
 			transition.isEnabled();
-			activeOutputs.addAll(transition.getActiveOutputs());
+			for(Object activeOutput : transition.getActiveOutputs()) {
+				if(!activeOutputs.contains((ComChannel<?>) activeOutput)) {
+					activeOutputs.add((ComChannel<?>) activeOutput);
+				}
+			}
 		}
 		return activeOutputs;
 	}

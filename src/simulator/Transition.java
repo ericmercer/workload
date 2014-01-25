@@ -399,7 +399,7 @@ public class Transition implements ITransition {
 		ArrayList<ComChannel<?>> activeInputs = new ArrayList<ComChannel<?>>();
 		
 		for(Entry<String, ComChannel<?>> input : _inputs.entrySet())
-			if(input.getValue().getValue() != null)
+			if(input.getValue().getValue() != null && !activeInputs.contains(input.getValue()))
 				activeInputs.add(input.getValue());
 		
 		return activeInputs;
@@ -410,7 +410,7 @@ public class Transition implements ITransition {
 		ArrayList<ComChannel<?>> activeOutputs = new ArrayList<ComChannel<?>>();
 		
 		for(Entry<String, ComChannel<?>> output : _outputs.entrySet())
-			if(output.getValue().getValue() != null)
+			if(output.getValue().getValue() != null && !activeOutputs.contains(output.getValue()))
 				activeOutputs.add(output.getValue());
 		
 		return activeOutputs;
