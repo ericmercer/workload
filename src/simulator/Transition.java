@@ -264,8 +264,11 @@ public class Transition implements ITransition {
 			}
 		}
 		//default operation
-		if(new Integer(-1).equals(_internal_vars.getVariable("START_TIME")))
-			_internal_vars.setVariable("START_TIME", new Integer(Simulator.getSim().getClockTime()));
+		if(_internal_vars.canGetVariable("START_TIME")) {
+			if(new Integer(-1).equals(_internal_vars.getVariable("START_TIME"))) {
+				_internal_vars.setVariable("START_TIME", new Integer(Simulator.getSim().getClockTime()));
+			}
+		}
 		return _range;
 	}
 	
@@ -322,13 +325,13 @@ public class Transition implements ITransition {
 	
 	protected void setTempOutput(String varname, Object value)
 	{
-		assert _temp_outputs.containsKey(varname): "Cannot set temp output, variable does not exist";
+		assert _temp_outputs.containsKey(varname): "Cannot set temp output " + varname + ", variable does not exist";
 		_temp_outputs.put(varname, value);
 	}
 	
 	protected void setTempInternalVar(String varname, Object value)
 	{
-		assert _temp_internal_vars.containsKey(varname): "Cannot set temp internal var, variable does not exist";
+		assert _temp_internal_vars.containsKey(varname): "Cannot set temp internal var " + varname + ", variable does not exist";
 		_temp_internal_vars.put(varname, value);
 	}
 

@@ -180,7 +180,7 @@ public class NewWiSARTeam extends Team {
 		inputs.add(_com_channels.get(Channels.DATA_OP_UAV_COMM.name()));
 		inputs.add(_com_channels.get(Channels.DATA_OGUI_UAV_COMM.name()));
 		outputs.clear();
-		outputs.add(_com_channels.get(Channels.DATA_UAV_OGUI_COMM.name()));
+		outputs.add(_com_channels.get(Channels.DATA_UAVFP_OGUI_COMM.name()));
 		outputs.add(_com_channels.get(Channels.DATA_UAVFP_UAV_COMM.name()));
 		this.addActor(new UAVFlightPlan(inputs,outputs));
 		

@@ -34,9 +34,7 @@ public class ActorVariableWrapper {
 	{
 		if(!canSetVariable(name, o))
 			assert false:"variable '"+ name + "' doesn't exist in " + _variables.get("name") + ", or is of incompatible value type";
-		if(_variables.get(name) != null && o != null){
-			_variables.put(name, o);
-		}
+		_variables.put(name, o);
 	}
 	
 	public boolean canGetVariable(String name)

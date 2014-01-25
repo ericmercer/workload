@@ -10,7 +10,7 @@ public class WorkloadBuilder {
 
 	public static String build( WorkloadPath path ) {
 		
-		String result = "time, resource data (Actor State Value)*, resource workload, temporal data (Actor State Value)*, temporal workload, decision data (Actor State Value)*, decision workload";
+		String result = "time, resource data (Actor State [ActiveInput])*, resource workload, temporal data (Actor State [TransitionIndex])*, temporal workload, decision data (Actor State [TransitionDuration])*, decision workload";
 		
 		int currentTime = 0;
 		int currentResourceWorkload = 0;

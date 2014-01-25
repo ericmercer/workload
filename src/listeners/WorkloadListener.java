@@ -110,7 +110,7 @@ public class WorkloadListener extends ListenerAdapter {
 		
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.TRANSITION_DURATION );
-		Metric currentMetric = new Metric( duration, null );
+		Metric currentMetric = new Metric( duration, duration );
 		storeMetric(currentKey, currentMetric);
 		
 	}
