@@ -104,6 +104,16 @@ public class State implements IState {
 		return activeInputs;
 	}
 
+	@Override
+	public List<ComChannel<?>> getActiveOutputs() {
+		List<ComChannel<?>> activeOutputs = new ArrayList<ComChannel<?>>();
+		for(ITransition transition : _transitions) {
+			transition.isEnabled();
+			activeOutputs.addAll(transition.getActiveOutputs());
+		}
+		return activeOutputs;
+	}
+
 	public void updateTransitions() {
 		for (ITransition transition : _transitions) {
 			transition.updateTransition();

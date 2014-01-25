@@ -191,7 +191,11 @@ public class Simulator {
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
 			//Store active input data
 			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
-				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getName());
+				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
+			}
+			//Store active output data
+			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
+				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
 			}
 		}
 		

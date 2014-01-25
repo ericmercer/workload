@@ -404,6 +404,17 @@ public class Transition implements ITransition {
 		
 		return activeInputs;
 	}
+
+	@Override
+	public List<ComChannel<?>> getActiveOutputs() {
+		ArrayList<ComChannel<?>> activeOutputs = new ArrayList<ComChannel<?>>();
+		
+		for(Entry<String, ComChannel<?>> output : _outputs.entrySet())
+			if(output.getValue().getValue() != null)
+				activeOutputs.add(output.getValue());
+		
+		return activeOutputs;
+	}
 	
 	@Override
 	public HashMap<String, Object> getTempOutputChannels()
