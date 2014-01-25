@@ -180,12 +180,13 @@ public class Simulator {
 		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
 		for(Map.Entry<IActor, ITransition> transitionEntry : transitions.entrySet() ) {
 			IActor actor = transitionEntry.getKey();
+			int numberOfTransitions = actor.getCurrentState().getEnabledTransitions().size();
 			ITransition transition = transitionEntry.getValue();
 			int duration = getDuration(transition.getDurationRange());
 			_clock.addTransition(actor, transition, duration);
 			
 			//Store enabled transition data
-			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), transition.getIndex());
+			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
 			//Store active input data

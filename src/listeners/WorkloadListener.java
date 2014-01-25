@@ -123,7 +123,7 @@ public class WorkloadListener extends ListenerAdapter {
 		int time = (int) parameters.get(1);
 		String actorName = DEIToString( parameters.get(2) );
 		String stateName = DEIToString( parameters.get(3) );
-		int transition = (int) parameters.get(4);
+		int transitions = (int) parameters.get(4);
 
 		//don't measure mock (watered down) model objects
 		if( notRecorded( actorName ) )
@@ -131,7 +131,7 @@ public class WorkloadListener extends ListenerAdapter {
 
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ENABLED_TRANSITION );
-		Metric currentMetric = new Metric( 1, transition );
+		Metric currentMetric = new Metric( transitions, transitions );
 		storeMetric(currentKey, currentMetric);
 		
 	}
