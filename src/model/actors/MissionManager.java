@@ -2,7 +2,6 @@ package model.actors;
 
 import model.team.*;
 import simulator.*;
-import model.actors.gen.*;
 
 public class MissionManager extends Actor {
 public enum DATA_MM_MM_COMM{
