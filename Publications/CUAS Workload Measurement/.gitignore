@@ -1,0 +1,6 @@
+*.log
+dirt
+*.aux
+*.bbl
+*.blg
+*.dvi
