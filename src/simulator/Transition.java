@@ -357,7 +357,7 @@ public class Transition implements ITransition {
 		result.append(" ], [ ");
 		//internals
 		for(Entry<String, Object> variable : _internal_vars.getAllVariables().entrySet()){
-			if(variable.getKey().equals("currentState") || variable.getKey().equals("name"))
+			if(variable.getKey().equals("currentState"))
 				continue;
 			if(variable.getValue() != null
 					&& (!(variable.getValue() instanceof Boolean) || (Boolean)variable.getValue())

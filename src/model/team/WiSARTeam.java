@@ -24,14 +24,14 @@ import simulator.Team;
  * list all of the actors in this method
  * we may be able to use another class instead of this method
  */
-public class OldWiSARTeam extends Team {
+public class WiSARTeam extends Team {
 	
 	/**
 	 * initialize all of the actors that will be used during the simulation
 	 * assigns the actors the inputs and outputs they will be using (can this be moved inside the actor? -rob)
 	 * @param outputs
 	 */
-	public OldWiSARTeam() {
+	public WiSARTeam() {
 		//initialize the list of communication channels
 		_com_channels = new ComChannelList();
 		
