@@ -16,4 +16,6 @@ public interface IState {
 	List<ITransition> getTransitions();
 
 	List<ComChannel<?>> getActiveInputs();
+
+	List<ComChannel<?>> getActiveOutputs();
 }

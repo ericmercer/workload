@@ -65,12 +65,15 @@ public class Simulator {
 	
 	/**
 	 * Main Simulation method.
+	 * @return 
 	 */
-	public void run()
+	public String run()
 	{
 		assert _setup : "Simulator not setup correctly";
 	
 		do {
+			if(_clock.getElapsedTime() >= 205)
+				System.out.print("");
 			updateTransitions();
 			
 			getEnabledTransitions();
@@ -81,6 +84,7 @@ public class Simulator {
 		} while (!_ready_transitions.isEmpty());
 		
 		MetricManager.getInstance().endSimulation();
+		return null;
 	}
 
 	//
@@ -113,17 +117,22 @@ public class Simulator {
 		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
 		for(Map.Entry<IActor, ITransition> transitionEntry : transitions.entrySet() ) {
 			IActor actor = transitionEntry.getKey();
+			int numberOfTransitions = actor.getCurrentState().getEnabledTransitions().size();
 			ITransition transition = transitionEntry.getValue();
 			int duration = getDuration(transition.getDurationRange());
 			_clock.addTransition(actor, transition, duration);
 			
 			//Store enabled transition data
-			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), transition.getIndex());
+			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
 			//Store active input data
 			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
-				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getName());
+				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
+			}
+			//Store active output data
+			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
+				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
 			}
 		}
 		

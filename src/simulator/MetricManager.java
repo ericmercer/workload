@@ -26,6 +26,10 @@ public class MetricManager {
 		//Do nothing, JPF handles this.
 	}
 
+	public void setActiveOutput(int elapsedTime, String name, String name2, String name3) {
+		//Do nothing, JPF handles this.
+	}
+
 	public void endSimulation() {
 		//Do nothing, JPF handles this.
 	}

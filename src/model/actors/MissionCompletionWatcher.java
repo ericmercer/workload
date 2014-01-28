@@ -199,7 +199,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	TARGET_SIGHTED_T.add(new Transition(_internal_vars, inputs, outputs, RECOGNIZED, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
+			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -232,7 +232,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	BAD_STREAM.add(new Transition(_internal_vars, inputs, outputs, BAD_STREAM_1, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!VideoOperator.AUDIO_VO_OP_COMM.VO_BAD_STREAM.equals(_inputs.get(Channels.AUDIO_VO_OP_COMM.name()).getValue())) {
+			if(!VideoOperator.AUDIO_VO_OP_COMM.VO_BAD_STREAM_OP.equals(_inputs.get(Channels.AUDIO_VO_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -302,7 +302,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	BAD_STREAM_3.add(new Transition(_internal_vars, inputs, outputs, SUCCESS, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.VISUAL_OP_UAV_COMM.OP_POST_FLIGHT_COMPLETE.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
+			if(!Operator.VISUAL_OP_UAV_COMM.OP_POST_FLIGHT_COMPLETE_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -328,7 +328,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	BAD_STREAM_1.add(new Transition(_internal_vars, inputs, outputs, BAD_STREAM_2, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -448,7 +448,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	ENDING_SEQUENCE_3.add(new Transition(_internal_vars, inputs, outputs, SUCCESS, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.VISUAL_OP_UAV_COMM.OP_POST_FLIGHT_COMPLETE.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
+			if(!Operator.VISUAL_OP_UAV_COMM.OP_POST_FLIGHT_COMPLETE_UAV.equals(_inputs.get(Channels.VISUAL_OP_UAV_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;
@@ -487,7 +487,7 @@ public MissionCompletionWatcher(ComChannelList inputs, ComChannelList outputs) {
 	PATH_COMPLETION.add(new Transition(_internal_vars, inputs, outputs, PATH_COMPLETE_1, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
+			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
 			return true;

@@ -1,5 +1,6 @@
 package simulator;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,4 +45,6 @@ public interface ITransition {
 	int getIndex();
 
 	List getActiveInputs();
+
+	List getActiveOutputs();
 }

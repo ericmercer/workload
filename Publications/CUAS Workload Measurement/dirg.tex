@@ -1,0 +1,15 @@
+\section{Directed Role Graph (DiRG)}
+
+In previous work we represented each member of the WiSAR system as a unique directed role graph(DiRG). See figure 1. As is common
+when modeling human-automation interaction we modeled the DiRGs using Mealy state machines which we refer to as Actors~\cite{bolton2013litreview}. However the model did not lend itself well to workload analysis. Converting the actors to Moore machines allowed for greater precision in model validation and workload analysis.
+
+\begin{figure}[h]
+\center
+\setlength{\abovecaptionskip}{1mm}
+\setlength{\belowcaptionskip}{1mm}
+\setlength{\textfloatsep}{1mm}
+\setlength{\floatsep}{1mm}
+\includegraphics[height=2.4in]{DiRG.png}
+\caption{DiRG}
+\label{fig:dirg}
+\end{figure}

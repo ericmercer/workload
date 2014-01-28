@@ -4,11 +4,18 @@ import model.team.*;
 import simulator.*;
 
 public class Operator extends Actor {
+public enum VISUAL_OP_OGUI_COMM{
+	OP_LAND_UAV
+}
+public enum AUDIO_OP_VO_COMM{
+	OP_ACK_VO
+}
 public enum AUDIO_OP_MM_COMM{
 	OP_ACK_MM,
 	OP_POKE_MM,
 	OP_SEARCH_FAILED_MM,
 	OP_SEARCH_COMPLETE_MM,
+	OP_END_MM,
 }
 public enum DATA_OP_UAV_COMM{
 	OP_TAKE_OFF_UAV,
@@ -26,6 +33,11 @@ public enum DATA_OP_OGUI_COMM{
 	OP_LAND_OGUI,
 	OP_NEW_SEARCH_AOI_OGUI,
 	OP_END_FLYBY_OGUI,
+}
+public enum VISUAL_OP_UAV_COMM{
+	OP_MODIFY_FLIGHT_PLAN_UAV,
+	OP_TAKE_OFF_UAV,
+	OP_POST_FLIGHT_COMPLETE_UAV
 }
 public Operator(ComChannelList inputs, ComChannelList outputs) {
 	setName("Operator");

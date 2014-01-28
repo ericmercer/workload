@@ -1,0 +1,20 @@
+get macports
+	http://www.macports.org/install.php
+get mercurial
+	sudo port install mercurial
+import jpf-core into your workspace folder using mercurial
+	hg clone http://babelfish.arc.nasa.gov/hg/jpf/jpf-core
+build jpf
+	cd jpf-core/bin
+	ant test
+create .jpf folder in your home folder
+	mkdir .jpf
+Download site.properties file from the attachments link here: http://babelfish.arc.nasa.gov/trac/jpf/wiki/install/site-properties
+Copy the file into your .jpf folder
+	cp ../Downloads/site.propertiens ./
+edit your site.properties file to match the location for the jpf.home and jpf-core leave everything else as is
+create eclipse-jpf-plugin folder in your workspace(or wherever)
+use git to get the plugin
+	git clone https://github.com/stepanv/eclipse-jpf-updatesite.git
+Open Eclipse and install plugin
+	help->Install New Software->Add->local->{the plugin just downloaded} go to the folder eclipse-jpf.site and click open

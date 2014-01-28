@@ -75,6 +75,8 @@ public class WorkloadListener extends ListenerAdapter {
 			storeEnabledTransitions( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "setActiveInput" ) )
 			storeActiveInputs( ti, insnToExecute, mi );
+		else if ( fullMethodName.contains( "setActiveOutput" ) )
+			storeActiveOutputs( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "endSimulation" ) )
 			printCurrentPath();
 	}
@@ -105,12 +107,12 @@ public class WorkloadListener extends ListenerAdapter {
 		int duration = (int) parameters.get(4);
 		
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 		
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.TRANSITION_DURATION );
-		Metric currentMetric = new Metric( duration, null );
+		Metric currentMetric = new Metric( duration, duration );
 		storeMetric(currentKey, currentMetric);
 		
 	}
@@ -123,15 +125,15 @@ public class WorkloadListener extends ListenerAdapter {
 		int time = (int) parameters.get(1);
 		String actorName = DEIToString( parameters.get(2) );
 		String stateName = DEIToString( parameters.get(3) );
-		int transition = (int) parameters.get(4);
+		int transitions = (int) parameters.get(4);
 
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ENABLED_TRANSITION );
-		Metric currentMetric = new Metric( 1, transition );
+		Metric currentMetric = new Metric( transitions, transitions );
 		storeMetric(currentKey, currentMetric);
 		
 	}
@@ -147,12 +149,33 @@ public class WorkloadListener extends ListenerAdapter {
 		String input = DEIToString( parameters.get(4) );
 
 		//don't measure mock (watered down) model objects
-		if( isMock( actorName ) )
+		if( notRecorded( actorName ) )
 			return;
 
 		//form metrics and keys
 		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ACTIVE_INPUT );
 		Metric currentMetric = new Metric( 1, input );
+		storeMetric(currentKey, currentMetric);
+		
+	}
+
+	private void storeActiveOutputs(ThreadInfo ti, Instruction insnToExecute,
+			MethodInfo mi) {
+		
+		//get parameters
+		ArrayList<Object> parameters = getParameters(ti, insnToExecute, mi);
+		int time = (int) parameters.get(1);
+		String actorName = DEIToString( parameters.get(2) );
+		String stateName = DEIToString( parameters.get(3) );
+		String output = DEIToString( parameters.get(4) );
+
+		//don't measure mock (watered down) model objects
+		if( notRecorded( actorName ) )
+			return;
+
+		//form metrics and keys
+		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ACTIVE_OUTPUT );
+		Metric currentMetric = new Metric( 1, output );
 		storeMetric(currentKey, currentMetric);
 		
 	}
@@ -169,8 +192,10 @@ public class WorkloadListener extends ListenerAdapter {
 		return parameters;
 	}
 	
-	private boolean isMock( String actor ) {
-		if (actor.contains("ater"))
+	private boolean notRecorded( String actorName ) {
+		if (actorName.contains("UAV"))
+			return true;
+		if (actorName.contains("ater"))
 			return true;
 		return false;
 	}

@@ -3,6 +3,22 @@ package model.team;
 import simulator.Range;
 
 public enum Duration {
+	/* Via Dr. Goodrich */
+																				//1 - Critical to safety, 2 - critical to mission success, 3 - discretionary
+	NEW_SEARCH_AOI(120,600),													//3
+	NEW_TARGET_DESCRIPTION(120,600),											//3
+	START_SEARCH(5,10),															//3
+	TERMINATE_SEARCH(5,10),	//HAVE TO PLAN ROUTE HOME: 120-600					//2
+	TARGET_SIGHTED_T(60,300),													//2
+	TARGET_SIGHTED_F(60,300),													//3
+	VIDEO_SIGNAL_LOST(60,300),													//2
+	LOW_BATTERY(5,10),	//HAVE TO PLAN ROUTE HOME: 120-600						//1
+	BATTERY_DIED(999999999),													//1
+	LOW_HAG(10,300),															//1
+	CRASHED_HAG(999999999),														//1
+	SIGNAL_LOST(10,600),														//2
+	SIGNAL_RESTORED(5,10),	//PLAN A NEW PATH TO MAINTAIN SIGNAL: 120-600		//2
+	
 	
 	/* Parent Search Durations */
 	
@@ -24,28 +40,32 @@ public enum Duration {
 	MM_TX_PS(10),
 	MM_TX_VO(10),
 	
-	/* Video Operator Outputs */
+	/* Video Operator Durations */
 
 	VO_RX_MM(20),
 	VO_TX_MM(10),
 	
-	/* Video Operator Gui Outputs */
+	/* Video Operator Gui Durations */
 	
-	/* UAV Operator Outputs */
+	/* UAV Operator Durations */
 	
 	OP_TX_MM(10),
 	OP_TX_OGUI(10),
 	OP_RX_MM(22),
 	
-	/* UAV Operator Gui Outputs*/
+	/* UAV Operator Gui Durations */
 	
-	/* UAV Battery Outputs*/
+	/* UAV Durations */
+	
+	UAV_ADJUST_PATH(60),
+	UAV_LANDING(5,10),
+	UAV_TAKE_OFF(5,10),
+	
+	/* UAV Battery Durations */
 
 	UAVBAT_ACTIVE_TO_LOW(30),
-	UAVBAT_LOW_TO_DEAD(10),
+	UAVBAT_LOW_TO_DEAD(100),
 	UAVBAT_DURATION(3600),
-	UAV_ADJUST_PATH(60),
-	UAV_LANDING(5,20),
 	
 	/* General */
 	
@@ -57,8 +77,7 @@ public enum Duration {
 	OP_POST_FLIGHT_COMPLETE(10),
 	RANDOM(50),
 	PS_TX_MM(10),
-	PS_RX_MM(10),
-	UAV_TAKE_OFF(10);
+	PS_RX_MM(10), UAV_PATH_DUR(70,100);
 	
 	private Integer _minimum;
 	private Integer _maximum;

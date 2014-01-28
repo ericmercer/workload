@@ -1,6 +1,6 @@
 package model;
 
-import model.team.WiSARTeam;
+import model.team.*;
 import simulator.*;
 import simulator.Simulator.*;
 
@@ -12,8 +12,8 @@ public class WiSARModel {
 	public static void main(String[] args) {
 		Simulator sim = Simulator.getSim();
 		
-		sim.setup(new WiSARTeam(), DebugMode.PROD, DurationMode.MIN_MAX);
+		sim.setup(new NewWiSARTeam(), DebugMode.PROD, DurationMode.MIN);
 		
-		sim.run();
+		String checkSafe = sim.run();
 	}
 }

@@ -20,6 +20,7 @@ public class Transition implements ITransition {
 	protected ActorVariableWrapper _internal_vars;
 	private HashMap<String, Object> _temp_internal_vars;
 	private int _transition_number;
+	private boolean _persistent_durations;
 
 
 	/**
@@ -33,7 +34,7 @@ public class Transition implements ITransition {
 	 * @return 
 	 */
 	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability) {
-		
+		_persistent_durations = false;
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
 			_inputs.add(chan.getValue());
@@ -52,9 +53,31 @@ public class Transition implements ITransition {
 		buildTempInternalVars();
 		buildTempOutput();
 	}
-
+	
+	public Transition(ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability, boolean persistent) {
+		
+		_inputs = new ComChannelList();
+		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
+			_inputs.add(chan.getValue());
+		}
+		_outputs = new ComChannelList();
+		for(Entry<String, ComChannel<?>> chan : outputs.entrySet()){
+			_outputs.add(chan.getValue());
+		}
+		_endState = endState;
+		setDurationRange(duration_range);
+		priority(priority);
+		probability(probability);
+		_persistent_durations = persistent;
+		
+		_internal_vars = internalVars;
+		
+		buildTempInternalVars();
+		buildTempOutput();
+	}
+	
 	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority) {
-
+		_persistent_durations = false;
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
 			_inputs.add(chan.getValue());
@@ -76,6 +99,7 @@ public class Transition implements ITransition {
 	
 	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, double probability) {
 
+		_persistent_durations = false;
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
 			_inputs.add(chan.getValue());
@@ -96,7 +120,8 @@ public class Transition implements ITransition {
 	}
 	
 	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range) {
-		
+
+		_persistent_durations = false;
 		_internal_vars = internalVars;
 
 		_inputs = new ComChannelList();
@@ -117,7 +142,8 @@ public class Transition implements ITransition {
 	}
 	
 	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState) {
-	
+
+		_persistent_durations = false;
 		_internal_vars = internalVars;
 
 		_inputs = new ComChannelList();
@@ -139,6 +165,7 @@ public class Transition implements ITransition {
 	
 	public Transition(Transition t)
 	{
+		_persistent_durations = false;
 		_internal_vars = t._internal_vars;
 		_endState = t._endState;
 		_inputs = t._inputs;
@@ -156,7 +183,7 @@ public class Transition implements ITransition {
 				_temp_internal_vars.put(temp_internal_var.getKey(), temp_internal_var.getValue());
 		}
 	}
-	
+
 	public void clearTempData(){
 		_temp_outputs.clear();
 		_temp_internal_vars.clear();
@@ -195,7 +222,11 @@ public class Transition implements ITransition {
 			for(String var : _temp_internal_vars.keySet()) {
 				Object temp = _temp_internal_vars.get(var);
 				if ( temp != null ){
-					_internal_vars.setVariable(var, temp);
+					if(var.equals("START_TIME") || var.equals("PAUSE_TIME")){
+						temp = new Integer(Simulator.getSim().getClockTime());
+						_internal_vars.setVariable(var,temp);
+					}else
+						_internal_vars.setVariable(var, temp);
 					_temp_internal_vars.put(var, null);
 				}
 			}
@@ -210,6 +241,34 @@ public class Transition implements ITransition {
 	 */
 	@Override
 	public Range getDurationRange() {
+		//time adaptation - checks if there is a duration variable, if there is then we want to make things change.
+		if(_internal_vars.canGetVariable("DURATION") && _persistent_durations){
+			Integer duration = (Integer)_internal_vars.getVariable("DURATION");
+			if(duration > 0){
+				Integer start = (Integer)_internal_vars.getVariable("START_TIME");
+				Integer pause = (Integer)_internal_vars.getVariable("PAUSE_TIME");
+				//gets the duration remaining given how much time has already progressed
+				if(start != null && pause != null && start >= 0 && pause >= start){
+					duration = duration - (pause-start);
+					if(duration > 0){
+						_internal_vars.setVariable("DURATION", (Integer)duration);
+						_internal_vars.setVariable("START_TIME", new Integer(Simulator.getSim().getClockTime()));
+						_internal_vars.setVariable("PAUSE_TIME", -1);
+					}else{	//we've finished our task's maximum duration so reset the base variables
+						_internal_vars.setVariable("DURATION", -1);
+						_internal_vars.setVariable("START_TIME", -1);
+						_internal_vars.setVariable("PAUSE_TIME", -1);
+					}
+				}
+				return new Range(duration);
+			}
+		}
+		//default operation
+		if(_internal_vars.canGetVariable("START_TIME")) {
+			if(new Integer(-1).equals(_internal_vars.getVariable("START_TIME"))) {
+				_internal_vars.setVariable("START_TIME", new Integer(Simulator.getSim().getClockTime()));
+			}
+		}
 		return _range;
 	}
 	
@@ -266,13 +325,13 @@ public class Transition implements ITransition {
 	
 	protected void setTempOutput(String varname, Object value)
 	{
-		assert _temp_outputs.containsKey(varname): "Cannot set temp output, variable does not exist";
+		assert _temp_outputs.containsKey(varname): "Cannot set temp output " + varname + ", variable does not exist";
 		_temp_outputs.put(varname, value);
 	}
 	
 	protected void setTempInternalVar(String varname, Object value)
 	{
-		assert _temp_internal_vars.containsKey(varname): "Cannot set temp internal var, variable does not exist";
+		assert _temp_internal_vars.containsKey(varname): "Cannot set temp internal var " + varname + ", variable does not exist";
 		_temp_internal_vars.put(varname, value);
 	}
 
@@ -340,10 +399,21 @@ public class Transition implements ITransition {
 		ArrayList<ComChannel<?>> activeInputs = new ArrayList<ComChannel<?>>();
 		
 		for(Entry<String, ComChannel<?>> input : _inputs.entrySet())
-			if(input.getValue().getValue() != null)
+			if(input.getValue().getValue() != null && !activeInputs.contains(input.getValue()))
 				activeInputs.add(input.getValue());
 		
 		return activeInputs;
+	}
+
+	@Override
+	public List<ComChannel<?>> getActiveOutputs() {
+		ArrayList<ComChannel<?>> activeOutputs = new ArrayList<ComChannel<?>>();
+		
+		for(Entry<String, ComChannel<?>> output : _outputs.entrySet())
+			if(output.getValue().getValue() != null && !activeOutputs.contains(output.getValue()))
+				activeOutputs.add(output.getValue());
+		
+		return activeOutputs;
 	}
 	
 	@Override
