@@ -199,7 +199,7 @@ public class Simulator {
 	
 	public int random(int min, int max)
 	{
-		return Verify.getInt(min, max);
+		return Verify.random(max) * max;
 	}
 	
 	public Integer getClockTime() {

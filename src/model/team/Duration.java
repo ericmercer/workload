@@ -65,7 +65,7 @@ public enum Duration {
 
 	UAVBAT_ACTIVE_TO_LOW(30),
 	UAVBAT_LOW_TO_DEAD(100),
-	UAVBAT_DURATION(3600),
+	UAVBAT_DURATION(1000,3600),
 	
 	/* General */
 	

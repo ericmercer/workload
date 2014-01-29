@@ -48,7 +48,8 @@ public class WorkloadListener extends ListenerAdapter {
 	
 	private void makeChoice( MethodInfo mi ) {
 		String methodName = mi.getName( );
-		if( methodName.equals( "getInt" ) ) {
+		if( methodName.equals( "random" ) ) {
+			System.out.println("making choice");
 			advancePath( );
 		}
 	}
