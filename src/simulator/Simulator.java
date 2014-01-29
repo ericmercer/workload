@@ -72,8 +72,8 @@ public class Simulator {
 		assert _setup : "Simulator not setup correctly";
 	
 		do {
-			if(_clock.getElapsedTime() >= 205)
-				System.out.print("");
+//			if(_clock.getElapsedTime() >= 205)
+//				System.out.print("");
 			updateTransitions();
 			
 			getEnabledTransitions();
