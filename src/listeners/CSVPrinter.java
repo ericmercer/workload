@@ -15,6 +15,7 @@ public class CSVPrinter {
 	}
 	
 	protected void print( String filename, String string ) {
+		System.out.println("printed " + filename);
 		try {
 			FileWriter writer = new FileWriter( new File( "src/csvFiles/" + filename ) );
 	

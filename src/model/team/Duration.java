@@ -70,7 +70,7 @@ public enum Duration {
 	/* General */
 	
 	ACK(1),
-	NEXT(1),
+	NEXT(1,2),
 	POKE(10),
 	OP_OBSERVE_GUI(10),
 	OP_OBSERVE_UAV(10),
