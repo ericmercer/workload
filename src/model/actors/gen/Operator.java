@@ -18,10 +18,20 @@ public enum DATA_OP_UAV_COMM{
 public enum DATA_OP_OP_COMM{
 	OP_START_LISTEN_TO_MM_OP,
 	OP_START_LAUNCH_OP,
+	OP_STOP_HANDLE_BATTERY_OP,
 	OP_STOP_LAUNCH_OP,
+	OP_START_HANDLE_BATTERY_OP,
+	OP_START_LAND_OP,
+	OP_STOP_SEARCH_OP,
+	OP_START_TRANSMIT_SEARCH_COMPLETE_OP,
+	OP_STOP_LAND_OP,
+	OP_STOP_TRANSMIT_SEARCH_FAILED_OP,
+	OP_STOP_TRANSMIT_SEARCH_COMPLETE_OP,
 	OP_STOP_LISTEN_TO_MM_OP,
 	OP_START_SET_AOI_OP,
+	OP_START_TERMINATE_SEARCH_OP,
 	OP_STOP_SET_AOI_OP,
+	OP_START_SEARCH_OP,
 }
 public enum DATA_OP_OGUI_COMM{
 	OP_LAND_OGUI,
@@ -140,18 +150,19 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_UAV,[V=UAV_LANDED_OP],[],1,NEXT,1.0)x(POST_FLIGHT,[],[LAND_UAV=FALSE])
+	// (OBSERVE_UAV,[V=UAV_LANDED_OP],[],1,NEXT,1.0)x(POST_FLIGHT,[D=OP_STOP_LAND_OP],[LAND_UAV=FALSE])
 	OBSERVE_UAV.add(new Transition(_internal_vars, inputs, outputs, POST_FLIGHT, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!UAV.VIDEO_UAV_OP_COMM.UAV_LANDED_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LAND_OP);
 			setTempInternalVar("LAND_UAV", false);
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_UAV,[A=MM_POKE_OP],[],1,NEXT,1.0)x(RX_MM,[A=OP_ACK_MM],[])
+	// (OBSERVE_UAV,[A=MM_POKE_OP],[],1,NEXT,1.0)x(RX_MM,[A=OP_ACK_MM,D=OP_START_LISTEN_TO_MM_OP],[])
 	OBSERVE_UAV.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -159,6 +170,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LISTEN_TO_MM_OP);
 			return true;
 		}
 	}); // in comments
@@ -187,7 +199,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	add(LAUNCH_UAV);
 }
  public void initializeTX_MM(ComChannelList inputs, ComChannelList outputs, State TX_MM, State END_MM) {
-	// (TX_MM,[],[SEARCH_FAILED=TRUE],1,OP_TX_MM,1.0)x(END_MM,[A=OP_SEARCH_FAILED_MM],[])
+	// (TX_MM,[],[SEARCH_FAILED=TRUE],1,OP_TX_MM,1.0)x(END_MM,[A=OP_SEARCH_FAILED_MM,D=OP_STOP_TRANSMIT_SEARCH_FAILED_OP],[])
 	TX_MM.add(new Transition(_internal_vars, inputs, outputs, END_MM, Duration.OP_TX_MM.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -195,10 +207,11 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_TRANSMIT_SEARCH_FAILED_OP);
 			return true;
 		}
 	}); // in comments
-	// (TX_MM,[],[SEARCH_COMPLETE=TRUE],1,OP_TX_MM,1.0)x(END_MM,[A=OP_SEARCH_COMPLETE_MM],[])
+	// (TX_MM,[],[SEARCH_COMPLETE=TRUE],1,OP_TX_MM,1.0)x(END_MM,[A=OP_SEARCH_COMPLETE_MM,D=OP_STOP_TRANSMIT_SEARCH_COMPLETE_OP],[])
 	TX_MM.add(new Transition(_internal_vars, inputs, outputs, END_MM, Duration.OP_TX_MM.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -206,6 +219,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_TRANSMIT_SEARCH_COMPLETE_OP);
 			return true;
 		}
 	}); // in comments
@@ -259,7 +273,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (RX_MM,[A=MM_TERMINATE_SEARCH_OP],[],1,NEXT,1.0)x(IDLE,[D=OP_STOP_LISTEN_TO_MM_OP],[TERMINATE_SEARCH=NEW,LAND_UAV=TRUE])
+	// (RX_MM,[A=MM_TERMINATE_SEARCH_OP],[],1,NEXT,1.0)x(IDLE,[D=OP_STOP_LISTEN_TO_MM_OP,D=OP_START_TERMINATE_SEARCH_OP,D=OP_START_LAND_OP],[TERMINATE_SEARCH=NEW,LAND_UAV=TRUE])
 	RX_MM.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -267,6 +281,8 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_LISTEN_TO_MM_OP);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_TERMINATE_SEARCH_OP);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LAND_OP);
 			setTempInternalVar("TERMINATE_SEARCH", "NEW");
 			setTempInternalVar("LAND_UAV", true);
 			return true;
@@ -308,13 +324,14 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_FLYBY,[V=OGUI_BATTERY_LOW_OP],[],1,NEXT,1.0)x(POKE_OGUI,[],[LAND_UAV=TRUE])
+	// (OBSERVE_FLYBY,[V=OGUI_BATTERY_LOW_OP],[],1,NEXT,1.0)x(POKE_OGUI,[D=OP_START_LAND_OP],[LAND_UAV=TRUE])
 	OBSERVE_FLYBY.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_BATTERY_LOW_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LAND_OP);
 			setTempInternalVar("LAND_UAV", true);
 			return true;
 		}
@@ -346,11 +363,12 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	add(END_OGUI);
 }
  public void initializePOST_FLIGHT(ComChannelList inputs, ComChannelList outputs, State POST_FLIGHT, State POST_FLIGHT_COMPLETE) {
-	// (POST_FLIGHT,[],[],1,OP_POST_FLIGHT_COMPLETE,1.0)x(POST_FLIGHT_COMPLETE,[D=OP_POST_FLIGHT_COMPLETE_UAV],[])
+	// (POST_FLIGHT,[],[],1,OP_POST_FLIGHT_COMPLETE,1.0)x(POST_FLIGHT_COMPLETE,[D=OP_POST_FLIGHT_COMPLETE_UAV,D=OP_STOP_HANDLE_BATTERY_OP],[])
 	POST_FLIGHT.add(new Transition(_internal_vars, inputs, outputs, POST_FLIGHT_COMPLETE, Duration.OP_POST_FLIGHT_COMPLETE.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			setTempOutput(Channels.DATA_OP_UAV_COMM.name(), Operator.DATA_OP_UAV_COMM.OP_POST_FLIGHT_COMPLETE_UAV);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_HANDLE_BATTERY_OP);
 			return true;
 		}
 	}); // in comments
@@ -379,7 +397,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (TX_OGUI,[],[NEW_SEARCH_AOI>0],1,OP_TX_OGUI,1.0)x(END_OGUI,[D=OP_NEW_SEARCH_AOI_OGUI,D=OP_STOP_SET_AOI_OP],[NEW_SEARCH_AOI=--])
+	// (TX_OGUI,[],[NEW_SEARCH_AOI>0],1,OP_TX_OGUI,1.0)x(END_OGUI,[D=OP_NEW_SEARCH_AOI_OGUI,D=OP_STOP_SET_AOI_OP,D=OP_START_SEARCH_OP],[NEW_SEARCH_AOI=--])
 	TX_OGUI.add(new Transition(_internal_vars, inputs, outputs, END_OGUI, Duration.OP_TX_OGUI.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -388,6 +406,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			}
 			setTempOutput(Channels.DATA_OP_OGUI_COMM.name(), Operator.DATA_OP_OGUI_COMM.OP_NEW_SEARCH_AOI_OGUI);
 			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_SET_AOI_OP);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_SEARCH_OP);
 			setTempInternalVar("NEW_SEARCH_AOI", (Integer)_internal_vars.getVariable("NEW_SEARCH_AOI") - 1);
 			return true;
 		}
@@ -457,7 +476,7 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_GUI,[A=MM_POKE_OP],[],1,NEXT,1.0)x(RX_MM,[A=OP_ACK_MM],[])
+	// (OBSERVE_GUI,[A=MM_POKE_OP],[],1,NEXT,1.0)x(RX_MM,[A=OP_ACK_MM,D=OP_START_LISTEN_TO_MM_OP],[])
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, RX_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -465,21 +484,24 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_ACK_MM);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LISTEN_TO_MM_OP);
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_GUI,[V=OGUI_BATTERY_LOW_OP],[],1,NEXT,1.0)X(POKE_OGUI,[],[LAND_UAV=TRUE])
+	// (OBSERVE_GUI,[V=OGUI_BATTERY_LOW_OP],[],1,NEXT,1.0)X(POKE_OGUI,[D=OP_START_HANDLE_BATTERY_OP,D=OP_START_LAND_OP],[LAND_UAV=TRUE])
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!OperatorGui.VIDEO_OGUI_OP_COMM.OGUI_BATTERY_LOW_OP.equals(_inputs.get(Channels.VIDEO_OGUI_OP_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_HANDLE_BATTERY_OP);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LAND_OP);
 			setTempInternalVar("LAND_UAV", true);
 			return true;
 		}
 	}); // in comments
-	// (OBSERVE_GUI,[V=OGUI_PATH_COMPLETE_OP],[],1,NEXT,1.0)X(POKE_MM,[A=OP_POKE_MM],[SEARCH_COMPLETE=TRUE,SEARCH_AOI_COMPLETE=TRUE])
+	// (OBSERVE_GUI,[V=OGUI_PATH_COMPLETE_OP],[],1,NEXT,1.0)X(POKE_MM,[A=OP_POKE_MM,D=OP_STOP_SEARCH_OP,D=OP_START_TRANSMIT_SEARCH_COMPLETE_OP],[SEARCH_COMPLETE=TRUE,SEARCH_AOI_COMPLETE=TRUE])
 	OBSERVE_GUI.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -487,6 +509,8 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_POKE_MM);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_STOP_SEARCH_OP);
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_TRANSMIT_SEARCH_COMPLETE_OP);
 			setTempInternalVar("SEARCH_COMPLETE", true);
 			setTempInternalVar("SEARCH_AOI_COMPLETE", true);
 			return true;
