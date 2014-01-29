@@ -48,8 +48,9 @@ public class WorkloadListener extends ListenerAdapter {
 	
 	private void makeChoice( MethodInfo mi ) {
 		String methodName = mi.getName( );
-		if( methodName.equals( "duration" ) )
+		if( methodName.equals( "getInt" ) ) {
 			advancePath( );
+		}
 	}
 	
 	private void advancePath( ) {

@@ -170,12 +170,12 @@ public class Simulator {
 			case MEAN:
 				return range.mean();
 			case MIN_MAX:
-				if ( random(1) == 0 )
+				if ( (int) Math.random() == 0 )
 					return range.min();
 				else
 					return range.max();
 			case MIN_MAX_MEAN:
-				int val = random(2);
+				int val = (int) (Math.random() * 2);
 				if ( val == 0 )
 					return range.min();
 				else if (val == 2)
