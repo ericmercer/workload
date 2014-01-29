@@ -70,9 +70,9 @@ public enum Duration {
 	/* General */
 	
 	ACK(1),
-	NEXT(1,2),
+	NEXT(1),
 	POKE(10),
-	OP_OBSERVE_GUI(10),
+	OP_OBSERVE_GUI(9,10),
 	OP_OBSERVE_UAV(10),
 	OP_POST_FLIGHT_COMPLETE(10),
 	RANDOM(50),

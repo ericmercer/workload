@@ -14,8 +14,8 @@ public class CSVPrinter {
 		return _printer;
 	}
 	
-	protected void print( String filename, String string ) {
-		System.out.println("printed " + filename);
+	protected void print( String filename, String string, int workload ) {
+		System.out.println("printed " + filename + " with " + workload + " workload");
 		try {
 			FileWriter writer = new FileWriter( new File( "src/csvFiles/" + filename ) );
 	
