@@ -73,12 +73,12 @@ public enum Duration {
 	NEXT(1),
 	POKE(10),
 	OP_OBSERVE_GUI(10),
-	OP_OBSERVE_UAV(5,10),
+	OP_OBSERVE_UAV(10),
 	OP_POST_FLIGHT_COMPLETE(10),
 	RANDOM(50),
 	PS_TX_MM(10),
 	PS_RX_MM(10),
-	UAV_PATH_DUR(100);
+	UAV_PATH_DUR(100,105);
 	
 	private Integer _minimum;
 	private Integer _maximum;
@@ -121,15 +121,9 @@ public enum Duration {
 	 * @return return a string representation of the duration
 	 */
 	public String toString() {
-		String result = "";
-		
-		if (_minimum == _maximum) {
-			result = Integer.toString(_maximum);
-		} else {
-			result = "(" + Integer.toString(_minimum) + "-" + Integer.toString(_maximum) + ")";
-		}
-		
-		return result;
+		return (_minimum == _maximum) ?
+				Integer.toString(_maximum)
+				: "(" + Integer.toString(_minimum) + "-" + Integer.toString(_maximum) + ")";
 	}
 
 	public Range getRange() {
