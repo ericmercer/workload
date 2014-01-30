@@ -19,7 +19,7 @@ public class WorkloadListener extends ListenerAdapter {
 	/**
 	 * stores the metrics
 	 */
-	WorkloadPath _rootPath = new WorkloadPath( null, new TreeMap<MetricKey, Metric>() );
+	WorkloadPath _rootPath = new WorkloadPath( null );
 	WorkloadPath _currentPath = _rootPath;
 	WorkloadPath HighestCumulativeDescisionWorkloadPath;
 	WorkloadPath HighestCumulativeTemporalWorkloadPath;
@@ -55,8 +55,7 @@ public class WorkloadListener extends ListenerAdapter {
 	}
 	
 	private void advancePath( ) {
-		WorkloadPath newPath = new WorkloadPath( _currentPath, _currentPath.getValues() );
-		newPath.setParent( _currentPath );
+		WorkloadPath newPath = new WorkloadPath( _currentPath );
 		_currentPath.addChild( newPath );
 		_currentPath = newPath;
 	}

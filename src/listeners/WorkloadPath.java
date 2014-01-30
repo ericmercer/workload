@@ -18,9 +18,9 @@ public class WorkloadPath {
 	private int CumulativeTemporalWorkload;
 	private int CumulativeResourceWorkload;
 	
-	public WorkloadPath( WorkloadPath parent, TreeMap<MetricKey, Metric> values ) {
+	public WorkloadPath( WorkloadPath parent ) {
 		_parent = parent;
-		_values = values;
+		_values = new TreeMap<MetricKey, Metric>();
 		_children = new ArrayList<WorkloadPath>( );
 		CumulativeDecisionWorkload = 0;
 		CumulativeTemporalWorkload = 0;
