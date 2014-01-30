@@ -9,6 +9,7 @@ import gov.nasa.jpf.vm.ThreadInfo;
 import gov.nasa.jpf.vm.VM;
 
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import simulator.Metric;
@@ -19,8 +20,8 @@ public class WorkloadListener extends ListenerAdapter {
 	/**
 	 * stores the metrics
 	 */
-	WorkloadPath _rootPath = new WorkloadPath( null, new TreeMap<MetricKey, Metric>() );
-	WorkloadPath _currentPath = _rootPath;
+	Stack<WorkloadPath> branchStack = new Stack<WorkloadPath>();
+	WorkloadPath currentPath = new WorkloadPath( null );
 	WorkloadPath HighestCumulativeDescisionWorkloadPath;
 	WorkloadPath HighestCumulativeTemporalWorkloadPath;
 	WorkloadPath HighestCumulativeResourceWorkloadPath;
@@ -28,37 +29,23 @@ public class WorkloadListener extends ListenerAdapter {
 	WorkloadPath LowestCumulativeTemporalWorkloadPath;
 	WorkloadPath LowestCumulativeResourceWorkloadPath;
 	
-	/**
-	 * acts whenever a choice generator is set (at the first point of non-determinism).
-	 * at this point we start a new child path.
-	 */
 	@Override
 	public void choiceGeneratorSet ( VM vm, ChoiceGenerator<?> newCG ) {
-		makeChoice( newCG.getInsn( ).getMethodInfo( ) );
-	}
-
-	/**
-	 * acts whenever a choice generator is advanced (at the following points of non-determinism).
-	 * at this point we return to the parent path and start a new path.
-	 */
-	@Override
-	public void choiceGeneratorAdvanced ( VM vm, ChoiceGenerator<?> currentCG ) {
-		makeChoice( currentCG.getInsn( ).getMethodInfo( ) );
-	}
-	
-	private void makeChoice( MethodInfo mi ) {
-		String methodName = mi.getName( );
-		if( methodName.equals( "getInt" ) ) {
-			System.out.println("making choice");
-			advancePath( );
+		if( newCG.getInsn( ).getMethodInfo( ).getName( ).equals( "getInt" ) ) {
+			branchStack.push(new WorkloadPath(currentPath));
 		}
 	}
-	
-	private void advancePath( ) {
-		WorkloadPath newPath = new WorkloadPath( _currentPath, _currentPath.getValues() );
-		newPath.setParent( _currentPath );
-		_currentPath.addChild( newPath );
-		_currentPath = newPath;
+	@Override
+	public void choiceGeneratorAdvanced ( VM vm, ChoiceGenerator<?> currentCG ) {
+		if( currentCG.getInsn( ).getMethodInfo( ).getName( ).equals( "getInt" ) ) {
+			currentPath = new WorkloadPath(branchStack.peek());
+		}
+	}
+	@Override
+	public void choiceGeneratorProcessed ( VM vm, ChoiceGenerator<?> processedCG ) {
+		if( processedCG.getInsn( ).getMethodInfo( ).getName( ).equals( "getInt" ) ) {
+			branchStack.pop();
+		}
 	}
 	
 	/**
@@ -84,29 +71,29 @@ public class WorkloadListener extends ListenerAdapter {
 	}
 
 	private void printCurrentPath() {
-		if( HighestCumulativeDescisionWorkloadPath == null || _currentPath.getCumulativeDecisionWorkload( ) > HighestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCDW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeDecisionWorkload() );
-			HighestCumulativeDescisionWorkloadPath = _currentPath;
+		if( HighestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) > HighestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "HCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			HighestCumulativeDescisionWorkloadPath = currentPath;
 		}
-		if( HighestCumulativeResourceWorkloadPath == null || _currentPath.getCumulativeResourceWorkload( ) > HighestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCRW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeResourceWorkload() );
-			HighestCumulativeResourceWorkloadPath = _currentPath;
+		if( HighestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) > HighestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "HCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			HighestCumulativeResourceWorkloadPath = currentPath;
 		}
-		if( HighestCumulativeTemporalWorkloadPath == null || _currentPath.getCumulativeTemporalWorkload( ) > HighestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCTW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeTemporalWorkload() );
-			HighestCumulativeTemporalWorkloadPath = _currentPath;
+		if( HighestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) > HighestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "HCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			HighestCumulativeTemporalWorkloadPath = currentPath;
 		}
-		if( LowestCumulativeDescisionWorkloadPath == null || _currentPath.getCumulativeDecisionWorkload( ) < LowestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCDW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeDecisionWorkload() );
-			LowestCumulativeDescisionWorkloadPath = _currentPath;
+		if( LowestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) < LowestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "LCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			LowestCumulativeDescisionWorkloadPath = currentPath;
 		}
-		if( LowestCumulativeResourceWorkloadPath == null || _currentPath.getCumulativeResourceWorkload( ) < LowestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCRW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeResourceWorkload() );
-			LowestCumulativeResourceWorkloadPath = _currentPath;
+		if( LowestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) < LowestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "LCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			LowestCumulativeResourceWorkloadPath = currentPath;
 		}
-		if( LowestCumulativeTemporalWorkloadPath == null || _currentPath.getCumulativeTemporalWorkload( ) < LowestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCTW.csv", WorkloadBuilder.build(_currentPath), _currentPath.getCumulativeTemporalWorkload() );
-			LowestCumulativeTemporalWorkloadPath = _currentPath;
+		if( LowestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) < LowestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
+			CSVPrinter.getInstance( ).print( "LCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			LowestCumulativeTemporalWorkloadPath = currentPath;
 		}
 	}
 
@@ -215,9 +202,9 @@ public class WorkloadListener extends ListenerAdapter {
 	}
 	
 	private void storeMetric( MetricKey currentKey, Metric currentMetric) {
-		Metric metric = _currentPath.get( currentKey );
+		Metric metric = currentPath.get( currentKey );
 		if ( metric == null )
-			_currentPath.put( currentKey, currentMetric );
+			currentPath.put( currentKey, currentMetric );
 		else
 			 metric.add( metric );
 	}

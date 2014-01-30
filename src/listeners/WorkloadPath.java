@@ -11,32 +11,29 @@ import simulator.MetricKey;
  */
 public class WorkloadPath {
 
-	private WorkloadPath _parent;
 	private TreeMap<MetricKey, Metric> _values;
-	private ArrayList<WorkloadPath> _children;
 	private int CumulativeDecisionWorkload;
 	private int CumulativeTemporalWorkload;
 	private int CumulativeResourceWorkload;
 	
-	public WorkloadPath( WorkloadPath parent, TreeMap<MetricKey, Metric> values ) {
-		_parent = parent;
-		_values = values;
-		_children = new ArrayList<WorkloadPath>( );
-		CumulativeDecisionWorkload = 0;
-		CumulativeTemporalWorkload = 0;
-		CumulativeResourceWorkload = 0;
-	}
-	
-	public WorkloadPath getParent( ) {
-		return _parent;
+	public WorkloadPath( WorkloadPath old ) {
+		if(old == null) {
+			_values = new TreeMap<MetricKey, Metric>();
+			CumulativeDecisionWorkload = 0;
+			CumulativeTemporalWorkload = 0;
+			CumulativeResourceWorkload = 0;
+		} else {
+			TreeMap<MetricKey, Metric> oldValues = new TreeMap<MetricKey, Metric>();
+			oldValues.putAll(old.getValues());
+			_values = oldValues;
+			CumulativeDecisionWorkload = old.getCumulativeDecisionWorkload();
+			CumulativeTemporalWorkload = old.getCumulativeTemporalWorkload();
+			CumulativeResourceWorkload = old.getCumulativeResourceWorkload();
+		}
 	}
 	
 	public TreeMap<MetricKey, Metric> getValues( ) {
 		return _values;
-	}
-	
-	public ArrayList<WorkloadPath> getChildren( ) {
-		return _children;
 	}
 	
 	public int getCumulativeDecisionWorkload( ) {
@@ -49,14 +46,6 @@ public class WorkloadPath {
 	
 	public int getCumulativeResourceWorkload( ) {
 		return CumulativeResourceWorkload;
-	}
-	
-	public void setParent( WorkloadPath parent ) {
-		_parent = parent;
-	}
-	
-	public void addChild( WorkloadPath child ) {
-		_children.add( child );
 	}
 	
 	public Metric get( MetricKey metricKey ) {
