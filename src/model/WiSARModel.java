@@ -12,8 +12,8 @@ public class WiSARModel {
 	public static void main(String[] args) {
 		Simulator sim = Simulator.getSim();
 		
-		sim.setup(new NewWiSARTeam(), DebugMode.PROD, DurationMode.MIN);
+		sim.setup(new TestWiSARTeam(), DebugMode.DEBUG, DurationMode.MIN);
 		
-		String checkSafe = sim.run();
+		sim.run();
 	}
 }
