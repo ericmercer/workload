@@ -79,7 +79,8 @@ public class Interpreter {
 				e.printStackTrace();
 			}
 		}
-		buildTeamClass(inputs_outputs);
+		ArrayList<String> channels = buildTeamClass(inputs_outputs);
+		buildChannelsClass(channels);
 	}
 
 	/**
@@ -711,7 +712,9 @@ public class Interpreter {
 	 * The second element of a channel array is the channel type (must be "VISUAL", "AUDIO", or "DATA").
 	 * The third element of a channel array is the channel direction (aka "OUTPUT" or "INPUT").
 	 */
-	public static void buildTeamClass(HashMap<String, ArrayList<String[]>> channelsByActor){
+	public static ArrayList<String> buildTeamClass(HashMap<String, ArrayList<String[]>> channelsByActor){
+		
+		ArrayList<String> channels = new ArrayList<String>();
 		//initialize text for new team class
 		String text = "";
 		text += "package model.team;"
@@ -733,6 +736,8 @@ public class Interpreter {
 	        ArrayList<String[]> channelList = actor.getValue();
 	        for(String[] channel : channelList){
 		        String channelName = channel[0];
+		        if(!channels.contains(channelName))
+		        	channels.add(channelName);
 		        String channelType = channel[1];
 		        if(channel[2].equals("OUTPUT")){
 			        if(Pattern.matches(".*[eE][vV][eE][nN][tT].*", channelName)){
@@ -793,6 +798,7 @@ public class Interpreter {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		return channels;
 	}
 
 	private static String getSource(String channelName) {
@@ -907,7 +913,7 @@ public class Interpreter {
 	 * builds Channels.java
 	 * @param channels This is a list of all communication channel names.
 	 */
-	public void buildChannelsClass(ArrayList<String> channels){
+	public static void buildChannelsClass(ArrayList<String> channels){
 		//initialize the text of the class
 		String text = "";
 		text = "package model.team;\n\npublic enum Channels {";
