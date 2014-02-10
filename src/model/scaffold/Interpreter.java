@@ -37,10 +37,199 @@ import simulator.Simulator;
  */
 public class Interpreter {
 	public static void main(String[] args){
+
+		File f = getJTRFolder();
+		//each actor
+		HashMap<String, ArrayList<String[]>> inputs_outputs = new HashMap<String, ArrayList<String[]>>();
+		for(File file : f.listFiles()){
+			try {
+				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
+					continue;
+				StringBuilder memory = new StringBuilder();
+				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
+				
+				//get the actor name and check if it is valid
+				String name = file.getName();
+				name = name.substring(0, name.indexOf('.'));
+				if(name.length() > 0){
+//					inputs_outputs.put(name, ""); //initialize the entry with a empty string
+					HashMap<String, String> initializers = new HashMap<String, String>();
+					HashMap<String, String> enumerations = new HashMap<String, String>();
+					ArrayList<String> states = new ArrayList<String>();
+					parseJTRFile(file, memory, name, initializers,
+							enumerations, states, inputs_outputs);
+					
+					StringBuilder body = new StringBuilder();
+					StringBuilder constructor = new StringBuilder();
+					generateConstructorAndBody(name, initializers, states,
+							body, constructor);
+					
+					StringBuilder enums = new StringBuilder();
+					for(Entry<String, String> enumeration : enumerations.entrySet()){
+						 //* The first element of a channel array is the channel name.
+						 //* The second element of a channel array is the channel type (must be "VISUAL", "AUDIO", or "DATA").
+						 //* The third element of a channel array is the channel direction (aka "OUTPUT" or "INPUT").
+						updateChannelLists(inputs_outputs, name, enumeration);
+						enums.append(enumeration.getValue() + "\n}");
+					}
+					
+					createJavaFile(file, constructor, memory, name, body, enums);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		ArrayList<String> channels = buildTeamClass(inputs_outputs);
+		buildChannelsClass(channels);
+	}
+
+	/**
+	 * Takes the enumerated classes in each class to generate the corresponding channel lists.
+	 * @param inputs_outputs
+	 * @param name
+	 * @param enumeration
+	 */
+	private static void updateChannelLists(
+			HashMap<String, ArrayList<String[]>> inputs_outputs, String name,
+			Entry<String, String> enumeration) {
+		ArrayList<String[]> channel_list = inputs_outputs.get(name);
+		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
+		String channel_name = enumeration.getKey();
+		String channel_type = channel_name.substring(0, channel_name.indexOf('_'));
+		String[] channel = new String[]{channel_name,channel_type,"OUTPUT"};
+		if (!channel_list.contains(channel))
+			channel_list.add(channel);
+		inputs_outputs.put(name, channel_list);
+		String target = channel_name.substring(
+				channel_name.indexOf('_', channel_name.indexOf('_')+1)+1,channel_name.indexOf('_', channel_name.indexOf('_', channel_name.indexOf('_')+1)+1));
+		String target_name = "MM".equals(target)?"MissionManager":
+			"PS".equals(target)?"ParentSearch":
+				"OP".equals(target)?"Operator":
+					"UAV".equals(target)?"UAV":
+						"VO".equals(target)?"VideoOperator":
+							"OGUI".equals(target)?"OperatorGui":
+								"UAVBAT".equals(target)?"UAVBattery":
+									"UAVFP".equals(target)?"UAVFlightPLan":
+										"UAVVF".equals(target)?"UAVVideoFeed":
+											"VGUI".equals(target)?"VideoOperatorGui":
+												"";
+		channel_list = inputs_outputs.get(target_name);
+		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
+		channel = new String[]{channel_name,channel_type,"INPUT"};
+		if (!channel_list.contains(channel))
+			channel_list.add(channel);
+		inputs_outputs.put(target_name, channel_list);
+	}
+
+	/**
+	 * takes a given file and converts JTR lines into Java code
+	 * @param file
+	 * @param memory
+	 * @param name
+	 * @param initializers
+	 * @param enumerations
+	 * @param states
+	 * @param inputs_outputs 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private static void parseJTRFile(File file, StringBuilder memory,
+			String name, HashMap<String, String> initializers,
+			HashMap<String, String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs)
+			throws FileNotFoundException, IOException {
 		Interpreter xml = new Interpreter();
-//		String test = "(IDLE,[V!=UAV_LANDED_OP],[NEW_SEARCH_AOI>0],1,NEXT,1.0)x(POKE_OGUI,[],[])";
-//		if(!xml.correctFormat(test))
-//			System.out.println(test);
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String line = br.readLine();
+		while(line != null){
+			line = line.trim();
+			if(xml.correctFormat(line)){
+				String[] transition_state = xml.parseJTR(line, memory, name, enumerations, states, inputs_outputs);
+				String state = transition_state[0].substring(0, transition_state[0].indexOf('.')).trim();
+				if(initializers.containsKey(state)){
+					if(initializers.get(state).contains("State " + transition_state[1])){
+						initializers.put(state, initializers.get(state) + "\n\t// " + line + transition_state[0]);
+					}else
+						initializers.put(state, "State " + transition_state[1] + ", " + initializers.get(state) + "\n\t// " + line + transition_state[0]);
+				}else{
+					initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
+				}
+			}else if(line.length() > 0 && line.startsWith("("))
+				System.out.println("error with comment: " + line);
+			line = br.readLine();
+		}
+		memory.append("\n}");
+	}
+	
+	/**
+	 * Creates a string of java code for both the constructor and the body of the class
+	 * @param name	the name of the actor
+	 * @param initializers	
+	 * @param states
+	 * @param body	the java code for the body of the class
+	 * @param constructor	the java code for the constructor of the class
+	 */
+	private static void generateConstructorAndBody(String name,
+			HashMap<String, String> initializers, ArrayList<String> states,
+			StringBuilder body, StringBuilder constructor) {
+		for(String state : states)
+			constructor.insert(0, "\n\tState " + state + " = new State(\"" + state + "\");");
+		constructor.append("\n\tinitializeInternalVariables();");
+		for(Entry<String, String> transition : initializers.entrySet()){
+//						constructor.insert(0, "\n\tState " + transition.getKey() + " = new State(\"" + transition.getKey() + "\");");
+			String call_line = transition.getValue().split("\n")[0];
+			String parameters = call_line.substring(call_line.indexOf("State"), call_line.indexOf(')'));
+			parameters = parameters.replaceAll("State ", "");
+			constructor.append("\n\tinitialize" + transition.getKey() + "(inputs, outputs, " + parameters + ");");
+			body.append("\n public void initialize" + transition.getKey() + "(ComChannelList inputs, ComChannelList outputs, ");
+			body.append(transition.getValue()); 
+			body.append("\n\tadd(" + transition.getKey() + ");\n}");
+		}
+		constructor.insert(0, "\n\tsetName(\"" + name + "\");");
+		constructor.insert(0,"\npublic " + name + "(ComChannelList inputs, ComChannelList outputs) {");
+		constructor.append("\n\tstartState(" + states.get(0) + ");");
+		constructor.append("\n}");
+	}
+	
+	/**
+	 * Generates a java file based off the JTR file
+	 * @param file
+	 * @param constructor
+	 * @param memory
+	 * @param name
+	 * @param body
+	 * @param enums
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private static void createJavaFile(File file, StringBuilder constructor,
+			StringBuilder memory, String name, StringBuilder body,
+			StringBuilder enums) throws IOException, FileNotFoundException {
+		File new_file = file.getParentFile().getParentFile();
+		for(File temp : new_file.listFiles()){
+			if(temp.getName().equals("actors")){
+				new_file = temp;
+				break;
+			}
+		}
+		for(File temp : new_file.listFiles()){
+			if(temp.getName().equals("gen")){
+				new_file = temp;
+				break;
+			}
+		}
+		new_file = new File(new_file.getPath() + "/" + name + ".java");
+		new_file.createNewFile();
+		System.out.println(new_file.toPath());
+		PrintWriter writer = new PrintWriter(new_file);
+		writer.print("package model.actors.gen;\n\nimport model.actors.*;\nimport model.team.*;\nimport simulator.*;\n\npublic class " + name + " extends Actor {" + enums.toString() + constructor.toString() + body.toString() + memory.toString() + "\n}");
+		writer.close();
+	}
+	
+	/**
+	 * Finds the desired JTR folder and returns it
+	 * @return
+	 */
+	private static File getJTRFolder() {
 		File f = null;
 		try {
 			f = new File(new File(Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
@@ -64,90 +253,9 @@ public class Interpreter {
 //			if(file.getName().equals("comments"))
 //				f = file;
 //		}
-		//each actor
-		for(File file : f.listFiles()){
-			BufferedReader br;
-			try {
-				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
-					continue;
-				br = new BufferedReader(new FileReader(file));
-				StringBuilder constructor = new StringBuilder();
-				StringBuilder memory = new StringBuilder();
-				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
-				String name = file.getName();
-				name = name.substring(0, name.indexOf('.'));
-				if(name.length() > 0){
-					String line = br.readLine();
-					HashMap<String, String> initializers = new HashMap<String, String>();
-					HashMap<String, String> enumerations = new HashMap<String, String>();
-					ArrayList<String> states = new ArrayList<String>();
-					while(line != null){
-						line = line.trim();
-						if(xml.correctFormat(line)){
-							String[] transition_state = xml.parseComment(line, memory, name, enumerations, states);
-							String state = transition_state[0].substring(0, transition_state[0].indexOf('.')).trim();
-							if(initializers.containsKey(state)){
-								if(initializers.get(state).contains("State " + transition_state[1])){
-									initializers.put(state, initializers.get(state) + "\n\t// " + line + transition_state[0]);
-								}else
-									initializers.put(state, "State " + transition_state[1] + ", " + initializers.get(state) + "\n\t// " + line + transition_state[0]);
-							}else{
-								initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
-							}
-						}else if(line.length() > 0 && line.startsWith("("))
-							System.out.println("error with comment: " + line);
-						line = br.readLine();
-					}
-					memory.append("\n}");
-					StringBuilder body = new StringBuilder();
-					for(String state : states)
-						constructor.insert(0, "\n\tState " + state + " = new State(\"" + state + "\");");
-					constructor.append("\n\tinitializeInternalVariables();");
-					for(Entry<String, String> transition : initializers.entrySet()){
-//						constructor.insert(0, "\n\tState " + transition.getKey() + " = new State(\"" + transition.getKey() + "\");");
-						String call_line = transition.getValue().split("\n")[0];
-						String parameters = call_line.substring(call_line.indexOf("State"), call_line.indexOf(')'));
-						parameters = parameters.replaceAll("State ", "");
-						constructor.append("\n\tinitialize" + transition.getKey() + "(inputs, outputs, " + parameters + ");");
-						body.append("\n public void initialize" + transition.getKey() + "(ComChannelList inputs, ComChannelList outputs, ");
-						body.append(transition.getValue()); 
-						body.append("\n\tadd(" + transition.getKey() + ");\n}");
-					}
-					constructor.insert(0, "\n\tsetName(\"" + name + "\");");
-					constructor.insert(0,"\npublic " + name + "(ComChannelList inputs, ComChannelList outputs) {");
-					constructor.append("\n\tstartState(" + states.get(0) + ");");
-					constructor.append("\n}");
-					StringBuilder enums = new StringBuilder();
-					for(Entry<String, String> enumeration : enumerations.entrySet()){
-						enums.append(enumeration.getValue() + "\n}");
-					}
-					File new_file = file.getParentFile().getParentFile();
-					for(File temp : new_file.listFiles()){
-						if(temp.getName().equals("actors")){
-							new_file = temp;
-							break;
-						}
-					}
-					for(File temp : new_file.listFiles()){
-						if(temp.getName().equals("gen")){
-							new_file = temp;
-							break;
-						}
-					}
-					new_file = new File(new_file.getPath() + "/" + name + ".java");
-					new_file.createNewFile();
-					System.out.println(new_file.toPath());
-					PrintWriter writer = new PrintWriter(new_file);
-					writer.print("package model.actors.gen;\n\nimport model.actors.*;\nimport model.team.*;\nimport simulator.*;\n\npublic class " + name + " extends Actor {" + enums.toString() + constructor.toString() + body.toString() + memory.toString() + "\n}");
-					writer.close();
-				}
-//				System.out.println(enums.toString() + constructor.toString() + body.toString() + memory.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		return f;
 	}
+	
 	/**
 	 * takes a comment line and converts it into the source code of the corresponding transition
 	 * Transition := (CurrentState,[Channel=InputData*],[Memory{=||>||<...}InputValue*],Priority,Duration,Probability)x(NextState,[Channel=OutputData*],[Memory=OutputValue*])
@@ -155,9 +263,10 @@ public class Interpreter {
 	 * @param memory
 	 * @param name String identifier for the class
 	 * @param enumerations mapping of all enumerations defined within the class
+	 * @param inputs_outputs 
 	 * @return the source code and the end state to be added into the file itself
 	 */
-	public String[] parseComment(String s, StringBuilder memory, String name, HashMap<String,String> enumerations, ArrayList<String> states){
+	public String[] parseJTR(String s, StringBuilder memory, String name, HashMap<String,String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs){
 //		System.out.println(s);
 		StringBuilder transition = new StringBuilder();
 		//method call
@@ -305,6 +414,7 @@ public class Interpreter {
 		transition.append("\n\t\t\treturn true;\n\t\t}\n\t}); // in comments");
 		return new String[]{transition.toString(), endState};
 	}
+	
 	/**
 	 * Transition := (CurrentState,[Channel=InputData*],[Memory{=||>||<...}InputValue*],Priority,Duration,Probability)x(NextState,[Channel=OutputData*],[Memory=OutputValue*])
 	 * @param s
@@ -398,6 +508,7 @@ public class Interpreter {
 			transition.append("\n\t\t\tsetTempInternalVar(\"" + division[0] + "\", " + value + ");");
 		}
 	}
+	
 	/**
 	 * @param memory
 	 * @param transition
@@ -595,23 +706,26 @@ public class Interpreter {
 	/**
 	 * builds WiSARTeam.java
 	 * @param tuple This is a map of actor names, Strings, to the channels they use, represented as a list of String[3].
+	 * @param channelsByActor is a hashmap of each actor and its corresponding channels.
 	 * The key is the actor/event name.
 	 * The first element of a channel array is the channel name.
 	 * The second element of a channel array is the channel type (must be "VISUAL", "AUDIO", or "DATA").
 	 * The third element of a channel array is the channel direction (aka "OUTPUT" or "INPUT").
 	 */
-	public void buildTeamClass(HashMap<String, ArrayList<String[]>> channelsByActor){
+	public static ArrayList<String> buildTeamClass(HashMap<String, ArrayList<String[]>> channelsByActor){
+		
+		ArrayList<String> channels = new ArrayList<String>();
 		//initialize text for new team class
 		String text = "";
 		text += "package model.team;"
 				+ "\n"
-				+ "\nimport model.actors.*;"
+				+ "\nimport model.actors.gen.*;"
 				+ "\nimport model.events.*;"
 				+ "\nimport simulator.*;"
 				+ "\n"
-				+ "\npublic class WiSARTeam extends Team {"
+				+ "\npublic class TestWiSARTeam extends Team {"
 				+ "\n"
-				+ "\n\tpublic WiSARTeam() {"
+				+ "\n\tpublic TestWiSARTeam() {"
 				+ "\n"
 				+ "\n\t\t_com_channels = new ComChannelList();";
 		
@@ -622,12 +736,15 @@ public class Interpreter {
 	        ArrayList<String[]> channelList = actor.getValue();
 	        for(String[] channel : channelList){
 		        String channelName = channel[0];
+		        if(!channels.contains(channelName))
+		        	channels.add(channelName);
 		        String channelType = channel[1];
-		        
-		        if(Pattern.matches(".*[eE][vV][eE][nN][tT].*", channelName)){
-		        	text += "\n\t\t_com_channels.add( new ComChannel<Boolean>(Channels." + channelName + ".name(), false, ComChannel.Type.AUDIO) );";
-		        }else{
-		        	text += "\n\t\t_com_channels.add( new ComChannel<" + actorName + "." + channelName + ">(Channels." + channelName + ".name(), false, ComChannel.Type." + channelType + ", " + getSource(channelName) + ", " + getDestination(channelName) + ") );";
+		        if(channel[2].equals("OUTPUT")){
+			        if(Pattern.matches(".*[eE][vV][eE][nN][tT].*", channelName)){
+			        	text += "\n\t\t_com_channels.add( new ComChannel<Boolean>(Channels." + channelName + ".name(), false, ComChannel.Type.AUDIO) );";
+			        }else{
+			        	text += "\n\t\t_com_channels.add( new ComChannel<" + actorName + "." + channelName + ">(Channels." + channelName + ".name(), ComChannel.Type." + channelType + ", \"" + getSource(channelName) + "\", \"" + getDestination(channelName) + "\") );";
+			        }
 		        }
 	        }
 	    }
@@ -671,8 +788,9 @@ public class Interpreter {
 		
 		//print the class
 		try {
+			String path_name = "src/model/team/TestWiSARTeam.java";
 			//PrintWriter writer = new PrintWriter("src/model/team/WiSARTeam.java", "UTF-8");
-			PrintWriter writer = new PrintWriter("WiSARTeam.java", "UTF-8");
+			PrintWriter writer = new PrintWriter(path_name, "UTF-8");
 			writer.println(text);
 			writer.close();
 		} catch (FileNotFoundException e) {
@@ -680,9 +798,10 @@ public class Interpreter {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		return channels;
 	}
 
-	private String getSource(String channelName) {
+	private static String getSource(String channelName) {
 		String result = "";
 		
 		int parsingSource = 0;
@@ -698,7 +817,7 @@ public class Interpreter {
 		return result;
 	}
 
-	private String getDestination(String channelName) {
+	private static String getDestination(String channelName) {
 		String result = "";
 		
 		int parsingDestination = 0;
@@ -794,7 +913,7 @@ public class Interpreter {
 	 * builds Channels.java
 	 * @param channels This is a list of all communication channel names.
 	 */
-	public void buildClass(ArrayList<String> channels){
+	public static void buildChannelsClass(ArrayList<String> channels){
 		//initialize the text of the class
 		String text = "";
 		text = "package model.team;\n\npublic enum Channels {";
