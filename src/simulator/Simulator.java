@@ -77,14 +77,32 @@ public class Simulator {
 			updateTransitions();
 			
 			getEnabledTransitions();
-			
+			clearTeamChannels();
 			_clock.advanceTime();
-			
 			processReadyTransitions();
+			//printTeamChannels();
 		} while (!_ready_transitions.isEmpty());
 		
 		MetricManager.getInstance().endSimulation();
 		return null;
+	}
+
+	private void clearTeamChannels() {
+		for(Entry<String, ComChannel<?>> channel_entry: this._team.getAllChannels().entrySet()){
+			String channel = channel_entry.getKey();
+			if(channel.substring(5, 7).equals(channel.substring(8, 10)))
+				channel_entry.getValue().set(null);
+		}
+	}
+
+	private void printTeamChannels() {
+		for(Entry<String, ComChannel<?>> channel_entry: this._team.getAllChannels().entrySet()){
+			String channel = channel_entry.getKey();
+			System.out.println(channel.substring(5, 7) + " " + channel.substring(8, 10));
+			if(channel.substring(5, 7).equals(channel.substring(8, 10)))
+				System.out.println(channel_entry.getKey() + ": " + channel_entry.getValue());
+		}
+		
 	}
 
 	//
