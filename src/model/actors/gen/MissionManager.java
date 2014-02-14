@@ -9,24 +9,20 @@ public enum DATA_MM_MM_COMM{
 	MM_START_LISTEN_TO_OP_MM,
 	MM_START_LISTEN_TO_VO_MM,
 	MM_START_LISTEN_TO_PS_MM,
-	MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM,
-	MM_STOP_SEARCH_MM,
-	MM_STOP_TRANSMIT_SEARCH_FAILED_MM,
+	MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM__MM_STOP_SEARCH_MM,
+	MM_STOP_TRANSMIT_SEARCH_FAILED_MM__MM_STOP_SEARCH_MM,
 	MM_STOP_TRANSMIT_TARGET_SIGHTED_T_MM,
 	MM_STOP_TRANSMIT_TARGET_SIGHTED_F_MM,
 	MM_STOP_LISTEN_TO_PS_MM,
-	MM_START_TRANSMIT_AOI_MM,
-	MM_START_SEARCH_MM,
-	MM_START_TRANSMIT_TARGET_DESCRIPTION_MM,
-	MM_START_TRANSMIT_TERMINATE_SEARCH_MM,
+	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_AOI_MM__MM_START_SEARCH_MM,
+	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TARGET_DESCRIPTION_MM,
+	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TERMINATE_SEARCH_MM__MM_STOP_SEARCH_MM,
 	MM_STOP_TRANSMIT_AOI_MM,
-	MM_STOP_LISTEN_TO_OP_MM,
-	MM_START_TRANSMIT_SEARCH_COMPLETE_MM,
-	MM_START_TRANSMIT_SEARCH_FAILED_MM,
+	MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_COMPLETE_MM,
+	MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_FAILED_MM,
 	MM_STOP_TRANSMIT_TARGET_DESCRIPTION_MM,
-	MM_STOP_LISTEN_TO_VO_MM,
-	MM_START_TRANSMIT_TARGET_SIGHTED_F_MM,
-	MM_START_TRANSMIT_TARGET_SIGHTED_T_MM,
+	MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_F_MM,
+	MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_T_MM,
 	MM_STOP_VERIFICATION_MM,
 }
 public enum AUDIO_MM_PS_COMM{
@@ -109,43 +105,38 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (RX_PS,[A=PS_NEW_SEARCH_AOI_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM,D=MM_START_TRANSMIT_AOI_MM,D=MM_START_SEARCH_MM],[AREA_OF_INTEREST=NEW])
+	// (RX_PS,[A=PS_NEW_SEARCH_AOI_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_AOI_MM__MM_START_SEARCH_MM],[AREA_OF_INTEREST=NEW])
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_NEW_SEARCH_AOI_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_AOI_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_AOI_MM__MM_START_SEARCH_MM);
 			setTempInternalVar("AREA_OF_INTEREST", "NEW");
 			return true;
 		}
 	}); // in comments
-	// (RX_PS,[A=PS_TARGET_DESCRIPTION_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM,D=MM_START_TRANSMIT_TARGET_DESCRIPTION_MM],[TARGET_DESCRIPTION=NEW])
+	// (RX_PS,[A=PS_TARGET_DESCRIPTION_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TARGET_DESCRIPTION_MM],[TARGET_DESCRIPTION=NEW])
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TARGET_DESCRIPTION_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TARGET_DESCRIPTION_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TARGET_DESCRIPTION_MM);
 			setTempInternalVar("TARGET_DESCRIPTION", "NEW");
 			return true;
 		}
 	}); // in comments
-	// (RX_PS,[A=PS_TERMINATE_SEARCH_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM,D=MM_START_TRANSMIT_TERMINATE_SEARCH_MM,D=MM_STOP_SEARCH_MM],[TERMINATE_SEARCH_VO=NEW,TERMINATE_SEARCH_OP=NEW])
+	// (RX_PS,[A=PS_TERMINATE_SEARCH_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TERMINATE_SEARCH_MM__MM_STOP_SEARCH_MM],[TERMINATE_SEARCH_VO=NEW,TERMINATE_SEARCH_OP=NEW])
 	RX_PS.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!ParentSearch.AUDIO_PS_MM_COMM.PS_TERMINATE_SEARCH_MM.equals(_inputs.get(Channels.AUDIO_PS_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TERMINATE_SEARCH_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TERMINATE_SEARCH_MM__MM_STOP_SEARCH_MM);
 			setTempInternalVar("TERMINATE_SEARCH_VO", "NEW");
 			setTempInternalVar("TERMINATE_SEARCH_OP", "NEW");
 			return true;
@@ -392,7 +383,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	add(END_VGUI);
 }
  public void initializeTX_PS(ComChannelList inputs, ComChannelList outputs, State TX_PS, State END_PS) {
-	// (TX_PS,[],[SEARCH_COMPLETE=TRUE],1,MM_TX_PS,1.0)x(END_PS,[A=MM_SEARCH_COMPLETE_PS,D=MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM,D=MM_STOP_SEARCH_MM],[SEARCH_COMPLETE=FALSE])
+	// (TX_PS,[],[SEARCH_COMPLETE=TRUE],1,MM_TX_PS,1.0)x(END_PS,[A=MM_SEARCH_COMPLETE_PS,D=MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM__MM_STOP_SEARCH_MM],[SEARCH_COMPLETE=FALSE])
 	TX_PS.add(new Transition(_internal_vars, inputs, outputs, END_PS, Duration.MM_TX_PS.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -400,13 +391,12 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_COMPLETE_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_COMPLETE_MM__MM_STOP_SEARCH_MM);
 			setTempInternalVar("SEARCH_COMPLETE", false);
 			return true;
 		}
 	}); // in comments
-	// (TX_PS,[],[SEARCH_FAILED=TRUE],1,MM_TX_PS,1.0)x(END_PS,[A=MM_SEARCH_FAILED_PS,D=MM_STOP_TRANSMIT_SEARCH_FAILED_MM,D=MM_STOP_SEARCH_MM],[SEARCH_FAILED=FALSE])
+	// (TX_PS,[],[SEARCH_FAILED=TRUE],1,MM_TX_PS,1.0)x(END_PS,[A=MM_SEARCH_FAILED_PS,D=MM_STOP_TRANSMIT_SEARCH_FAILED_MM__MM_STOP_SEARCH_MM],[SEARCH_FAILED=FALSE])
 	TX_PS.add(new Transition(_internal_vars, inputs, outputs, END_PS, Duration.MM_TX_PS.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -414,8 +404,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_PS_COMM.name(), MissionManager.AUDIO_MM_PS_COMM.MM_SEARCH_FAILED_PS);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_FAILED_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_SEARCH_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_SEARCH_FAILED_MM__MM_STOP_SEARCH_MM);
 			setTempInternalVar("SEARCH_FAILED", false);
 			return true;
 		}
@@ -570,28 +559,26 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	add(POKE_OP);
 }
  public void initializeRX_OP(ComChannelList inputs, ComChannelList outputs, State RX_OP, State IDLE) {
-	// (RX_OP,[A=OP_SEARCH_COMPLETE_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_OP_MM,D=MM_START_TRANSMIT_SEARCH_COMPLETE_MM],[SEARCH_COMPLETE=TRUE])
+	// (RX_OP,[A=OP_SEARCH_COMPLETE_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_COMPLETE_MM],[SEARCH_COMPLETE=TRUE])
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_COMPLETE_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_SEARCH_COMPLETE_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_COMPLETE_MM);
 			setTempInternalVar("SEARCH_COMPLETE", true);
 			return true;
 		}
 	}); // in comments
-	// (RX_OP,[A=OP_SEARCH_FAILED_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_OP_MM,D=MM_START_TRANSMIT_SEARCH_FAILED_MM],[SEARCH_FAILED=TRUE])
+	// (RX_OP,[A=OP_SEARCH_FAILED_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_FAILED_MM],[SEARCH_FAILED=TRUE])
 	RX_OP.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!Operator.AUDIO_OP_MM_COMM.OP_SEARCH_FAILED_MM.equals(_inputs.get(Channels.AUDIO_OP_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_SEARCH_FAILED_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_FAILED_MM);
 			setTempInternalVar("SEARCH_FAILED", true);
 			return true;
 		}
@@ -692,28 +679,26 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	add(TX_OP);
 }
  public void initializeRX_VO(ComChannelList inputs, ComChannelList outputs, State RX_VO, State IDLE) {
-	// (RX_VO,[A=VO_TARGET_SIGHTED_F_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_VO_MM,D=MM_START_TRANSMIT_TARGET_SIGHTED_F_MM],[TARGET_SIGHTED_F=TRUE])
+	// (RX_VO,[A=VO_TARGET_SIGHTED_F_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_F_MM],[TARGET_SIGHTED_F=TRUE])
 	RX_VO.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_F_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TARGET_SIGHTED_F_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_F_MM);
 			setTempInternalVar("TARGET_SIGHTED_F", true);
 			return true;
 		}
 	}); // in comments
-	// (RX_VO,[A=VO_TARGET_SIGHTED_T_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_VO_MM,D=MM_START_TRANSMIT_TARGET_SIGHTED_T_MM],[TARGET_SIGHTED_T=TRUE])
+	// (RX_VO,[A=VO_TARGET_SIGHTED_T_MM],[],1,NEXT,1.0)x(IDLE,[D=MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_T_MM],[TARGET_SIGHTED_T=TRUE])
 	RX_VO.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!VideoOperator.AUDIO_VO_MM_COMM.VO_TARGET_SIGHTED_T_MM.equals(_inputs.get(Channels.AUDIO_VO_MM_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_START_TRANSMIT_TARGET_SIGHTED_T_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_LISTEN_TO_VO_MM__MM_START_TRANSMIT_TARGET_SIGHTED_T_MM);
 			setTempInternalVar("TARGET_SIGHTED_T", true);
 			return true;
 		}

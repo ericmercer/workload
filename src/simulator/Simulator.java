@@ -77,8 +77,8 @@ public class Simulator {
 			updateTransitions();
 			
 			getEnabledTransitions();
-			clearTeamChannels();
 			_clock.advanceTime();
+			clearTeamChannels();
 			processReadyTransitions();
 			//printTeamChannels();
 		} while (!_ready_transitions.isEmpty());
@@ -144,6 +144,17 @@ public class Simulator {
 			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
+//			//Store active input data
+//			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
+//				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
+//			}
+//			//Store active output data
+//			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
+//				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
+//			}
+		}
+		for (IActor actor : _team.getActors()){
+
 			//Store active input data
 			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
 				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());

@@ -9,6 +9,7 @@ function [ end_nodes ] = getEndingTasks( tasksS, tasksE, x )
     for index = x:ending
         taskS = char(tasksS(index,:));
         if(length(taskS) > 1)
+            taskS = strrep(taskS,'__','][');
             [start,endIndex] = regexp(taskS,'\[\w\w_START_\w+\]');
             num = size(start);
             num = num(2);
@@ -33,6 +34,7 @@ function [ end_nodes ] = getEndingTasks( tasksS, tasksE, x )
         
         taskE = char(tasksE(index,:));
         if(length(taskE) > 1)
+            taskE = strrep(taskE,'__','][');
             [start,endIndex] = regexp(taskE,'\[\w\w_STOP_\w+\]');
             num = size(start);
             num = num(2);

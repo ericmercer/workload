@@ -1,7 +1,9 @@
-
+clear all
 OP = 'Operator';
 PS = 'ParentSearch';
 MM = 'MissionManager';
+
+%%
 % string = '(MissionManager TX_PS [AUDIO_PS_MM_COMM])(MissionManager TX_PS [AUDIO_PS_MM_COMM])(MissionManager TX_PS [AUDIO_PS_MM_COMM])(MissionManager TX_PS [AUDIO_PS_MM_COMM])(MissionManager TX_PS [AUDIO_PS_MM_COMM])'
 % 
 % [start,endIndex] = regexp(string,'\(\w+\s\w+\s\[\w+\]\)')          %'( \w+\s+\d )')
@@ -13,6 +15,7 @@ MM = 'MissionManager';
 %     actor = subset(2:endOfName(1)-1)
 % end
 
+%%
 
 % string = '(UAVBattery LOW [null])(UAVFlightPlan YES_PATH [null])(Operator OBSERVE_UAV [null])'
 % [start, endIndex] = regexp(string, '\(\w+\s\w+\s\[\w+\]\)')
@@ -44,6 +47,8 @@ MM = 'MissionManager';
 %         end
 %     end
 % end
+
+%%
 
 % string = '(ParentSearch IDLE [1])'
 % [start, endIndex] = regexp(string, '\(\w+\s\w+\s\[\d+\]\)')
@@ -77,36 +82,58 @@ MM = 'MissionManager';
 %     end
 % end
 
-% string = '([PS_START_LISTEN_TO_MM_PS])([PS_START_LISTEN_TO_MM_PS])([PS_START_LISTEN_TO_MM_PS])'
-% [start, endIndex] = regexp(string,'\(\[\w+\]\)')
+%%
+
+% file = fopen('HCDW.csv');
 % 
-% tasks = sprintf('%s\n','apple','mm','op')
-% msgbox(tasks)
+% Data = textscan(file,'%d%s%d%s%d%s%d%s%s','Delimiter',',','HeaderLines',1);
+% fclose(file);
+% A = Data(8);
+% B = Data(9);
+% taskS = A{1};
+% taskE = B{1};
+% 
+% x = 20;
+% 
+% entry = 1;
+% for i=1:size(time)
+%     if(time(i) < x)
+%         entry = entry + 1;
+%     end
+% end
+% x = entry;
+% 
+% to_end = size(time);
+% to_end = to_end(1)-x;
+% start_nodes = getStartingTasks(taskS,taskE,x)
+%end_nodes = getEndingTasks(taskS,taskE,x)
+
+%% Handles multiple task data on a given line
+
+% taskS = '([PS_START_TRANSMIT_TARGET_DESCRIPTION_PS__PS_START_TRANSMIT_AOI_PS])'
+% 
+% taskS = strrep(taskS,'__','][')
+% [start,endIndex] = regexp(taskS,'\[\w\w_START_\w+]')
+% num = size(start);
+% num = num(2);
+% nodesS = {'PS','MM','OP'};
+% if num > 0
+%     for entry = 1:num
+%         actor = taskS(start(entry)+1:start(entry)+2);
+%         actor_task = taskS(start(entry)+10:endIndex(entry)-4)
+%         nodesS(end+1,1) = {''};
+%         nodesS(end,2) = {''};
+%         nodesS(end,3) = {''};
+%         size(actor);
+%         if actor == 'PS'
+%             nodesS(end,1) = {actor_task};
+%         elseif actor == 'MM'
+%             nodesS(end,2) = {actor_task};
+%         elseif actor == 'OP'
+%             nodesS(end,3) = {actor_task};
+%         end
+%     end
+% end
+% nodesS
 
 
-
-
-
-file = fopen('HCDW.csv');
-
-Data = textscan(file,'%d%s%d%s%d%s%d%s%s','Delimiter',',','HeaderLines',1);
-fclose(file);
-A = Data(8);
-B = Data(9);
-taskS = A{1};
-taskE = B{1};
-
-x = 20;
-
-entry = 1;
-for i=1:size(time)
-    if(time(i) < x)
-        entry = entry + 1;
-    end
-end
-x = entry;
-
-to_end = size(time);
-to_end = to_end(1)-x;
-start_nodes = getStartingTasks(taskS,taskE,x)
-end_nodes = getEndingTasks(taskS,taskE,x)

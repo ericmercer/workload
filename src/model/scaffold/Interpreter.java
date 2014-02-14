@@ -267,7 +267,8 @@ public class Interpreter {
 	 * @return the source code and the end state to be added into the file itself
 	 */
 	public String[] parseJTR(String s, StringBuilder memory, String name, HashMap<String,String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs){
-//		System.out.println(s);
+//		if("(IDLE,[E=NEW_SEARCH_AREA_EVENT],[SEARCH_ACTIVE=FALSE],1,NEXT,1.0)x(POKE_MM,[D=PS_START_TRANSMIT_AOI_PS,A=PS_POKE_MM],[SEARCH_ACTIVE=TRUE,NEW_SEARCH_AOI=++])".equals(s))
+//			System.out.println(s);
 		StringBuilder transition = new StringBuilder();
 		//method call
 		int start = s.indexOf('(')+1;
@@ -385,8 +386,10 @@ public class Interpreter {
 					if(!enumerations.containsKey(value_channel[1])){
 						enumerations.put(value_channel[1], "\npublic enum " + value_channel[1] + "{\n\t" + division[1] + ",");
 					}else{
-						if(!enumerations.get(value_channel[1]).contains(division[1]))
+						if(!enumerations.get(value_channel[1]).contains("\t" + division[1] + ","))
 							enumerations.put(value_channel[1], enumerations.get(value_channel[1]) + "\n\t" + division[1] + ",");
+//						else if ("PS_START_TRANSMIT_AOI_PS".equals(division[1]))
+//							System.out.println(enumerations.get(value_channel[1]).toString());
 					}
 				}
 				value_channel[0] += value_channel[1] + "." + division[1];
@@ -429,33 +432,33 @@ public class Interpreter {
 				+ "\\d?\\.\\d*\\)"
 				+ "[xX]"
 				+ "\\([[A-Z0-9]_]*,"
-				+ "\\[([ADVE]*=[A-Z_]*)?(,[ADVE]*=[A-Z_]*)*\\],"
+				+ "\\[([ADVE]*=[A-Z_~]*)?(,[ADVE]*=[A-Z_~]*)*\\],"
 				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
 		Matcher matcher = pattern.matcher(s);
 		boolean match = matcher.matches();
 		if(s.length() > 0 && s.startsWith("(")){
 			pattern = Pattern.compile("\\([[A-Z0-9]_]*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	//state name
 				System.out.println(1);
 			pattern = Pattern.compile("\\(.*,\\[([ADVE](=|!=)[A-Z_]*)?(,[ADVE](=|!=)[A-Z_]*)*\\],.*,.*,.*,.*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	//inputs
 				System.out.println(2);
 			pattern = Pattern.compile("\\(.*,.*,\\[([A-Z_]*(=|>|<|!=|<=|>=)[A-Z_0-9]*)?(,[A-Z_]*(=|>|<|!=|<=|>=)[A-Z_0-9]*)*\\],.*,.*,.*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	//internals
 				System.out.println(3);
 			pattern = Pattern.compile("\\(.*,.*,.*,\\d*,.*,.*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	//priority	num
 				System.out.println(4);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,([A-Z_]*(\\-p)?|\\[\\d*\\-\\d*\\]),.*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	//duration	[num-num]
 				System.out.println(5);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,\\d?\\.\\d*\\)[xX]\\(.*,.*,.*\\)");
-			if(!pattern.matcher(s).find())
+			if(!pattern.matcher(s).find())	
 				System.out.println(6);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\([[A-Z0-9]_]*,.*,.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(7);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_]*)?(,[A-Z_]*=[A-Z_]*)*\\],.*\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_~]*)?(,[A-Z_]*=[A-Z_~]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(8);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
