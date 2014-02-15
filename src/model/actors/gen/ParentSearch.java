@@ -6,8 +6,9 @@ import simulator.*;
 
 public class ParentSearch extends Actor {
 public enum DATA_PS_PS_COMM{
-	PS_START_TRANSMIT_TARGET_DESCRIPTION_PS,
+	PS_START_TRANSMIT_TARGET_DESCRIPTION_PS__PS_START_TRANSMIT_AOI_PS,
 	PS_START_TRANSMIT_AOI_PS,
+	PS_START_TRANSMIT_TARGET_DESCRIPTION_PS,
 	PS_START_TRANSMIT_TERMINATE_SEARCH_PS,
 	PS_START_LISTEN_TO_MM_PS,
 	PS_STOP_LISTEN_TO_MM_PS,
@@ -39,7 +40,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	startState(IDLE);
 }
  public void initializeIDLE(ComChannelList inputs, ComChannelList outputs, State RX_MM, State IDLE, State POKE_MM) {
-	// (IDLE,[E=NEW_SEARCH_EVENT],[],1,NEXT,1.0)x(POKE_MM,[A=PS_POKE_MM,D=PS_START_TRANSMIT_TARGET_DESCRIPTION_PS,D=PS_START_TRANSMIT_AOI_PS],[SEARCH_ACTIVE=TRUE,NEW_SEARCH_AOI=++,NEW_TARGET_DESCRIPTION=++])
+	// (IDLE,[E=NEW_SEARCH_EVENT],[],1,NEXT,1.0)x(POKE_MM,[A=PS_POKE_MM,D=PS_START_TRANSMIT_TARGET_DESCRIPTION_PS__PS_START_TRANSMIT_AOI_PS],[SEARCH_ACTIVE=TRUE,NEW_SEARCH_AOI=++,NEW_TARGET_DESCRIPTION=++])
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_MM, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -47,8 +48,7 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_PS_MM_COMM.name(), ParentSearch.AUDIO_PS_MM_COMM.PS_POKE_MM);
-			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_START_TRANSMIT_TARGET_DESCRIPTION_PS);
-			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_START_TRANSMIT_AOI_PS);
+			setTempOutput(Channels.DATA_PS_PS_COMM.name(), ParentSearch.DATA_PS_PS_COMM.PS_START_TRANSMIT_TARGET_DESCRIPTION_PS__PS_START_TRANSMIT_AOI_PS);
 			setTempInternalVar("SEARCH_ACTIVE", true);
 			setTempInternalVar("NEW_SEARCH_AOI", (Integer)_internal_vars.getVariable("NEW_SEARCH_AOI") + 1);
 			setTempInternalVar("NEW_TARGET_DESCRIPTION", (Integer)_internal_vars.getVariable("NEW_TARGET_DESCRIPTION") + 1);

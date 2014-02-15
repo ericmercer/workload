@@ -22,16 +22,11 @@ public enum Duration {
 	
 	/* Parent Search Durations */
 	
-	PS_SEND_DATA_PS(3),
 	PS_POKE_MM(10), 
-	PS_TX_DATA_MM(5),
 	PS_TX_MM(10),
-	PS_RX_MM(10),
 	
 	/* Mission Manager Durations */
 	
-	MM_POKE_PS(10),
-	MM_POKE_TO_TX_PS(5),
 	MM_RX_PS(22),
 	MM_POKE_VO(10),
 	MM_POKE_OP(10),
@@ -40,11 +35,10 @@ public enum Duration {
 	MM_TX_VGUI(10),
 	MM_TO_IDLE(10),
 	MM_TX_PS(10),
-	MM_TX_VO(120,600),
+	MM_TX_VO(50),//600),
 	
 	/* Video Operator Durations */
 
-	VO_RX_MM(650),
 	VO_TX_MM(10),
 	
 	/* Video Operator Gui Durations */
@@ -52,7 +46,7 @@ public enum Duration {
 	/* UAV Operator Durations */
 	
 	OP_TX_MM(10),
-	OP_TX_OGUI(120,600),
+	OP_TX_OGUI(50),//600),
 	OP_RX_MM(22),
 	OP_OBSERVE_GUI(10),
 	OP_OBSERVE_UAV(10),
@@ -68,17 +62,13 @@ public enum Duration {
 	
 	/* UAV Battery Durations */
 
-	UAVBAT_ACTIVE_TO_LOW(400,500),
+	UAVBAT_ACTIVE_TO_LOW(400),//500),
 	UAVBAT_LOW_TO_DEAD(100),
-	UAVBAT_DURATION(3600),
-	UAV_PATH_DUR(600,800),
+	UAV_PATH_DUR(200,300),
 	
 	/* General */
 	
-	ACK(1),
-	NEXT(1),
-	POKE(10),
-	RANDOM(50);
+	NEXT(1);
 	
 	private Integer _minimum;
 	private Integer _maximum;

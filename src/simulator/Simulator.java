@@ -77,14 +77,32 @@ public class Simulator {
 			updateTransitions();
 			
 			getEnabledTransitions();
-			
 			_clock.advanceTime();
-			
+			clearTeamChannels();
 			processReadyTransitions();
+			//printTeamChannels();
 		} while (!_ready_transitions.isEmpty());
 		
 		MetricManager.getInstance().endSimulation();
 		return null;
+	}
+
+	private void clearTeamChannels() {
+		for(Entry<String, ComChannel<?>> channel_entry: this._team.getAllChannels().entrySet()){
+			String channel = channel_entry.getKey();
+			if(channel.substring(5, 7).equals(channel.substring(8, 10)))
+				channel_entry.getValue().set(null);
+		}
+	}
+
+	private void printTeamChannels() {
+		for(Entry<String, ComChannel<?>> channel_entry: this._team.getAllChannels().entrySet()){
+			String channel = channel_entry.getKey();
+			System.out.println(channel.substring(5, 7) + " " + channel.substring(8, 10));
+			if(channel.substring(5, 7).equals(channel.substring(8, 10)))
+				System.out.println(channel_entry.getKey() + ": " + channel_entry.getValue());
+		}
+		
 	}
 
 	//
@@ -126,6 +144,17 @@ public class Simulator {
 			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
+//			//Store active input data
+//			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
+//				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
+//			}
+//			//Store active output data
+//			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
+//				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
+//			}
+		}
+		for (IActor actor : _team.getActors()){
+
 			//Store active input data
 			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
 				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
