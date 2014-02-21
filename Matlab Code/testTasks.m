@@ -18,6 +18,7 @@ len = size(tasksE);
 for index = 1:len
     taskList(index,1) = strcat(taskList(index,1),tasksE(index,1));
 end
+taskList
 x = 50;
             entry = 1;
             for i=1:size(time)

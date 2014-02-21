@@ -14,40 +14,40 @@ function [ resource, temporal, decision, tasks, time ] = plotWorkloads( name )
     A = Data(1);
     B = A{1};       %time
     A = Data(3);
-    C = A{1};       %resource workload
+    C = A{1};       %resource(Active Inputs) workload
     A = Data(5);
-    E = A{1};       %temporal workload
+    E = A{1};       %decision(transition duration) workload
     A = Data(7);
-    D = A{1};       %decision workload
+    D = A{1};       %decision(enabled transitions) workload
     A = Data(2);
-    F = A{1};       %resource data
+    F = A{1};       %resource(active input) data
     A = Data(4);
-    G = A{1};       %temporal data
+    G = A{1};       %decision(transition duration) data
     A = Data(6);
-    H = A{1};       %decision data
+    H = A{1};       %decision(# enabled transitions) data
     A = Data(8);
     tasks = A{1};
     resource = getResourceData(F);
-    temporal = getTemporalData(G);
-    decision = getTemporalData(H);
+    temporal = getTemporalData();
+    decision = getDecisionData(G,H);
     
     %individual resources
-%     resourceTotal = resource(:,1)+resource(:,2)+resource(:,3);     %combine the three actors' workload
-%     temporalTotal = temporal(:,1)+temporal(:,2)+temporal(:,3);     %combine the three actors' workload
-%     decisionTotal = decision(:,1)+decision(:,2)+decision(:,3);     %combine the three actors' workload
-%     resource = resource./max(resourceTotal);
-%     temporal = temporal./max(temporalTotal);
-%     decision = decision./max(decisionTotal);
+    resourceTotal = resource(:,1)+resource(:,2)+resource(:,3);     %combine the three actors' workload
+    temporalTotal = temporal(:,1)+temporal(:,2)+temporal(:,3);     %combine the three actors' workload
+    decisionTotal = decision(:,1)+decision(:,2)+decision(:,3);     %combine the three actors' workload
+    resource = resource./max(resourceTotal);
+    temporal = temporal./max(temporalTotal);
+    decision = decision./max(decisionTotal);
 
-    for i = 1:3
-        %individual actors
-        r = max(resource(:,i));
-        t = max(temporal(:,i));
-        d = max(decision(:,i));
-        resource(:,i) = resource(:,i)./r;
-        temporal(:,i) = temporal(:,i)./t;
-        decision(:,i) = decision(:,i)./d;
-    end
+%     for i = 1:3
+%         %individual actors
+%         r = max(resource(:,i));
+%         t = max(temporal(:,i));
+%         d = max(decision(:,i));
+%         resource(:,i) = resource(:,i)./r;
+%         temporal(:,i) = temporal(:,i)./t;
+%         decision(:,i) = decision(:,i)./d;
+%     end
     time = B;
 end
 

@@ -68,7 +68,7 @@ public enum Duration {
 	
 	/* General */
 	
-	NEXT(1);
+	NEXT(1), TX_DATA_DUR(60,120);
 	
 	private Integer _minimum;
 	private Integer _maximum;

@@ -43,7 +43,11 @@ public class Interpreter {
 		HashMap<String, ArrayList<String[]>> inputs_outputs = new HashMap<String, ArrayList<String[]>>();
 		for(File file : f.listFiles()){
 			try {
-				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
+				if(!file.getName().equals("Operator.txt") 
+						&& !file.getName().equals("MissionManager.txt") 
+						&& !file.getName().equals("ParentSearch.txt") 
+						&& !file.getName().equals("VideoOperator.txt")
+						)//&& !file.getName().equals("UAVFlightPlan.txt"))
 					continue;
 				StringBuilder memory = new StringBuilder();
 				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
@@ -772,7 +776,7 @@ public class Interpreter {
 		        if(channelDirection.equals("INPUT")){
 		        	text += "\n\t\tinputs.add(_com_channels.get(Channels." + channelName + ".name()));";
 		        }else{
-		        	text += "\n\t\tinputs.add(_com_channels.get(Channels." + channelName + ".name()));";
+		        	text += "\n\t\toutputs.add(_com_channels.get(Channels." + channelName + ".name()));";
 		        }
 	        }
 	        
@@ -796,6 +800,7 @@ public class Interpreter {
 			PrintWriter writer = new PrintWriter(path_name, "UTF-8");
 			writer.println(text);
 			writer.close();
+			System.out.println(path_name);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
