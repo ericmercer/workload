@@ -55,8 +55,7 @@ public class WorkloadBuilder {
 			} else if ( metricKey.getType() == MetricKey.Type.ACTIVE_OUTPUT ) {
 				if ( metric.getData().toString().contains("_START_") ) {
 					taskStarts += "(" + metric.getData() + ")";
-				}
-				if ( metric.getData().toString().contains("_STOP_") ) {
+				}else if ( metric.getData().toString().contains("_STOP_") ) {
 					taskStops += "(" + metric.getData() + ")";
 				}
 			} 

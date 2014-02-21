@@ -81,7 +81,7 @@ public class Simulator {
 			clearTeamChannels();
 			processReadyTransitions();
 			//printTeamChannels();
-		} while (!_ready_transitions.isEmpty());
+		} while (!_ready_transitions.isEmpty() && _clock.getElapsedTime() < 300);
 		
 		MetricManager.getInstance().endSimulation();
 		return null;
