@@ -45,58 +45,96 @@ function [ output_args ] = examinePlots( time, names, fig_num )
 
             to_end = size(time);
             to_end = to_end(1)-x;
-            start_nodes = getStartingTasks(tasksS,tasksE,x);
-            end_nodes = getEndingTasks(tasksS,tasksE,x);
-
+            start_nodes = getStartingTasks(tasksS,tasksE,x)
+            end_nodes = getEndingTasks(tasksS,tasksE,x)
+            taskList = {'tasks'};
+            len = size(tasksS);
+            for index = 1:len
+                taskList(end+1,1) = {''};
+                taskList(end,1) = tasksS(index,1);
+            end
+            len = size(tasksE);
+            for index = 1:len
+                taskList(index,1) = strcat(taskList(index,1),tasksE(index,1));
+            end
+            
+            nodes = getEncapsulatingTasks2(taskList,x);
+%             ps = {'ParentSearch Tasks:'};
+%             st = size(start_nodes);
+%             st = st(1);
+%             en = size(end_nodes);
+%             en = en(1);
+%             for i = 2:st
+%                 start = char(start_nodes(i,1));
+%                 for j = 2:en
+%                     stop = char(end_nodes(j,1));
+%                     if length(start) == length(stop)
+%                         if start == stop
+%                             ps(end+1) = {start};
+%                         end
+%                     end
+%                 end
+%             end
             ps = {'ParentSearch Tasks:'};
-            st = size(start_nodes);
+            st = size(nodes);
             st = st(1);
-            en = size(end_nodes);
-            en = en(1);
             for i = 2:st
-                start = char(start_nodes(i,1));
-                for j = 2:en
-                    stop = char(end_nodes(j,1));
-                    if length(start) == length(stop)
-                        if start == stop
-                            ps(end+1) = {start};
-                        end
+                start = char(nodes(i,1));
+                    if length(start) > 1
+                            ps(end+1,1) = {start};
                     end
-                end
             end
-            
+%             ps
+%             mm = {'MissionManager Tasks:'};
+%             st = size(start_nodes);
+%             st = st(1);
+%             en = size(end_nodes);
+%             en = en(1);
+%             for i = 2:st
+%                 start = char(start_nodes(i,2));
+%                 for j = 2:en
+%                     stop = char(end_nodes(j,2));
+%                     if length(start) == length(stop)
+%                         if start == stop
+%                             mm(end+1,1) = {start};
+%                         end
+%                     end
+%                 end
+%             end
             mm = {'MissionManager Tasks:'};
-            st = size(start_nodes);
+            st = size(nodes);
             st = st(1);
-            en = size(end_nodes);
-            en = en(1);
             for i = 2:st
-                start = char(start_nodes(i,2));
-                for j = 2:en
-                    stop = char(end_nodes(j,2));
-                    if length(start) == length(stop)
-                        if start == stop
+                start = char(nodes(i,2));
+                    if length(start) > 1
                             mm(end+1,1) = {start};
-                        end
                     end
-                end
             end
-            
+%             
+%             op = {'Operator Tasks:'};
+%             st = size(start_nodes);
+%             st = st(1);
+%             en = size(end_nodes);
+%             en = en(1);
+%             for i = 2:st
+%                 start = char(start_nodes(i,3));
+%                 for j = 2:en
+%                     stop = char(end_nodes(j,3));
+%                     if length(start) == length(stop)
+%                         if start == stop
+%                             op(end+1,1) = {start};
+%                         end
+%                     end
+%                 end
+%             end
             op = {'Operator Tasks:'};
-            st = size(start_nodes);
+            st = size(nodes);
             st = st(1);
-            en = size(end_nodes);
-            en = en(1);
             for i = 2:st
-                start = char(start_nodes(i,3));
-                for j = 2:en
-                    stop = char(end_nodes(j,3));
-                    if length(start) == length(stop)
-                        if start == stop
+                start = char(nodes(i,3));
+                    if length(start) > 1
                             op(end+1,1) = {start};
                         end
-                    end
-                end
             end
 
             xl = get(gca, 'XLim');

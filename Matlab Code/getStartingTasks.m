@@ -1,5 +1,6 @@
 function [ start_nodes ] = getStartingTasks( tasksS, tasksE, x )
     to_start = x-1;
+    before_end = x-2;
     ending = size(tasksS);
     ending = ending(1)-1;
     nodesS = {'PS','MM','OP'};
@@ -31,6 +32,8 @@ function [ start_nodes ] = getStartingTasks( tasksS, tasksE, x )
                 end
             end
         end
+    end
+    for index = 1:before_end
         taskE = char(tasksE(x-index,:));
         if(length(taskE > 1))
             taskE = strrep(taskE,'__','][');
