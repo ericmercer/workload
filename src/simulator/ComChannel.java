@@ -5,9 +5,8 @@ import simulator.ComChannel.Type;
 public class ComChannel<T> {
 	public enum Type
 	{
-		VISUAL,
 		AUDIO,
-		DATA
+		DATA, VIDEO
 	}
 	
 	T _value;

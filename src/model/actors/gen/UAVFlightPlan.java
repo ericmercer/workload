@@ -6,16 +6,16 @@ import simulator.*;
 
 public class UAVFlightPlan extends Actor {
 public enum DATA_UAVFP_UAV_COMM{
+	UAVFP_YES_PATH_UAV,
 	UAVFP_PAUSED_UAV,
 	UAVFP_COMPLETE_UAV,
 	UAVFP_NO_PATH_UAV,
-	UAVFP_YES_PATH_UAV,
 }
 public enum DATA_UAVFP_OGUI_COMM{
+	UAVFP_YES_PATH_OGUI,
 	UAVFP_PAUSED_OGUI,
 	UAVFP_COMPLETE_OGUI,
 	UAVFP_NO_PATH_OGUI,
-	UAVFP_YES_PATH_OGUI,
 }
 public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	setName("UAVFlightPlan");
@@ -33,29 +33,29 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	startState(NO_PATH);
 }
  public void initializeNO_PATH(ComChannelList inputs, ComChannelList outputs, State PAUSED, State NO_PATH, State YES_PATH) {
-	// (NO_PATH,[D=OGUI_NEW_FP_UAV,V=UAV_FLYING_OP],[],1,NEXT,1.0)X(YES_PATH,[D=UAVFP_PAUSED_OGUI,D=UAVFP_PAUSED_UAV],[])
+	// (NO_PATH,[D=OGUI_NEW_FP_UAV,V=UAV_FLYING_NORMAL_OP],[],1,NEXT,1.0)X(YES_PATH,[D=UAVFP_YES_PATH_OGUI,D=UAVFP_YES_PATH_UAV],[])
 	NO_PATH.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
-			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
-			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
-			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_PAUSED_UAV);
+			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);
+			setTempOutput(Channels.DATA_UAVFP_UAV_COMM.name(), UAVFlightPlan.DATA_UAVFP_UAV_COMM.UAVFP_YES_PATH_UAV);
 			return true;
 		}
 	}); // in comments
-	// (NO_PATH,[D=OGUI_NEW_FP_UAV,V!=UAV_FLYING_OP],[],1,NEXT,1.0)X(PAUSED,[D=UAVFP_PAUSED_OGUI,D=UAVFP_PAUSED_UAV],[])
+	// (NO_PATH,[D=OGUI_NEW_FP_UAV,V!=UAV_FLYING_NORMAL_OP],[],1,NEXT,1.0)X(PAUSED,[D=UAVFP_PAUSED_OGUI,D=UAVFP_PAUSED_UAV],[])
 	NO_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!OperatorGui.DATA_OGUI_UAV_COMM.OGUI_NEW_FP_UAV.equals(_inputs.get(Channels.DATA_OGUI_UAV_COMM.name()).getValue())) {
 				return false;
 			}
-			if(UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
+			if(UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
@@ -77,11 +77,11 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (YES_PATH,[V!=UAV_FLYING_OP],[],2,NEXT,1.0)X(PAUSED,[D=UAVFP_PAUSED_OGUI,D=UAVFP_PAUSED_UAV],[PAUSE_TIME=-1])
+	// (YES_PATH,[V!=UAV_FLYING_NORMAL_OP],[],2,NEXT,1.0)X(PAUSED,[D=UAVFP_PAUSED_OGUI,D=UAVFP_PAUSED_UAV],[PAUSE_TIME=-1])
 	YES_PATH.add(new Transition(_internal_vars, inputs, outputs, PAUSED, Duration.NEXT.getRange(), 2, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
+			if(UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_PAUSED_OGUI);
@@ -132,11 +132,11 @@ public UAVFlightPlan(ComChannelList inputs, ComChannelList outputs) {
 	add(COMPLETE);
 }
  public void initializeRESUME_AFTER_LAUNCH(ComChannelList inputs, ComChannelList outputs, State RESUME_AFTER_LAUNCH, State YES_PATH) {
-	// (RESUME_AFTER_LAUNCH,[V=UAV_FLYING_OP],[],1,NEXT,1.0)X(YES_PATH,[D=UAVFP_YES_PATH_OGUI,D=UAVFP_YES_PATH_UAV],[])
+	// (RESUME_AFTER_LAUNCH,[V=UAV_FLYING_NORMAL_OP],[],1,NEXT,1.0)X(YES_PATH,[D=UAVFP_YES_PATH_OGUI,D=UAVFP_YES_PATH_UAV],[])
 	RESUME_AFTER_LAUNCH.add(new Transition(_internal_vars, inputs, outputs, YES_PATH, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
-			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_NORMAL_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
 				return false;
 			}
 			setTempOutput(Channels.DATA_UAVFP_OGUI_COMM.name(), UAVFlightPlan.DATA_UAVFP_OGUI_COMM.UAVFP_YES_PATH_OGUI);

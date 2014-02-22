@@ -23,18 +23,18 @@ public enum Duration {
 	/* Parent Search Durations */
 	
 	PS_POKE_MM(10), 
-	PS_TX_MM(10),
+	PS_TX_MM(10,60),
 	
 	/* Mission Manager Durations */
 	
 	MM_RX_PS(22),
 	MM_POKE_VO(10),
 	MM_POKE_OP(10),
-	MM_TX_OP(10),
+	MM_TX_OP(10,60),
 	MM_OBSERVING_VGUI(10),
 	MM_TX_VGUI(10),
 	MM_TO_IDLE(10),
-	MM_TX_PS(10),
+	MM_TX_PS(10,60),
 	MM_TX_VO(50),//600),
 	
 	/* Video Operator Durations */
@@ -45,7 +45,7 @@ public enum Duration {
 	
 	/* UAV Operator Durations */
 	
-	OP_TX_MM(10),
+	OP_TX_MM(10,60),
 	OP_TX_OGUI(50),//600),
 	OP_RX_MM(22),
 	OP_OBSERVE_GUI(10),

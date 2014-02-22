@@ -46,8 +46,10 @@ public class Interpreter {
 				if(!file.getName().equals("Operator.txt") 
 						&& !file.getName().equals("MissionManager.txt") 
 						&& !file.getName().equals("ParentSearch.txt") 
-						&& !file.getName().equals("VideoOperator.txt")
-						)//&& !file.getName().equals("UAVFlightPlan.txt"))
+						//&& !file.getName().equals("VideoOperator.txt")
+						&& !file.getName().equals("UAVFlightPlan.txt")
+						&& !file.getName().equals("OperatorGui.txt")
+						&& !file.getName().equals("UAV.txt"))
 					continue;
 				StringBuilder memory = new StringBuilder();
 				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
@@ -794,18 +796,18 @@ public class Interpreter {
 				+ "\n}";
 		
 		//print the class
-		try {
-			String path_name = "src/model/team/TestWiSARTeam.java";
-			//PrintWriter writer = new PrintWriter("src/model/team/WiSARTeam.java", "UTF-8");
-			PrintWriter writer = new PrintWriter(path_name, "UTF-8");
-			writer.println(text);
-			writer.close();
-			System.out.println(path_name);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			String path_name = "src/model/team/TestWiSARTeam.java";
+//			//PrintWriter writer = new PrintWriter("src/model/team/WiSARTeam.java", "UTF-8");
+//			PrintWriter writer = new PrintWriter(path_name, "UTF-8");
+//			writer.println(text);
+//			writer.close();
+//			System.out.println(path_name);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		return channels;
 	}
 
