@@ -183,6 +183,7 @@ public class Simulator {
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
 			ITransition transition = (ITransition) readyTransition.getValue();
 			transition.fire();
+			_path.append(_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
 		}
 	}
 	
