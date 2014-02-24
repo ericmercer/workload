@@ -27,6 +27,7 @@ public class Simulator {
 	private DebugMode _debugMode;
 	private DurationMode _duration;
 	private Random _random;
+	private StringBuilder _path;
 	
 	//Singleton variables
 	private boolean _setup = false;
@@ -209,7 +210,9 @@ public class Simulator {
 				return 1;
 		}
 	}
-	
+	public String getPath(){
+		return _path.toString();
+	}
 	public Integer getClockTime() {
 		return _clock.getElapsedTime();
 	}
