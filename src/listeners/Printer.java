@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Printer {
-	static Printer _printer;
+	private static Printer _printer;
 	
 	public static Printer getInstance( ) {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class Printer {
 	protected void print( String filename, String string ) {
 		System.out.println("printed " + filename);
 		try {
-			FileWriter writer = new FileWriter( new File( "src/csvFiles/" + filename ) );
+			FileWriter writer = new FileWriter( new File( "src/txtFiles/" + filename ) );
 	
 			writer.write( string );
 			

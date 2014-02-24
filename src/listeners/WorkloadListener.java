@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 import simulator.Metric;
 import simulator.MetricKey;
+import simulator.Simulator;
 
 public class WorkloadListener extends ListenerAdapter {
 
@@ -72,27 +73,33 @@ public class WorkloadListener extends ListenerAdapter {
 
 	private void printCurrentPath() {
 		if( HighestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) > HighestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			Printer.getInstance( ).print( "HCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Decision Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print("Highest Cumulative Decision Workload.txt", Simulator.getSim().getPath());
 			HighestCumulativeDescisionWorkloadPath = currentPath;
 		}
 		if( HighestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) > HighestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			Printer.getInstance( ).print( "HCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Resource Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print("Highest Cumulative Resource Workload.txt", Simulator.getSim().getPath());
 			HighestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if( HighestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) > HighestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			Printer.getInstance( ).print( "HCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Temporal Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print("Highest Cumulative Temporal Workload.txt", Simulator.getSim().getPath());
 			HighestCumulativeTemporalWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) < LowestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			Printer.getInstance( ).print( "LCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Decision Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print("Lowest Cumulative Decision Workload.txt", Simulator.getSim().getPath());
 			LowestCumulativeDescisionWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) < LowestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			Printer.getInstance( ).print( "LCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Resource Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print("Lowest Cumulative Resource Workload.txt", Simulator.getSim().getPath());
 			LowestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) < LowestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			Printer.getInstance( ).print( "LCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Temporal Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print("Lowest Cumulative Temporal Workload.txt", Simulator.getSim().getPath());
 			LowestCumulativeTemporalWorkloadPath = currentPath;
 		}
 	}

@@ -6,12 +6,12 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class Simulator {
-	
+
 	public enum DebugMode {
 		DEBUG,
 		PROD
 	}
-	
+
 	public enum DurationMode {
 		MIN,
 		MAX,
@@ -19,7 +19,7 @@ public class Simulator {
 		MIN_MAX,
 		MIN_MAX_MEAN
 	}
-	
+
 	private ITeam _team;
 	private IDeltaClock _clock;
 	private HashMap<IActor, ITransition> _ready_transitions = new HashMap<IActor, ITransition>();
@@ -27,12 +27,13 @@ public class Simulator {
 	private DebugMode _debugMode;
 	private DurationMode _duration;
 	private Random _random;
-	
+	private StringBuilder _path;
+
 	//Singleton variables
 	private boolean _setup = false;
 	private static Simulator _instance = null;
 	private Date _date = null;
-	
+
 	/**
 	 * Get simulator singleton
 	 * @return
@@ -43,26 +44,27 @@ public class Simulator {
         }
         return _instance;
 	}
-	
+
 	private Simulator() {
 		_clock = new DeltaClock();
 		_date = new Date();
+		_path = new StringBuilder();
 	}
-	
+
 	public void setup(ITeam team, DebugMode mode, DurationMode duration)
 	{
 		_setup = false;
 		_clock = new DeltaClock();
-		
+
 		_team = team;
 		_debugMode = mode;
 		_duration = duration;
-		
+
 		_random = new Random();
 		_random.setSeed(0);
 		_setup = true;
 	}
-	
+
 	/**
 	 * Main Simulation method.
 	 * @return 
@@ -70,19 +72,19 @@ public class Simulator {
 	public String run()
 	{
 		assert _setup : "Simulator not setup correctly";
-	
+
 		do {
 //			if(_clock.getElapsedTime() >= 205)
 //				System.out.print("");
 			updateTransitions();
-			
+
 			getEnabledTransitions();
 			_clock.advanceTime();
 			clearTeamChannels();
 			processReadyTransitions();
 			//printTeamChannels();
-		} while (!_ready_transitions.isEmpty());
-		
+		} while (!_ready_transitions.isEmpty() && _clock.getElapsedTime() < 300);
+
 		MetricManager.getInstance().endSimulation();
 		return null;
 	}
@@ -102,22 +104,22 @@ public class Simulator {
 			if(channel.substring(5, 7).equals(channel.substring(8, 10)))
 				System.out.println(channel_entry.getKey() + ": " + channel_entry.getValue());
 		}
-		
+
 	}
 
 	//
 	//	HELPER METHODS
 	//
-	
+
 	private void updateTransitions() {
 		_team.updateTransitions();
 	}
-	
+
 	private void getEnabledTransitions()
 	{
 		//Get transitions from the events
 		for(IEvent e : _team.getEvents() ) {
-			
+
 			ITransition t = e.getEnabledTransition();
 			if ( _clock.getActorTransition((IActor) e) == null ) {
 				if ( t != null && !e.isFinished() ) {
@@ -130,7 +132,7 @@ public class Simulator {
 				}
 			}
 		}
-		
+
 		//Get transitions from the actors
 		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
 		for(Map.Entry<IActor, ITransition> transitionEntry : transitions.entrySet() ) {
@@ -139,7 +141,7 @@ public class Simulator {
 			ITransition transition = transitionEntry.getValue();
 			int duration = getDuration(transition.getDurationRange());
 			_clock.addTransition(actor, transition, duration);
-			
+
 			//Store enabled transition data
 			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
@@ -164,7 +166,7 @@ public class Simulator {
 				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
 			}
 		}
-		
+
 		//Deactivate outputs from events after one cycle
 		for(IEvent e : _team.getEvents() ) {
 			ITransition t = e.getEnabledTransition();
@@ -182,13 +184,14 @@ public class Simulator {
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
 			ITransition transition = (ITransition) readyTransition.getValue();
 			transition.fire();
+			_path.append(_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
 		}
 	}
-	
+
 	//
 	//	public access
 	//
-	
+
 	public int getDuration(Range range)
 	{
 		int max = range.max();
@@ -209,7 +212,9 @@ public class Simulator {
 				return 1;
 		}
 	}
-	
+	public String getPath(){
+		return _path.toString();
+	}
 	public Integer getClockTime() {
 		return _clock.getElapsedTime();
 	}
