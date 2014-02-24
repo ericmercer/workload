@@ -48,7 +48,7 @@ public class WorkloadBuilder {
 				
 				currentTime = metricKey.getTime();
 				
-				if((window * interval) <= currentTime && (window * interval) > lastTime || currentTime == totalTime) {
+				if((window * interval) < currentTime && (window * interval) >= lastTime) {
 					double opTempo = firedTransitions / window;
 					result += "," + opTempo; 
 					
@@ -79,6 +79,8 @@ public class WorkloadBuilder {
 			
 			lastTime = currentTime;
 		}
+		double opTempo = firedTransitions / window;
+		result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," + enabledTransitions + "," + totalEnabledTransitions + "," + transitionDurations + "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + opTempo;
 		
 		return result;
 	}
