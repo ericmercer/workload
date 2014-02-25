@@ -8,7 +8,6 @@ public class Printer {
 	private static Printer _printer;
 	
 	public static Printer getInstance( ) {
-		// TODO Auto-generated method stub
 		if( _printer == null )
 			_printer = new Printer( );
 		return _printer;
@@ -29,7 +28,6 @@ public class Printer {
 	}
 	
 	protected void print( String filename, String string ) {
-		System.out.println("printed " + filename);
 		try {
 			FileWriter writer = new FileWriter( new File( "src/txtFiles/" + filename ) );
 	

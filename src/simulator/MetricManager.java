@@ -27,12 +27,10 @@ public class MetricManager {
 	}
 
 	public void setActiveOutput(int elapsedTime, String name, String name2, String name3) {
-//		if(name3.contains("STOP") || name3.contains("START"))
-//			System.out.println(elapsedTime + ": " + name3);
 		//Do nothing, JPF handles this.
 	}
 
-	public void endSimulation() {
+	public void endSimulation(String pathData) {
 		//Do nothing, JPF handles this.
 	}
 

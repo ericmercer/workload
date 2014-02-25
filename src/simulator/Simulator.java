@@ -27,7 +27,7 @@ public class Simulator {
 	private DebugMode _debugMode;
 	private DurationMode _duration;
 	private Random _random;
-	private StringBuilder _path;
+	private String _path;
 
 	//Singleton variables
 	private boolean _setup = false;
@@ -48,7 +48,7 @@ public class Simulator {
 	private Simulator() {
 		_clock = new DeltaClock();
 		_date = new Date();
-		_path = new StringBuilder();
+		_path = "";
 	}
 
 	public void setup(ITeam team, DebugMode mode, DurationMode duration)
@@ -85,7 +85,7 @@ public class Simulator {
 			//printTeamChannels();
 		} while (!_ready_transitions.isEmpty() && _clock.getElapsedTime() < 300);
 
-		MetricManager.getInstance().endSimulation();
+		MetricManager.getInstance().endSimulation(_path);
 		return null;
 	}
 
@@ -146,15 +146,8 @@ public class Simulator {
 			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
 			//Store transition duration data
 			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
-//			//Store active input data
-//			for(ComChannel<?> input : actor.getCurrentState().getActiveInputs()) {
-//				MetricManager.getInstance().setActiveInput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), input.getValue().toString());
-//			}
-//			//Store active output data
-//			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
-//				MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
-//			}
 		}
+		
 		for (IActor actor : _team.getActors()){
 
 			//Store active input data
@@ -184,7 +177,7 @@ public class Simulator {
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
 			ITransition transition = (ITransition) readyTransition.getValue();
 			transition.fire();
-			_path.append(_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
+			_path += (_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
 		}
 	}
 
@@ -212,9 +205,7 @@ public class Simulator {
 				return 1;
 		}
 	}
-	public String getPath(){
-		return _path.toString();
-	}
+	
 	public Integer getClockTime() {
 		return _clock.getElapsedTime();
 	}
