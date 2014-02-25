@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 import simulator.Metric;
 import simulator.MetricKey;
+import simulator.Simulator;
 
 public class WorkloadListener extends ListenerAdapter {
 
@@ -67,32 +68,38 @@ public class WorkloadListener extends ListenerAdapter {
 		else if ( fullMethodName.contains( "setActiveOutput" ) )
 			storeActiveOutputs( ti, insnToExecute, mi );
 		else if ( fullMethodName.contains( "endSimulation" ) )
-			printCurrentPath();
+			storePath( ti, insnToExecute, mi );
 	}
 
-	private void printCurrentPath() {
+	private void printCurrentPath(String pathData) {
 		if( HighestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) > HighestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Decision Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Decision Workload.txt", pathData);
 			HighestCumulativeDescisionWorkloadPath = currentPath;
 		}
 		if( HighestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) > HighestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Resource Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Resource Workload.txt", pathData);
 			HighestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if( HighestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) > HighestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "HCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Temporal Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Highest Cumulative Temporal Workload.txt", pathData);
 			HighestCumulativeTemporalWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeDescisionWorkloadPath == null || currentPath.getCumulativeDecisionWorkload( ) < LowestCumulativeDescisionWorkloadPath.getCumulativeDecisionWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCDW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Decision Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Decision Workload.txt", pathData);
 			LowestCumulativeDescisionWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeResourceWorkloadPath == null || currentPath.getCumulativeResourceWorkload( ) < LowestCumulativeResourceWorkloadPath.getCumulativeResourceWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCRW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Resource Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Resource Workload.txt", pathData);
 			LowestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if( LowestCumulativeTemporalWorkloadPath == null || currentPath.getCumulativeTemporalWorkload( ) < LowestCumulativeTemporalWorkloadPath.getCumulativeTemporalWorkload( ) ) {
-			CSVPrinter.getInstance( ).print( "LCTW.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Temporal Workload.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			Printer.getInstance( ).print( "Lowest Cumulative Temporal Workload.txt", pathData);
 			LowestCumulativeTemporalWorkloadPath = currentPath;
 		}
 	}
@@ -179,6 +186,15 @@ public class WorkloadListener extends ListenerAdapter {
 		Metric currentMetric = new Metric( 1, output );
 		storeMetric(currentKey, currentMetric);
 		
+	}
+	
+	private void storePath(ThreadInfo ti, Instruction insnToExecute, MethodInfo mi) {
+		
+		//get parameters
+		ArrayList<Object> parameters = getParameters(ti, insnToExecute, mi);
+		String pathData = DEIToString( parameters.get(1) );
+		
+		printCurrentPath(pathData);
 	}
 	
 	private ArrayList<Object> getParameters( ThreadInfo ti, Instruction insnToExecute, MethodInfo mi ) {
