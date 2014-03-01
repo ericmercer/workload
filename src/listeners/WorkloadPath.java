@@ -15,7 +15,7 @@ public class WorkloadPath {
 	private int CumulativeDecisionWorkload;
 	private int CumulativeTemporalWorkload;
 	private int CumulativeResourceWorkload;
-	
+
 	public WorkloadPath( WorkloadPath old ) {
 		if(old == null) {
 			_values = new TreeMap<MetricKey, Metric>();
@@ -31,27 +31,27 @@ public class WorkloadPath {
 			CumulativeResourceWorkload = old.getCumulativeResourceWorkload();
 		}
 	}
-	
+
 	public TreeMap<MetricKey, Metric> getValues( ) {
 		return _values;
 	}
-	
+
 	public int getCumulativeDecisionWorkload( ) {
 		return CumulativeDecisionWorkload;
 	}
-	
+
 	public int getCumulativeTemporalWorkload( ) {
 		return CumulativeTemporalWorkload;
 	}
-	
+
 	public int getCumulativeResourceWorkload( ) {
 		return CumulativeResourceWorkload;
 	}
-	
+
 	public Metric get( MetricKey metricKey ) {
 		return _values.get(metricKey);
 	}
-	
+
 	public void put( MetricKey metricKey, Metric metric ) {
 		_values.put(metricKey, metric);
 		if( metricKey.getType() == MetricKey.Type.ENABLED_TRANSITION )
@@ -61,16 +61,16 @@ public class WorkloadPath {
 		else if( metricKey.getType() == MetricKey.Type.ACTIVE_INPUT )
 			CumulativeResourceWorkload += metric.getValue();
 	}
-	
+
 	public String toString( ) {
 		String result = "";
-		
+
 		for( Entry<MetricKey, Metric> value : _values.entrySet() ) {
 			MetricKey metricKey = value.getKey();
 			Metric metric = value.getValue();
 			result += "\n" + metricKey.toString() + "\n\t" + metric.toString();
 		}
-		
+
 		return result;
 	}
 }
