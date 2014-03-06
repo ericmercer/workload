@@ -11,7 +11,7 @@ function [ start_nodes ] = getStartingTasks( tasksS, tasksE, x )
         taskS = char(tasksS(x-index,:));
         if(length(taskS) > 1)
             taskS = strrep(taskS,'__','][');
-            [start,endIndex] = regexp(taskS,'\[\w\w_START_\w+]')
+            [start,endIndex] = regexp(taskS,'\[\w\w_START_\w+]');
             num = size(start);
             num = num(2);
             if num > 0

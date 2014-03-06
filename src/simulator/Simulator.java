@@ -83,7 +83,7 @@ public class Simulator {
 			clearTeamChannels();
 			processReadyTransitions();
 			//printTeamChannels();
-		} while (!_ready_transitions.isEmpty() && _clock.getElapsedTime() < 300);
+		} while (!_ready_transitions.isEmpty());
 		MetricManager.getInstance().endSimulation(_path);
 		return null;
 	}
@@ -176,7 +176,7 @@ public class Simulator {
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
 			ITransition transition = (ITransition) readyTransition.getValue();
 			transition.fire();
-			_path += (_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
+//			_path += (_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
 		}
 	}
 
