@@ -161,9 +161,11 @@ public class WorkloadListener extends ListenerAdapter {
 			return;
 
 		//form metrics and keys
-		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ACTIVE_INPUT );
-		Metric currentMetric = new Metric( 1, input );
-		storeMetric(currentKey, currentMetric);
+		if(!input.contains("_START_") && !input.contains("_STOP_")){
+			MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.ACTIVE_INPUT );
+			Metric currentMetric = new Metric( 1, input );
+			storeMetric(currentKey, currentMetric);
+		}
 
 	}
 
