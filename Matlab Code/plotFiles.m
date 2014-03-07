@@ -6,23 +6,24 @@ function [maxTime ] = plotFiles( names, i )
     maxTime = 0;
     for i = 1:6
         [ resource, temporal, decision, tasks, time ] = plotWorkloads( names(i,:) );
-        resource = resource(:,1) + resource(:,2) + resource(:,3);
-        temporal = temporal(:,1) + temporal(:,2) + temporal(:,3);
-        decision = decision(:,1) + decision(:,2) + decision(:,3);
+        resource = resource(:,1) + resource(:,2) + resource(:,3) + resource(:,4);
+        temporal = temporal(:,1) + temporal(:,2) + temporal(:,3) + temporal(:,4);
+        decision = decision(:,1) + decision(:,2) + decision(:,3) + decision(:,4);
         maxR = max(maxR, max(resource(:)));
         maxD = max(maxD, max(decision(:)));
         maxT = max(maxT, max(temporal(:)));
         maxTime = max(maxTime,time(end));
+time(end)
     end
     maxTotal = max(maxR,max(maxD,maxT));
-    i=1;
-%     for i = 1:6
+
+    for i = 1:6
         [ resource, temporal, decision, tasks, time ] = plotWorkloads( names(i,:) );
-%         subplot(3,2,i)
+        subplot(3,2,i)
         hold all
-        resource = resource(:,1) + resource(:,2) + resource(:,3);
-        temporal = temporal(:,1) + temporal(:,2) + temporal(:,3);
-        decision = decision(:,1) + decision(:,2) + decision(:,3);
+        resource = resource(:,1) + resource(:,2) + resource(:,3)+ resource(:,4);
+        temporal = temporal(:,1) + temporal(:,2) + temporal(:,3) + temporal(:,4);
+        decision = decision(:,1) + decision(:,2) + decision(:,3) + decision(:,4);
         
         resource = resource./maxR;
         temporal = temporal./maxT;
@@ -43,6 +44,6 @@ function [maxTime ] = plotFiles( names, i )
         name = strrep(name,'W','Workload');
         title(name);
         hold off
-%     end
+    end
 end
 

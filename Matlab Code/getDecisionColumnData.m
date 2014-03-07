@@ -1,5 +1,6 @@
 function out_data = getDecisionColumnData( in_data )
     OP = 'Operator';
+    VO = 'VideoOperator';
     PS = 'ParentSearch';
     MM = 'MissionManager';
     a = size(in_data);
@@ -7,9 +8,12 @@ function out_data = getDecisionColumnData( in_data )
     out_data(end+1,1) = 0;
     out_data(end,2) = 0;
     out_data(end,3) = 0;
+    out_data(end,4) = 0;
     for i = 2: a(1)
         out_data(end+1,1) = 0;
         out_data(end,2) = 0;
+        out_data(end,3) = 0;
+        out_data(end,4) = 0;
         if length(char(in_data(i,:))) > 1
             string = char(in_data(i,:));
             [start, endIndex] = regexp(string, '\(\w+\s\w+\s\[\d+\]\)');
@@ -32,6 +36,10 @@ function out_data = getDecisionColumnData( in_data )
                     elseif size(MM) == size(actor)
                         if MM == actor
                             k = 3;
+                        end
+                    elseif size(VO) == size(actor)
+                        if VO == actor
+                            k = 4;
                         end
                     end
                     if k ~= -1

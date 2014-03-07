@@ -27,14 +27,16 @@ function [ resource, temporal, decision, tasks, time ] = plotWorkloads( name )
     H = temp_column{1};       %decision(# enabled transitions) data
     temp_column = Data(8);
     tasks = temp_column{1};
+
+
     resource = getResourceData(F);
     temporal = getTemporalData();
     decision = getDecisionData(G,H);
     
-    %individual resources
-    resourceTotal = resource(:,1)+resource(:,2)+resource(:,3);     %combine the three actors' workload
-    temporalTotal = temporal(:,1)+temporal(:,2)+temporal(:,3);     %combine the three actors' workload
-    decisionTotal = decision(:,1)+decision(:,2)+decision(:,3);     %combine the three actors' workload
+%     %individual resources
+%     resourceTotal = resource(:,1)+resource(:,2)+resource(:,3);     %combine the three actors' workload
+%     temporalTotal = temporal(:,1)+temporal(:,2)+temporal(:,3);     %combine the three actors' workload
+%     decisionTotal = decision(:,1)+decision(:,2)+decision(:,3);     %combine the three actors' workload
 
     time = B;
 end

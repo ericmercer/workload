@@ -2,14 +2,12 @@ time, Active Inputs (Actor State [ActiveInput])*, Total Active Inputs, Enabled T
 0,,0,(ParentSearch IDLE [1])(VideoOperator IDLE [1])(Operator IDLE [1]),3,(ParentSearch IDLE [1])(VideoOperator IDLE [1])(Operator IDLE [1]),3,,
 1,(MissionManager IDLE [OP_POKE_MM])(MissionManager IDLE [PS_POKE_MM])(MissionManager IDLE [VO_POKE_MM]),3,(MissionManager IDLE [3]),3,(MissionManager IDLE [1]),1,([PS_START_TRANSMIT_NEW_SEARCH_AOI_PS])([VO_START_TRANSMIT_TARGET_SIGHTING_VO])([OP_START_TRANSMIT_SEARCH_COMPLETE_OP]),
 2,(MissionManager RX_OP [OP_POKE_MM])(MissionManager RX_OP [PS_POKE_MM])(MissionManager RX_OP [VO_POKE_MM])(Operator POKE_MM [MM_ACK_OP]),4,(Operator POKE_MM [1]),1,(Operator POKE_MM [1]),1,([MM_START_LISTEN_TO_OP_MM]),
-3,(MissionManager RX_OP [PS_POKE_MM])(MissionManager RX_OP [VO_POKE_MM])(Operator TX_MM [MM_ACK_OP]),3,(Operator TX_MM [1]),1,(Operator TX_MM [60]),60,,,0.3157894736842105
-63,(MissionManager RX_OP [OP_SEARCH_COMPLETE_MM])(MissionManager RX_OP [PS_POKE_MM])(MissionManager RX_OP [VO_POKE_MM])(Operator END_MM [MM_ACK_OP]),4,(MissionManager RX_OP [1])(Operator END_MM [1]),2,(MissionManager RX_OP [1])(Operator END_MM [1]),2,,([OP_STOP_TRANSMIT_SEARCH_COMPLETE_OP])
-64,(MissionManager IDLE [PS_POKE_MM])(MissionManager IDLE [VO_POKE_MM]),2,(MissionManager IDLE [2]),2,(MissionManager IDLE [1]),1,,([MM_STOP_LISTEN_TO_OP_MM])
-65,(VideoOperator POKE_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM])(MissionManager RX_VO [VO_POKE_MM]),3,(VideoOperator POKE_MM [1]),1,(VideoOperator POKE_MM [1]),1,([MM_START_LISTEN_TO_VO_MM]),
-66,(VideoOperator TX_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM]),2,(VideoOperator TX_MM [1]),1,(VideoOperator TX_MM [60]),60,,
-126,(VideoOperator END_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM])(MissionManager RX_VO [VO_TARGET_SIGHTED_F_MM]),3,(MissionManager RX_VO [1])(VideoOperator END_MM [1]),2,(MissionManager RX_VO [1])(VideoOperator END_MM [1]),2,,([VO_STOP_TRANSMIT_TARGET_SIGHTING_VO])
-127,(MissionManager IDLE [PS_POKE_MM]),1,(MissionManager IDLE [1]),1,(MissionManager IDLE [1]),1,,([MM_STOP_LISTEN_TO_VO_MM])
-128,(ParentSearch POKE_MM [MM_ACK_PS])(MissionManager RX_PS [PS_POKE_MM]),2,(ParentSearch POKE_MM [1]),1,(ParentSearch POKE_MM [1]),1,([MM_START_LISTEN_TO_PS_MM]),
-129,(ParentSearch TX_MM [MM_ACK_PS]),1,(ParentSearch TX_MM [1]),1,(ParentSearch TX_MM [60]),60,,
-189,(ParentSearch END_MM [MM_ACK_PS])(MissionManager RX_PS [PS_NEW_SEARCH_AOI_MM]),2,(ParentSearch END_MM [1])(MissionManager RX_PS [1]),2,(ParentSearch END_MM [1])(MissionManager RX_PS [1]),2,,([PS_STOP_TRANSMIT_NEW_SEARCH_AOI_PS])
-190,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [1]),1,,([MM_STOP_LISTEN_TO_PS_MM]),0.6842105263157895
+3,(MissionManager RX_OP [OP_TX_MM])(MissionManager RX_OP [PS_POKE_MM])(MissionManager RX_OP [VO_POKE_MM])(Operator TX_MM [MM_ACK_OP]),4,(Operator TX_MM [1]),1,(Operator TX_MM [60]),60,,,0.3333333333333333
+63,(MissionManager RX_OP [OP_SEARCH_COMPLETE_MM])(MissionManager RX_OP [PS_POKE_MM])(MissionManager RX_OP [VO_POKE_MM])(Operator END_MM [MM_ACK_OP]),4,(MissionManager RX_OP [3])(Operator END_MM [1]),4,(MissionManager RX_OP [1])(Operator END_MM [1]),2,,([OP_STOP_TRANSMIT_SEARCH_COMPLETE_OP])
+64,(VideoOperator POKE_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM])(MissionManager RX_VO [VO_POKE_MM]),3,(VideoOperator POKE_MM [1]),1,(VideoOperator POKE_MM [1]),1,,([MM_STOP_LISTEN_TO_OP_MM])
+65,(VideoOperator TX_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM])(MissionManager RX_VO [VO_TX_MM]),3,(VideoOperator TX_MM [1]),1,(VideoOperator TX_MM [60]),60,,
+125,(VideoOperator END_MM [MM_ACK_VO])(MissionManager RX_VO [PS_POKE_MM])(MissionManager RX_VO [VO_TARGET_SIGHTED_F_MM]),3,(MissionManager RX_VO [2])(VideoOperator END_MM [1]),3,(MissionManager RX_VO [1])(VideoOperator END_MM [1]),2,,([VO_STOP_TRANSMIT_TARGET_SIGHTING_VO])
+126,(ParentSearch POKE_MM [MM_ACK_PS])(MissionManager RX_PS [PS_POKE_MM]),2,(ParentSearch POKE_MM [1]),1,(ParentSearch POKE_MM [1]),1,,([MM_STOP_LISTEN_TO_VO_MM])
+127,(ParentSearch TX_MM [MM_ACK_PS])(MissionManager RX_PS [PS_TX_MM]),2,(ParentSearch TX_MM [1]),1,(ParentSearch TX_MM [60]),60,,
+187,(ParentSearch END_MM [MM_ACK_PS])(MissionManager RX_PS [PS_NEW_SEARCH_AOI_MM]),2,(ParentSearch END_MM [1])(MissionManager RX_PS [1]),2,(ParentSearch END_MM [1])(MissionManager RX_PS [1]),2,,([PS_STOP_TRANSMIT_NEW_SEARCH_AOI_PS])
+188,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [1]),1,,([MM_STOP_LISTEN_TO_PS_MM]),0.6111111111111112

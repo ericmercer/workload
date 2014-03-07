@@ -11,6 +11,7 @@ public enum DATA_PS_PS_COMM{
 }
 public enum AUDIO_PS_MM_COMM{
 	PS_POKE_MM,
+	PS_TX_MM,
 	PS_NEW_SEARCH_AOI_MM,
 }
 public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
@@ -65,13 +66,14 @@ public ParentSearch(ComChannelList inputs, ComChannelList outputs) {
 	add(END_MM);
 }
  public void initializePOKE_MM(ComChannelList inputs, ComChannelList outputs, State POKE_MM, State TX_MM) {
-	// (POKE_MM,[A=MM_ACK_PS],[],0,NEXT,1.0)X(TX_MM,[],[])
+	// (POKE_MM,[A=MM_ACK_PS],[],0,NEXT,1.0)X(TX_MM,[A=PS_TX_MM],[])
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!MissionManager.AUDIO_MM_PS_COMM.MM_ACK_PS.equals(_inputs.get(Channels.AUDIO_MM_PS_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.AUDIO_PS_MM_COMM.name(), ParentSearch.AUDIO_PS_MM_COMM.PS_TX_MM);
 			return true;
 		}
 	}); // in comments

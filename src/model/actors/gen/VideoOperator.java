@@ -11,6 +11,7 @@ public enum DATA_VO_VO_COMM{
 }
 public enum AUDIO_VO_MM_COMM{
 	VO_POKE_MM,
+	VO_TX_MM,
 	VO_TARGET_SIGHTED_F_MM,
 }
 public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
@@ -65,13 +66,14 @@ public VideoOperator(ComChannelList inputs, ComChannelList outputs) {
 	add(END_MM);
 }
  public void initializePOKE_MM(ComChannelList inputs, ComChannelList outputs, State POKE_MM, State TX_MM) {
-	// (POKE_MM,[A=MM_ACK_VO],[],0,NEXT,1.0)X(TX_MM,[],[])
+	// (POKE_MM,[A=MM_ACK_VO],[],0,NEXT,1.0)X(TX_MM,[A=VO_TX_MM],[])
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!MissionManager.AUDIO_MM_VO_COMM.MM_ACK_VO.equals(_inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.AUDIO_VO_MM_COMM.name(), VideoOperator.AUDIO_VO_MM_COMM.VO_TX_MM);
 			return true;
 		}
 	}); // in comments

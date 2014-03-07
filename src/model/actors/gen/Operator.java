@@ -7,6 +7,7 @@ import simulator.*;
 public class Operator extends Actor {
 public enum AUDIO_OP_MM_COMM{
 	OP_POKE_MM,
+	OP_TX_MM,
 	OP_SEARCH_COMPLETE_MM,
 }
 public enum DATA_OP_OP_COMM{
@@ -65,13 +66,14 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 	add(END_MM);
 }
  public void initializePOKE_MM(ComChannelList inputs, ComChannelList outputs, State POKE_MM, State TX_MM) {
-	// (POKE_MM,[A=MM_ACK_OP],[],0,NEXT,1.0)X(TX_MM,[],[])
+	// (POKE_MM,[A=MM_ACK_OP],[],0,NEXT,1.0)X(TX_MM,[A=OP_TX_MM],[])
 	POKE_MM.add(new Transition(_internal_vars, inputs, outputs, TX_MM, Duration.NEXT.getRange(), 0, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!MissionManager.AUDIO_MM_OP_COMM.MM_ACK_OP.equals(_inputs.get(Channels.AUDIO_MM_OP_COMM.name()).getValue())) {
 				return false;
 			}
+			setTempOutput(Channels.AUDIO_OP_MM_COMM.name(), Operator.AUDIO_OP_MM_COMM.OP_TX_MM);
 			return true;
 		}
 	}); // in comments
