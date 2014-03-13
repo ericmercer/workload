@@ -8,7 +8,7 @@ function [ resource, temporal, decision, tasks, time ] = plotWorkloads( name )
     Header = cat(2, Header{:});
 
     file = fopen(name);
-    Data = textscan(file,'%d%s%d%s%d%s%d%s%s%d','Delimiter',',','HeaderLines',1);
+    Data = textscan(file,'%d%s%d%s%d%s%d%s%s%f','Delimiter',',','HeaderLines',1);
     fclose(file);
 
     temp_column = Data(1);
@@ -27,10 +27,12 @@ function [ resource, temporal, decision, tasks, time ] = plotWorkloads( name )
     H = temp_column{1};       %decision(# enabled transitions) data
     temp_column = Data(8);
     tasks = temp_column{1};
+    temp_column = Data(10);
+    tempo = temp_column{1};     %op tempo
 
 
     resource = getResourceData(F);
-    temporal = getTemporalData();
+    temporal = getTemporalData(tempo);
     decision = getDecisionData(G,H);
     
 %     %individual resources

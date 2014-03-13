@@ -28,11 +28,11 @@ time(end)
         resource = resource./maxR;
         temporal = temporal./maxT;
         decision = decision./maxD;
-        
-        plot(time,resource,'bx--')
+        plot(time,temporal,'rx--');
+        plot(time,resource,'bx--');
         plot(time,decision,'gx--');
         axis([0 maxTime 0 1]);
-        legend('Resource','Decision');
+        legend('Temporal','Resource','Decision');
         name = names(i,:);
         name = strrep(name,'H','Highest ');
         name = strrep(name,'L','Lowest ');
