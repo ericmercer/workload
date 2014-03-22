@@ -23,6 +23,7 @@ public class Simulator {
 	private ITeam _team;
 	private IDeltaClock _clock;
 	private HashMap<IActor, ITransition> _ready_transitions = new HashMap<IActor, ITransition>();
+	private HashMap<IActor, Integer> _ready_durations = new HashMap<IActor, Integer>();
 	private ArrayList<IActor> _active_events = new ArrayList<IActor>();
 	private DebugMode _debugMode;
 	private DurationMode _duration;
@@ -118,11 +119,17 @@ public class Simulator {
 	{
 		//Get transitions from the events
 		for(IEvent e : _team.getEvents() ) {
-
+			
+			IActor a = (IActor) e;
 			ITransition t = e.getEnabledTransition();
-			if ( _clock.getActorTransition((IActor) e) == null ) {
+			
+			if ( _clock.getActorTransition(a) == null ) {
 				if ( t != null && !e.isFinished() ) {
-					_clock.addTransition((IActor) e, t, getDuration(t.getDurationRange()));
+					int duration = getDuration(t.getDurationRange());
+					
+					_clock.addTransition(a, t, duration);
+					_ready_durations.put(a, duration);
+					
 					e.decrementCount();
 				}
 			} else {
@@ -136,15 +143,16 @@ public class Simulator {
 		HashMap<IActor, ITransition> transitions = _team.getEnabledTransitions();
 		for(Map.Entry<IActor, ITransition> transitionEntry : transitions.entrySet() ) {
 			IActor actor = transitionEntry.getKey();
-			int numberOfTransitions = actor.getCurrentState().getEnabledTransitions().size();
 			ITransition transition = transitionEntry.getValue();
+			
+			int numberOfTransitions = actor.getCurrentState().getEnabledTransitions().size();
 			int duration = getDuration(transition.getDurationRange());
+			
 			_clock.addTransition(actor, transition, duration);
+			_ready_durations.put(actor, duration);
 
 			//Store enabled transition data
 			MetricManager.getInstance().setEnabledTransition(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), numberOfTransitions);
-			//Store transition duration data
-			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
 		}
 		
 		for (IActor actor : _team.getActors()){
@@ -174,9 +182,16 @@ public class Simulator {
 		for(Entry<IActor, ITransition> readyTransition : _ready_transitions.entrySet()){
 			if(_debugMode == DebugMode.DEBUG)
 				System.out.println(_clock.getElapsedTime() + "\t" + readyTransition.toString());
+			
+			IActor actor = (IActor) readyTransition.getKey();
 			ITransition transition = (ITransition) readyTransition.getValue();
+			
 			transition.fire();
 			_path += (_clock.getElapsedTime() + "\t" + readyTransition.toString() + "\n");
+			int duration = _ready_durations.get(actor);
+			
+			//Store transition duration data
+			MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
 		}
 	}
 
