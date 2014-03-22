@@ -17,7 +17,7 @@ public enum DATA_MM_MM_COMM{
 	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_AOI_MM__MM_START_SEARCH_MM,
 	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TARGET_DESCRIPTION_MM,
 	MM_STOP_LISTEN_TO_PS_MM__MM_START_TRANSMIT_TERMINATE_SEARCH_MM__MM_STOP_SEARCH_MM,
-	MM_STOP_TRANSMIT_AOI_MM__MM_START_TRANSMIT_AOI_MM,
+	MM_STOP_TRANSMIT_AOI_MM,
 	MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_COMPLETE_MM,
 	MM_STOP_LISTEN_TO_OP_MM__MM_START_TRANSMIT_SEARCH_FAILED_MM,
 	MM_STOP_TRANSMIT_TARGET_DESCRIPTION_MM,
@@ -651,7 +651,7 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 	add(END_PS);
 }
  public void initializeTX_OP(ComChannelList inputs, ComChannelList outputs, State TX_OP, State END_OP) {
-	// (TX_OP,[],[AREA_OF_INTEREST=NEW],1,MM_TX_OP,1.0)x(END_OP,[A=MM_NEW_SEARCH_AOI_OP,D=MM_STOP_TRANSMIT_AOI_MM__MM_START_TRANSMIT_AOI_MM],[])
+	// (TX_OP,[],[AREA_OF_INTEREST=NEW],1,MM_TX_OP,1.0)x(END_OP,[A=MM_NEW_SEARCH_AOI_OP,D=MM_STOP_TRANSMIT_AOI_MM],[AREA_OF_INTEREST=CURRENT])
 	TX_OP.add(new Transition(_internal_vars, inputs, outputs, END_OP, Duration.MM_TX_OP.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
@@ -659,7 +659,8 @@ public MissionManager(ComChannelList inputs, ComChannelList outputs) {
 				return false;
 			}
 			setTempOutput(Channels.AUDIO_MM_OP_COMM.name(), MissionManager.AUDIO_MM_OP_COMM.MM_NEW_SEARCH_AOI_OP);
-			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_AOI_MM__MM_START_TRANSMIT_AOI_MM);
+			setTempOutput(Channels.DATA_MM_MM_COMM.name(), MissionManager.DATA_MM_MM_COMM.MM_STOP_TRANSMIT_AOI_MM);
+			setTempInternalVar("AREA_OF_INTEREST", "CURRENT");
 			return true;
 		}
 	}); // in comments

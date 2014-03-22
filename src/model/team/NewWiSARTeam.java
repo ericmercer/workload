@@ -167,6 +167,7 @@ public class NewWiSARTeam extends Team {
 		inputs.clear();
 		inputs.add(_com_channels.get(Channels.AUDIO_MM_VO_COMM.name()));
 		inputs.add(_com_channels.get(Channels.DATA_UAV_VGUI_COMM.name()));
+		inputs.add(_com_channels.get(Channels.VIDEO_UAV_OP_COMM.name()));
 		outputs.clear();
 		outputs.add(_com_channels.get(Channels.AUDIO_VO_MM_COMM.name()));
 		outputs.add(_com_channels.get(Channels.AUDIO_VO_OP_COMM.name()));

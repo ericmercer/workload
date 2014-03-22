@@ -1,0 +1,8 @@
+target=model.WiSARModel
+cg.enumerate_random = true
+classpath=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHMS/SingleSighting/bin/
+sourcepath=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHMS/SingleSighting/src/
+native_classpath+=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHMS/SingleSighting/bin/;
+#listeners
+listener+=listeners.WorkloadListener;
+method.exclude=model.*;database.*;java.*;

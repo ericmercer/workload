@@ -17,6 +17,7 @@ public enum DATA_OP_UAV_COMM{
 }
 public enum DATA_OP_OP_COMM{
 	OP_START_LISTEN_TO_MM_OP,
+	OP_START_LAND_OP,
 	OP_START_LAUNCH_OP,
 	OP_STOP_HANDLE_BATTERY_OP,
 	OP_STOP_LAUNCH_OP,
@@ -28,7 +29,6 @@ public enum DATA_OP_OP_COMM{
 	OP_STOP_LISTEN_TO_MM_OP__OP_START_SET_AOI_OP,
 	OP_STOP_LISTEN_TO_MM_OP__OP_START_TERMINATE_SEARCH_OP__OP_START_LAND_OP,
 	OP_STOP_LISTEN_TO_MM_OP,
-	OP_START_LAND_OP,
 	OP_STOP_SET_AOI_OP__OP_START_SEARCH_OP,
 }
 public enum DATA_OP_OGUI_COMM{
@@ -95,13 +95,14 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			return true;
 		}
 	}); // in comments
-	// (IDLE,[],[LAND_UAV=TRUE],1,NEXT,1.0)x(POKE_OGUI,[],[])
+	// (IDLE,[],[LAND_UAV=TRUE],1,NEXT,1.0)x(POKE_OGUI,[D=OP_START_LAND_OP],[])
 	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
 		@Override
 		public boolean isEnabled() { 
 			if(!new Boolean(true).equals(_internal_vars.getVariable ("LAND_UAV"))) {
 				return false;
 			}
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LAND_OP);
 			return true;
 		}
 	}); // in comments
@@ -130,6 +131,21 @@ public Operator(ComChannelList inputs, ComChannelList outputs) {
 			if(_internal_vars.getVariable("NEW_SEARCH_AOI") instanceof Integer && new Integer(0) >= (Integer) _internal_vars.getVariable ("NEW_SEARCH_AOI")) {
 				return false;
 			}
+			return true;
+		}
+	}); // in comments
+	// (IDLE,[V=UAV_FLYING_OP],[SEARCH_COMPLETE=TRUE],1,NEXT,1.0)X(POKE_OGUI,[D=OP_START_LAND_OP],[LAND_UAV=TRUE])
+	IDLE.add(new Transition(_internal_vars, inputs, outputs, POKE_OGUI, Duration.NEXT.getRange(), 1, 1.0) {
+		@Override
+		public boolean isEnabled() { 
+			if(!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())) {
+				return false;
+			}
+			if(!new Boolean(true).equals(_internal_vars.getVariable ("SEARCH_COMPLETE"))) {
+				return false;
+			}
+			setTempOutput(Channels.DATA_OP_OP_COMM.name(), Operator.DATA_OP_OP_COMM.OP_START_LAND_OP);
+			setTempInternalVar("LAND_UAV", true);
 			return true;
 		}
 	}); // in comments

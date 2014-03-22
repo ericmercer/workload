@@ -53,6 +53,20 @@ public class VO_WateredDown extends Actor {
 			@Override
 			public boolean isEnabled(){
 				if(UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+//						|| !UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())){
+					return false;
+				}
+				if (!UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue()))
+					return false;
+				
+				return true;
+			}
+		});
+		IDLE.add(new Transition(_internal_vars,inputs,outputs,IDLE){//(IDLE, [], [])->(IDLE , [], [])
+			@Override
+			public boolean isEnabled(){
+				if(UAV.DATA_UAV_VGUI.UAV_CRASHED_VGUI.equals(_inputs.get(Channels.DATA_UAV_VGUI_COMM.name()).getValue())){
+//								|| !UAV.VIDEO_UAV_OP_COMM.UAV_FLYING_OP.equals(_inputs.get(Channels.VIDEO_UAV_OP_COMM.name()).getValue())){
 					return false;
 				}
 				Object AUDIO_MM_VO_COMM = _inputs.get(Channels.AUDIO_MM_VO_COMM.name()).getValue();

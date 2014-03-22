@@ -1,0 +1,330 @@
+1	model.events.NewSearchEvent@43238=(start, [ NEW_SEARCH_EVENT=true,  ], [ name=default actor,  ]) ->
+		 (start, [  ], [  ])
+1	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [  ], [ UAV_STATE=LANDED, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+2	ParentSearch(): POKE_MM X =(POKE_MM, [  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, NEW_SEARCH_AOI=1, SEARCH_ACTIVE=true,  ]) ->
+		 (POKE_MM, [  ], [  ])
+3	MissionManager(): RX_PS X =(RX_PS, [ AUDIO_PS_MM_COMM=PS_POKE_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=,  ]) ->
+		 (RX_PS, [  ], [  ])
+4	ParentSearch(): TX_MM X =(TX_MM, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, NEW_SEARCH_AOI=1, SEARCH_ACTIVE=true,  ]) ->
+		 (TX_MM, [  ], [  ])
+14	ParentSearch(): END_MM X =(END_MM, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (END_MM, [  ], [  ])
+15	ParentSearch(): IDLE X =(IDLE, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (IDLE, [  ], [  ])
+15	MissionManager(): IDLE X =(IDLE, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (IDLE, [  ], [  ])
+16	ParentSearch(): POKE_MM X =(POKE_MM, [  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (POKE_MM, [  ], [  ])
+16	MissionManager(): POKE_OP X =(POKE_OP, [ AUDIO_PS_MM_COMM=PS_POKE_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (POKE_OP, [  ], [  ])
+17	MissionManager(): RX_PS X =(RX_PS, [ AUDIO_PS_MM_COMM=PS_POKE_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (RX_PS, [  ], [  ])
+18	ParentSearch(): TX_MM X =(TX_MM, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ NEW_TARGET_DESCRIPTION=1, name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (TX_MM, [  ], [  ])
+18	Operator(): RX_MM X =(RX_MM, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, AUDIO_MM_OP_COMM=MM_END_OP,  ], [ name=Operator,  ]) ->
+		 (RX_MM, [  ], [  ])
+19	Operator(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, AUDIO_MM_OP_COMM=MM_END_OP,  ], [ name=Operator,  ]) ->
+		 (IDLE, [  ], [  ])
+28	ParentSearch(): END_MM X =(END_MM, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (END_MM, [  ], [  ])
+29	ParentSearch(): IDLE X =(IDLE, [ AUDIO_MM_PS_COMM=MM_ACK_PS,  ], [ name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (IDLE, [  ], [  ])
+29	MissionManager(): IDLE X =(IDLE, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=NEW, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (IDLE, [  ], [  ])
+30	MissionManager(): POKE_VO X =(POKE_VO, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=NEW, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (POKE_VO, [  ], [  ])
+31	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, AUDIO_MM_VO_COMM=MM_POKE_VO,  ], [ TARGET_DESCRIPTION=, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+32	MissionManager(): TX_VO X =(TX_VO, [ AUDIO_VO_MM_COMM=VO_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=NEW, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (TX_VO, [  ], [  ])
+32	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP,  ], [ TARGET_DESCRIPTION=, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+82	MissionManager(): END_VO X =(END_VO, [ AUDIO_VO_MM_COMM=VO_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (END_VO, [  ], [  ])
+83	MissionManager(): IDLE X =(IDLE, [ AUDIO_VO_MM_COMM=VO_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (IDLE, [  ], [  ])
+83	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+84	MissionManager(): POKE_OP X =(POKE_OP, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (POKE_OP, [  ], [  ])
+85	Operator(): RX_MM X =(RX_MM, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, AUDIO_MM_OP_COMM=MM_POKE_OP,  ], [ name=Operator,  ]) ->
+		 (RX_MM, [  ], [  ])
+86	MissionManager(): TX_OP X =(TX_OP, [ AUDIO_OP_MM_COMM=OP_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=NEW,  ]) ->
+		 (TX_OP, [  ], [  ])
+96	MissionManager(): END_OP X =(END_OP, [ AUDIO_OP_MM_COMM=OP_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (END_OP, [  ], [  ])
+97	MissionManager(): IDLE X =(IDLE, [ AUDIO_OP_MM_COMM=OP_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (IDLE, [  ], [  ])
+97	Operator(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP,  ], [ name=Operator, NEW_SEARCH_AOI=1,  ]) ->
+		 (IDLE, [  ], [  ])
+98	Operator(): LAUNCH_UAV X =(LAUNCH_UAV, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP,  ], [ name=Operator, NEW_SEARCH_AOI=1,  ]) ->
+		 (LAUNCH_UAV, [  ], [  ])
+99	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+100	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+101	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+102	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+103	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+104	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+105	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+106	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+107	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+108	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+109	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+110	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+111	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+112	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+113	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+114	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+115	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+116	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+117	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+118	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+119	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+120	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+121	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+122	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+123	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+124	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+125	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+126	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+127	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+128	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+129	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+130	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+131	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+132	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+133	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+134	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+135	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+136	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+137	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+138	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+139	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+140	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+141	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+142	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+143	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+144	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+145	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+146	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+147	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+148	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+148	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+149	UAVBattery(): GOOD X =(GOOD, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_OP_UAV_COMM=OP_TAKE_OFF_UAV, VIDEO_OGUI_OP_COMM=OGUI_FLYING_NORMAL_OP,  ], [ name=UAVBattery,  ]) ->
+		 (GOOD, [  ], [  ])
+149	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+149	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FLYING_NORMAL_OP,  ], [ name=Operator, NEW_SEARCH_AOI=1,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+150	Operator(): POKE_OGUI X =(POKE_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FLYING_NORMAL_OP,  ], [ name=Operator, NEW_SEARCH_AOI=1,  ]) ->
+		 (POKE_OGUI, [  ], [  ])
+151	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+152	Operator(): TX_OGUI X =(TX_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FLYING_NORMAL_OP,  ], [ name=Operator, NEW_SEARCH_AOI=1,  ]) ->
+		 (TX_OGUI, [  ], [  ])
+153	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+199	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+200	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+249	Operator(): END_OGUI X =(END_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FLYING_NORMAL_OP,  ], [ name=Operator,  ]) ->
+		 (END_OGUI, [  ], [  ])
+250	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+251	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_OP_OGUI_COMM=OP_NEW_SEARCH_AOI_OGUI, DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+252	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+253	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+254	UAVFlightPlan(): YES_PATH X =(YES_PATH, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_OGUI_UAV_COMM=OGUI_NEW_FP_UAV,  ], [ START_TIME=251, DURATION=-1, name=UAVFlightPlan,  ]) ->
+		 (YES_PATH, [  ], [  ])
+255	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+256	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVFP_UAV_COMM=UAVFP_PAUSED_UAV, DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV, DATA_UAVFP_OGUI_COMM=UAVFP_PAUSED_OGUI,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+257	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+266	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+267	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+277	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+278	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+288	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+289	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+299	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+300	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+310	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+311	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+321	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+322	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+332	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+333	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+343	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+344	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+354	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+355	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+365	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_FP_PAUSED_OP,  ], [ name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+366	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+375	UAVFlightPlan(): COMPLETE X =(COMPLETE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ START_TIME=251, DURATION=100, name=UAVFlightPlan,  ]) ->
+		 (COMPLETE, [  ], [  ])
+376	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+377	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVFP_UAV_COMM=UAVFP_COMPLETE_UAV, DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV, DATA_UAVFP_OGUI_COMM=UAVFP_COMPLETE_OGUI,  ], [ UAV_STATE=FLYING, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+378	UAVFlightPlan(): NO_PATH X =(NO_PATH, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP,  ], [ START_TIME=251, DURATION=100, name=UAVFlightPlan,  ]) ->
+		 (NO_PATH, [  ], [  ])
+379	Operator(): POKE_MM X =(POKE_MM, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (POKE_MM, [  ], [  ])
+380	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+381	MissionManager(): RX_OP X =(RX_OP, [ AUDIO_OP_MM_COMM=OP_POKE_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (RX_OP, [  ], [  ])
+382	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+383	Operator(): TX_MM X =(TX_MM, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP, AUDIO_MM_OP_COMM=MM_ACK_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (TX_MM, [  ], [  ])
+384	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+394	Operator(): END_MM X =(END_MM, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP, AUDIO_MM_OP_COMM=MM_ACK_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (END_MM, [  ], [  ])
+395	MissionManager(): IDLE X =(IDLE, [ AUDIO_OP_MM_COMM=OP_SEARCH_COMPLETE_MM,  ], [ TERMINATE_SEARCH_OP=, SEARCH_COMPLETE=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (IDLE, [  ], [  ])
+396	Operator(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (IDLE, [  ], [  ])
+397	MissionManager(): POKE_PS X =(POKE_PS, [  ], [ TERMINATE_SEARCH_OP=, SEARCH_COMPLETE=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (POKE_PS, [  ], [  ])
+398	Operator(): POKE_OGUI X =(POKE_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP,  ], [ SEARCH_AOI_COMPLETE=true, LAND_UAV=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (POKE_OGUI, [  ], [  ])
+399	ParentSearch(): RX_MM X =(RX_MM, [ AUDIO_MM_PS_COMM=MM_POKE_PS,  ], [ name=ParentSearch, SEARCH_ACTIVE=true,  ]) ->
+		 (RX_MM, [  ], [  ])
+400	Operator(): TX_OGUI X =(TX_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP,  ], [ SEARCH_AOI_COMPLETE=true, LAND_UAV=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (TX_OGUI, [  ], [  ])
+401	MissionManager(): TX_PS X =(TX_PS, [ AUDIO_PS_MM_COMM=PS_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, SEARCH_COMPLETE=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (TX_PS, [  ], [  ])
+402	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+412	MissionManager(): END_PS X =(END_PS, [ AUDIO_PS_MM_COMM=PS_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (END_PS, [  ], [  ])
+413	ParentSearch(): IDLE X =(IDLE, [ AUDIO_MM_PS_COMM=MM_SEARCH_COMPLETE_PS,  ], [ SEARCH_COMPLETE=true, name=ParentSearch,  ]) ->
+		 (IDLE, [  ], [  ])
+414	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+415	MissionManager(): IDLE X =(IDLE, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (IDLE, [  ], [  ])
+416	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+455	Operator(): END_OGUI X =(END_OGUI, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, VIDEO_OGUI_OP_COMM=OGUI_PATH_COMPLETE_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (END_OGUI, [  ], [  ])
+456	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_FLYING_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+457	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVFP_UAV_COMM=UAVFP_NO_PATH_UAV, DATA_OP_OGUI_COMM=OP_LAND_OGUI, DATA_UAVBAT_UAV_COMM=UAVBAT_GOOD_UAV, DATA_UAVFP_OGUI_COMM=UAVFP_NO_PATH_OGUI,  ], [ UAV_STATE=LANDED, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+458	UAVBattery(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP, DATA_OP_OGUI_COMM=OP_LAND_OGUI,  ], [ name=UAVBattery,  ]) ->
+		 (IDLE, [  ], [  ])
+458	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_UAV_VGUI_COMM=UAV_FLYING_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, NEW_TARGET_SIGHTED_T=1, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+458	Operator(): OBSERVE_GUI X =(OBSERVE_GUI, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (OBSERVE_GUI, [  ], [  ])
+458	UAV_OGUI_WateredDown(): IDLE X =(IDLE, [ DATA_UAVFP_UAV_COMM=UAVFP_NO_PATH_UAV, DATA_UAVFP_OGUI_COMM=UAVFP_NO_PATH_OGUI,  ], [ UAV_STATE=LANDED, name=UAV_OGUI_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+459	MissionManager(): RX_VO X =(RX_VO, [ AUDIO_VO_MM_COMM=VO_POKE_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (RX_VO, [  ], [  ])
+459	Operator(): OBSERVE_UAV X =(OBSERVE_UAV, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (OBSERVE_UAV, [  ], [  ])
+460	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, AUDIO_MM_VO_COMM=MM_ACK_VO, DATA_UAV_VGUI_COMM=UAV_LANDED_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, NEW_TARGET_SIGHTED_T=2, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+460	Operator(): POST_FLIGHT X =(POST_FLIGHT, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (POST_FLIGHT, [  ], [  ])
+461	MissionManager(): IDLE X =(IDLE, [ AUDIO_VO_MM_COMM=VO_TARGET_SIGHTED_T_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_SIGHTED_T=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (IDLE, [  ], [  ])
+462	MissionManager(): POKE_PS X =(POKE_PS, [ AUDIO_VO_MM_COMM=VO_TARGET_SIGHTED_T_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_SIGHTED_T=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (POKE_PS, [  ], [  ])
+463	VO_WateredDown(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, DATA_UAV_VGUI_COMM=UAV_LANDED_VGUI,  ], [ TARGET_DESCRIPTION=CURRENT, NEW_TARGET_SIGHTED_T=2, name=VO_WateredDown,  ]) ->
+		 (IDLE, [  ], [  ])
+464	ParentSearch(): RX_MM X =(RX_MM, [ AUDIO_MM_PS_COMM=MM_POKE_PS,  ], [ SEARCH_COMPLETE=true, name=ParentSearch,  ]) ->
+		 (RX_MM, [  ], [  ])
+465	MissionManager(): TX_PS X =(TX_PS, [ AUDIO_PS_MM_COMM=PS_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_SIGHTED_T=true, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (TX_PS, [  ], [  ])
+472	Operator(): POST_FLIGHT_COMPLETE X =(POST_FLIGHT_COMPLETE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (POST_FLIGHT_COMPLETE, [  ], [  ])
+473	Operator(): IDLE X =(IDLE, [ VIDEO_UAV_OP_COMM=UAV_LANDED_OP, VIDEO_OGUI_OP_COMM=OGUI_LANDED_OP,  ], [ SEARCH_AOI_COMPLETE=true, SEARCH_COMPLETE=true, name=Operator,  ]) ->
+		 (IDLE, [  ], [  ])
+475	MissionManager(): END_PS X =(END_PS, [ AUDIO_PS_MM_COMM=PS_ACK_MM,  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (END_PS, [  ], [  ])
+476	ParentSearch(): IDLE X =(IDLE, [ AUDIO_MM_PS_COMM=MM_TARGET_SIGHTED_T_PS,  ], [ SEARCH_COMPLETE=true, name=ParentSearch, TARGET_FOUND=true,  ]) ->
+		 (IDLE, [  ], [  ])
+476	MissionManager(): IDLE X =(IDLE, [  ], [ TERMINATE_SEARCH_OP=, TARGET_DESCRIPTION=CURRENT, TERMINATE_SEARCH_VO=, name=MissionManager, AREA_OF_INTEREST=CURRENT,  ]) ->
+		 (IDLE, [  ], [  ])

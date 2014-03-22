@@ -190,7 +190,7 @@ public class UAV_OGUI_WateredDown extends simulator.Actor {
 		});
 
 		//if the uav takes off report it
-		IDLE.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.NEXT.getRange(), 4, 1.0){
+		IDLE.add(new Transition(_internal_vars, inputs, outputs, IDLE, Duration.UAV_TAKE_OFF.getRange(), 4, 1.0){
 			@Override
 			public boolean isEnabled(){
 				//default outputs

@@ -58,13 +58,13 @@ public enum Duration {
 	
 	UAV_ADJUST_PATH(60),
 	UAV_LANDING(10),
-	UAV_TAKE_OFF(10),
+	UAV_TAKE_OFF(50),
 	
 	/* UAV Battery Durations */
 
 	UAVBAT_ACTIVE_TO_LOW(400),//500),
 	UAVBAT_LOW_TO_DEAD(100),
-	UAV_PATH_DUR(200,300),
+	UAV_PATH_DUR(100,200),
 	
 	/* General */
 	
