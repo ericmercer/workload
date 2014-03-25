@@ -9,7 +9,9 @@ function [out_data, timeR] = getResourceData(time, in_data)
     out_data(end,2) = 0;
     out_data(end,3) = 0;
     out_data(end,4) = 0;
+    timeR = [];
     for i = 2: a(1)
+        timeR(end+1) = time(i);
         out_data(end+1,1) = 0;
         out_data(end,2) = 0;
         out_data(end,3) = 0;
@@ -48,8 +50,36 @@ function [out_data, timeR] = getResourceData(time, in_data)
                         end
                     end
                 end
-           end
+            end
         end
     end
-    timeR = time;
+    
+    last_time = timeR(end);
+    i = 1;
+    temp = [];
+    temp_t = [];
+    while timeR(i) < last_time
+        t1 = out_data(i,1);
+        t2 = out_data(i,2);
+        t3 = out_data(i,3);
+        t4 = out_data(i,4);
+        temp(end+1,1) = t1;
+        temp(end,2) = t2;
+        temp(end,3) = t3;
+        temp(end,4) = t4;
+        temp_t(end+1) = timeR(i);
+        j = timeR(i);
+        while j < timeR(i+1)
+            temp(end+1,1) = t1;
+            temp(end,2) = t2;
+            temp(end,3) = t3;
+            temp(end,4) = t4;
+            temp_t(end+1) = j + 1;
+            j = j + 1;
+        end
+        i = i + 1;
+            
+    end
+    timeR = temp_t;
+    out_data = temp;
 end

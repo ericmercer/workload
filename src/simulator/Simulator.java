@@ -212,9 +212,9 @@ public class Simulator {
 			case MEAN:
 				return mean;
 			case MIN_MAX:
-				return Verify.getIntFromList(min, max);
+				return Verify.getIntFromList(new int[]{min, max});
 			case MIN_MAX_MEAN:
-				return Verify.getIntFromList(min, max);
+				return Verify.getIntFromList(new int[]{min, max});
 			default:
 				return 1;
 		}

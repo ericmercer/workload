@@ -1,4 +1,4 @@
-function out_data = getDecisionDurationColumnData( in_data, time )
+function [out_data, time] = getDecisionDurationColumnData( in_data, time )
     OP = 'Operator';
     VO = 'VideoOperator';
     PS = 'ParentSearch';
@@ -55,8 +55,13 @@ function out_data = getDecisionDurationColumnData( in_data, time )
                                 else
                                     out_data(t,k) = out_data(t,k) + 1;
                                 end
+%                                 while time(t) ~= time(t-1)+1
+%                                     time(t:end+1,:) = time(t-1:end,:);
+%                                     time(t-1,:) = time(t)-1;
+%                                     out_data(t:end+1,:) = out_data(t-1:end,:);
+%                                     out_data(t-1,k) = 1;
+%                                 end
                                 t = t - 1;
-                                out_data
                             end
                         end
                     end
@@ -64,6 +69,35 @@ function out_data = getDecisionDurationColumnData( in_data, time )
             end
         end
     end
+    
+%         last_time = time(end);
+%     i = 1;
+%     temp = [];
+%     temp_t = [];
+%     while time(i) < last_time
+%         t1 = out_data(i,1);
+%         t2 = out_data(i,2);
+%         t3 = out_data(i,3);
+%         t4 = out_data(i,4);
+%         temp(end+1,1) = t1;
+%         temp(end,2) = t2;
+%         temp(end,3) = t3;
+%         temp(end,4) = t4;
+%         temp_t(end+1) = time(i);
+%         j = time(i);
+%         while j < time(i+1)
+%             temp(end+1,1) = t1;
+%             temp(end,2) = t2;
+%             temp(end,3) = t3;
+%             temp(end,4) = t4;
+%             temp_t(end+1) = j + 1;
+%             j = j + 1;
+%         end
+%         i = i + 1;
+%             
+%     end
+%     time = temp_t;
+%     out_data = temp
 end
 
 

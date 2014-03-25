@@ -22,9 +22,9 @@ function [ resource, temporal, decision, tasks, time, timeT, timeR, timeD ] = pl
     temp_column = Data(2);
     F = temp_column{1};       %resource(active input) data
     temp_column = Data(4);
-    G = temp_column{1};       %decision(transition duration) data
+    G = temp_column{1};       %decision(# enabled transitions) data
     temp_column = Data(6);
-    H = temp_column{1};       %decision(# enabled transitions) data
+    H = temp_column{1};       %decision(transition duration) data
     temp_column = Data(8);
     tasks = temp_column{1};
     temp_column = Data(10);
@@ -32,7 +32,7 @@ function [ resource, temporal, decision, tasks, time, timeT, timeR, timeD ] = pl
 
 
     [resource, timeR] = getResourceData(B, F);
-    [temporal, timeT] = getTemporalData(B, tempo);
+    [temporal, timeT] = getTemporalData(B, H);
     [decision, timeD] = getDecisionData(B, G,H);
     
     last_time = max(timeR);

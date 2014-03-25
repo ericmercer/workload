@@ -57,6 +57,8 @@ function out_data = getDecisionColumnData( in_data )
             end
         end
     end
+    
+
 end
 
 

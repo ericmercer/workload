@@ -27,16 +27,17 @@ decision;
         temporal = temporal(:,1) + temporal(:,2) + temporal(:,3) + temporal(:,4);
         decision = decision(:,1) + decision(:,2) + decision(:,3) + decision(:,4);
 
-        maxsize = size(decision);
-        new_decision = [];
-        timeD = [];
-        for j = 1:maxsize
-            if decision(j) ~= 0
-                new_decision(end+1) = decision(j);
-                timeD(end+1) = time(j);
-            end
-        end
-        decision = new_decision;
+%         maxsize = size(decision);
+%         new_decision = [];
+%         new_timeD = [];
+%         for j = 1:maxsize
+%             if decision(j) ~= 0
+%                 new_decision(end+1) = decision(j);
+%                 new_timeD(end+1) = timeD(j);
+%             end
+%         end
+%         decision = new_decision;
+%         timeD = new_timeD;
         maxsize = size(resource);
         new_resource = [];
         new_timeR = [];
@@ -48,24 +49,18 @@ decision;
         end
         timeR = new_timeR;
         resource = new_resource;
-        maxsize = size(temporal);
+        maxsize = size(temporal)-1;
         new_temporal = [];
-        timeT = [];
-        for j = 1:maxsize
-            if temporal(j) ~= 0
-                new_temporal(end+1) = temporal(j);
-                timeT(end+1) = time(j);
-            end
-        end
-        temporal = new_temporal;
+
+        grid on
         resource = resource./maxR;
         temporal = temporal./maxT;
         decision = decision./maxD;
-        bar(timeT,temporal,.2,'g');
-        plot(timeR,resource,'bx--');
-        plot(timeD,decision,'rx--');
-        axis([0 maxTime 0 1]);
-        legend('Temporal','Resource','Decision');
+        plot(timeT,temporal,'g-');
+        plot(timeR,resource,'b-');
+        plot(timeD,decision,'r-');
+        axis([0 maxTime 0 max(temporal)]);
+%          legend('Temporal','Resource','Decision');
         name = names(i,:);
         name = strrep(name,'H','Highest ');
         name = strrep(name,'L','Lowest ');
@@ -75,7 +70,7 @@ decision;
         name = strrep(name,'T','Temporal ');
         name = strrep(name,'D','Decision ');
         name = strrep(name,'W','Workload');
-        title(name);
+%         title(name);
         hold off
 %     end
 end
