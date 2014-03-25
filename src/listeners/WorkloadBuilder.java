@@ -76,7 +76,7 @@ public class WorkloadBuilder {
 
 			lastTime = currentTime;
 		}
-		double opTempo = firedTransitions / window;
+		
 		result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," + enabledTransitions 
 				+ "," + totalEnabledTransitions + "," + transitionDurations + "," + totalTransitionDurations + "," 
 				+ taskStarts + "," + taskStops + "," + totalOpTempo;

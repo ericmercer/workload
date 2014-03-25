@@ -1,28 +1,24 @@
-10	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=1, name=MissionManager,  ]) ->
+5	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=1,  ]) ->
 		 (IDLE, [  ], [  ])
-20	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=2, name=MissionManager,  ]) ->
+10	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=2,  ]) ->
 		 (IDLE, [  ], [  ])
-30	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=3, name=MissionManager,  ]) ->
+15	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=3,  ]) ->
 		 (IDLE, [  ], [  ])
-40	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=4, name=MissionManager,  ]) ->
+20	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=4,  ]) ->
 		 (IDLE, [  ], [  ])
-50	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=5, name=MissionManager,  ]) ->
+25	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=5,  ]) ->
 		 (IDLE, [  ], [  ])
-60	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=6, name=MissionManager,  ]) ->
+30	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=6,  ]) ->
 		 (IDLE, [  ], [  ])
-65	MissionManager(): WAVE X =(WAVE, [ DATA_MM_MM_COMM=MM_START_WAVE_MM__MM_STOP_PEP_TALK_MM,  ], [ DESIRE=6, name=MissionManager,  ]) ->
+32	MissionManager(): WAVE X =(WAVE, [ DATA_MM_MM_COMM=MM_START_WAVE_MM__MM_STOP_PEP_TALK_MM,  ], [ name=MissionManager, DESIRE=6,  ]) ->
 		 (WAVE, [  ], [  ])
-70	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_STOP_WAVE_MM,  ], [ DESIRE=5, name=MissionManager,  ]) ->
-		 (IDLE, [  ], [  ])
-70	Operator(): WAVE X =(WAVE, [ VIDEO_MM_OP_COMM=MM_SAD_OP, DATA_OP_OP_COMM=OP_START_WAVE_OP__OP_STOP_FLATTERED_OP,  ], [ name=Operator,  ]) ->
+34	Operator(): WAVE X =(WAVE, [ VIDEO_MM_OP_COMM=MM_WAVE_OP, DATA_OP_OP_COMM=OP_START_WAVE_OP__OP_STOP_FLATTERED_OP,  ], [ name=Operator,  ]) ->
 		 (WAVE, [  ], [  ])
-80	MissionManager(): IDLE X =(IDLE, [ DATA_MM_MM_COMM=MM_START_PEP_TALK_MM__MM_STOP_PEP_TALK_MM, VIDEO_OP_MM_COMM=OP_WAVE_MM,  ], [ DESIRE=6, name=MissionManager,  ]) ->
-		 (IDLE, [  ], [  ])
-85	MissionManager(): WAVE X =(WAVE, [ DATA_MM_MM_COMM=MM_START_WAVE_MM__MM_STOP_PEP_TALK_MM, VIDEO_OP_MM_COMM=OP_WAVE_MM,  ], [ DESIRE=6, name=MissionManager,  ]) ->
-		 (WAVE, [  ], [  ])
-90	MissionManager(): SPEAK X =(SPEAK, [ DATA_MM_MM_COMM=MM_STOP_WAVE_MM__MM_START_SPEAK_MM, VIDEO_OP_MM_COMM=OP_WAVE_MM,  ], [ DESIRE=7, name=MissionManager,  ]) ->
+36	MissionManager(): SPEAK X =(SPEAK, [ DATA_MM_MM_COMM=MM_STOP_WAVE_MM__MM_START_SPEAK_MM, VIDEO_OP_MM_COMM=OP_WAVE_MM,  ], [ name=MissionManager, DESIRE=7,  ]) ->
 		 (SPEAK, [  ], [  ])
-95	Operator(): IDLE X =(IDLE, [ DATA_OP_OP_COMM=OP_STOP_WAVE_OP, AUDIO_MM_OP_COMM=MM_HELLO_OP,  ], [ APATHY=1, name=Operator,  ]) ->
+38	Operator(): IDLE X =(IDLE, [ DATA_OP_OP_COMM=OP_STOP_WAVE_OP, AUDIO_MM_OP_COMM=MM_HELLO_OP,  ], [ APATHY=1, name=Operator,  ]) ->
 		 (IDLE, [  ], [  ])
-97	MissionManager(): LEAVE X =(LEAVE, [ DATA_MM_MM_COMM=MM_STOP_SPEAK_MM, AUDIO_OP_MM_COMM=OP_HELLO_MM,  ], [ DESIRE=6, name=MissionManager,  ]) ->
+40	MissionManager(): LEAVE X =(LEAVE, [ DATA_MM_MM_COMM=MM_STOP_SPEAK_MM, AUDIO_OP_MM_COMM=OP_HELLO_MM,  ], [ name=MissionManager, DESIRE=6,  ]) ->
 		 (LEAVE, [  ], [  ])
+41	MissionManager(): DONE X =(DONE, [ AUDIO_OP_MM_COMM=OP_HELLO_MM,  ], [ name=MissionManager, DESIRE=6,  ]) ->
+		 (DONE, [  ], [  ])
