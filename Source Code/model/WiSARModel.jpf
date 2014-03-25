@@ -4,5 +4,5 @@ classpath=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHM
 sourcepath=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHMS/SingleSighting/src/
 native_classpath+=/Users/jaredmoore/Documents/work/ResearchAssistant/Clean Scenario/FVHMS/SingleSighting/bin/;
 #listeners
-listener+=listeners.WorkloadListener;
+listener+=simulator.WorkloadListener;
 method.exclude=model.*;database.*;java.*;
