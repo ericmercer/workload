@@ -1,20 +1,10 @@
-function [data, timeD] = getDecisionData(time, A,B )
-    [A, timeA] = getDecisionDurationColumnData(A,time);
-    A = A/norm(A);
-    B = getDecisionColumnData(B);
-    [B, timeB] = fillInDataPoints(B,time);
-    st = size(timeB)
-    for i = 2:st(2)-1
-        B(i,1)+B(i,2)+B(i,3)+B(i,4)
-        if B(i,1)+B(i,2)+B(i,3)+B(i,4) == 0
-            i
-            B(i,1) = B(i-1,1);
-            B(i,2) = B(i-1,2);
-            B(i,3) = B(i-1,3);
-            B(i,4) = B(i-1,4);
-        end
-    end
-    B = B/norm(B);
+function [data, timeD] = getDecisionData(time, enabled,dur )
+    [dur, timeA] = getDecisionDurationColumnData(dur,time);
+    enabled = getDecisionColumnData(enabled);
+    [enabled, timeB] = fillInDataPoints2(enabled,time);
+    max_val = max(max(max(dur)),max(max(enabled)));
+    dur = dur/max(max(dur));%norm(dur);
+    enabled = enabled/max(max(enabled));%norm(enabled);
 
     data = [];
     timeD = [];
@@ -30,20 +20,20 @@ function [data, timeD] = getDecisionData(time, A,B )
             data(end,3) = 0;
             data(end,4) = 0;
             if s1(1) ~= 0 && s1(2) ~= 0 && s2(1) ~= 0 && s2(2) ~= 0
-                data(end,1) = A(i,1) + B(j,1);
-                data(end,2) = A(i,2) + B(j,2);
-                data(end,3) = A(i,3) + B(j,3);
-                data(end,4) = A(i,4) + B(j,4);
+                data(end,1) = dur(i,1) + enabled(j,1);
+                data(end,2) = dur(i,2) + enabled(j,2);
+                data(end,3) = dur(i,3) + enabled(j,3);
+                data(end,4) = dur(i,4) + enabled(j,4);
             elseif s2(1) ~= 0 && s2(2) ~= 0
-                data(end,1) = B(j,1);
-                data(end,2) = B(j,2);
-                data(end,3) = B(j,3);
-                data(end,4) = B(j,4);
+                data(end,1) = enabled(j,1);
+                data(end,2) = enabled(j,2);
+                data(end,3) = enabled(j,3);
+                data(end,4) = enabled(j,4);
             elseif s1(1) ~= 0 && s1(2) ~= 0
-                data(end,1) = A(i,1);
-                data(end,2) = A(i,2);
-                data(end,3) = A(i,3);
-                data(end,4) = A(i,4);
+                data(end,1) = dur(i,1);
+                data(end,2) = dur(i,2);
+                data(end,3) = dur(i,3);
+                data(end,4) = dur(i,4);
             end
         end
         

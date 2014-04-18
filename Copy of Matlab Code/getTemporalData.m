@@ -15,14 +15,13 @@ function [ out_data, timeT ] = getTemporalData(time, in_data )
         out_data(end,3) = array(3);
         out_data(end,4) = array(4);
     end
-    
 end
 
 function out = getSlidingData(time,data, t)
     a = size(time);
     index = 1;
     if t > 10
-        while(time(index) < t-10)
+        while(time(index) < t-9)
             index = index + 1;
         end
     end
