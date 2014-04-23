@@ -1,4 +1,0 @@
-Current Scenarios that execute correctly on the New WiSAR Team:
-	Searches entire area over three flights(UAV takes off 3 times), no targets sighted
-	Searches entire area over three flights(UAV takes off 3 times), 1 target sighted and reported to the ParentSearch, no other action taken
-	
