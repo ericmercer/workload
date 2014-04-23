@@ -1,0 +1,16 @@
+time, Active Inputs (Actor State [ActiveInput])*, Total Active Inputs, Enabled Transitions (Actor State [NumberOfEnabledTransitions])*, Total Enabled Transitions, Transition Durations (Actor State [TransitionDuration])*, Total Transitions, TaskStarts, TaskStops, Op Tempo
+0,,0,(MissionManager IDLE [1]),1,,0,,,0.0
+10,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.0
+20,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.1
+30,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.1
+40,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.1
+50,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.1
+60,,0,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.1
+65,(Operator IDLE [MM_WAVE_OP]),1,(MissionManager WAVE [1])(Operator IDLE [1]),2,(MissionManager WAVE [5]),5,([MM_START_WAVE_MM__MM_STOP_PEP_TALK_MM]),,0.0
+70,(MissionManager IDLE [OP_WAVE_MM])(Operator WAVE [MM_SAD_OP]),2,(MissionManager IDLE [1]),1,(MissionManager IDLE [5])(Operator WAVE [5]),10,([OP_START_WAVE_OP__OP_STOP_FLATTERED_OP]),([MM_STOP_WAVE_MM]),0.2
+80,(MissionManager IDLE [OP_WAVE_MM]),1,(MissionManager IDLE [1]),1,(MissionManager IDLE [10]),10,([MM_START_PEP_TALK_MM]),,0.2
+85,(MissionManager WAVE [OP_WAVE_MM])(Operator WAVE [MM_WAVE_OP]),2,(MissionManager WAVE [2]),2,(MissionManager WAVE [5]),5,([MM_START_WAVE_MM__MM_STOP_PEP_TALK_MM]),,0.0
+90,(MissionManager SPEAK [OP_WAVE_MM])(Operator WAVE [MM_HELLO_OP]),2,(Operator WAVE [1]),1,(MissionManager SPEAK [5]),5,([MM_STOP_WAVE_MM__MM_START_SPEAK_MM]),,0.2
+95,(MissionManager SPEAK [OP_HELLO_MM])(Operator IDLE [MM_HELLO_OP]),2,(MissionManager SPEAK [1]),1,(Operator IDLE [5]),5,,([OP_STOP_WAVE_OP]),0.0
+97,,0,,0,(MissionManager DONE [2]),2,,,0.0
+100,,0,,0,,0,,,0.30000000000000004
