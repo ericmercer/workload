@@ -14,8 +14,6 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import simulator.Simulator;
-
 /**
  * Builds a team of actors from lists of transitions in the model/transitions package.
  * Transition := (CurrentState,[Channel=InputData*],[Memory{=||>||<...}InputValue*],Priority,Duration,Probability)x(NextState,[Channel=OutputData*],[Memory=OutputValue*])
@@ -29,7 +27,8 @@ import simulator.Simulator;
  * Destination := Name
  * Memory := Name
  * InputValue := boolean||integer
- * Duration := Name||[integer,integer]
+ * Priority := integer, higher is more priority
+ * Duration := Name||[integer-integer]
  * NextState := Name
  * OutputData := Data
  * OutputValue := boolean||integer||Operation
@@ -41,9 +40,26 @@ public class Interpreter {
 		File f = getJTRFolder();
 		//each actor
 		HashMap<String, ArrayList<String[]>> inputs_outputs = new HashMap<String, ArrayList<String[]>>();
+		
+		//Map for header file. has the abbreviated names with the full names
+		HashMap<String, String> header_file = new HashMap<String, String>();
+		try {
+			for(File file : f.listFiles())
+			{
+				if(file.getName().equals("Header.h"))
+					readHeaderFile(header_file, file);
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		for(File file : f.listFiles()){
 			try {
-				if(!file.getName().equals("Operator.txt") && !file.getName().equals("MissionManager.txt") && !file.getName().equals("ParentSearch.txt") && !file.getName().equals("UAVBattery.txt") && !file.getName().equals("UAVFlightPlan.txt"))
+				
+				int i = file.getName().lastIndexOf('.');
+
+				//commented out to make anyfile name viable.  Only have the files in the package that you will be using
+				if(i < 0|| !file.getName().substring(i+1).equals("txt") || file.length() == 0)
 					continue;
 				StringBuilder memory = new StringBuilder();
 				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
@@ -57,7 +73,7 @@ public class Interpreter {
 					HashMap<String, String> enumerations = new HashMap<String, String>();
 					ArrayList<String> states = new ArrayList<String>();
 					parseJTRFile(file, memory, name, initializers,
-							enumerations, states, inputs_outputs);
+							enumerations, states, inputs_outputs, header_file);
 					
 					StringBuilder body = new StringBuilder();
 					StringBuilder constructor = new StringBuilder();
@@ -69,7 +85,7 @@ public class Interpreter {
 						 //* The first element of a channel array is the channel name.
 						 //* The second element of a channel array is the channel type (must be "VISUAL", "AUDIO", or "DATA").
 						 //* The third element of a channel array is the channel direction (aka "OUTPUT" or "INPUT").
-						updateChannelLists(inputs_outputs, name, enumeration);
+						updateChannelLists(inputs_outputs, name, enumeration, header_file);
 						enums.append(enumeration.getValue() + "\n}");
 					}
 					
@@ -83,18 +99,65 @@ public class Interpreter {
 		buildChannelsClass(channels);
 	}
 
+	
+	/**
+	 * Opens the correct file and pulls the target name from the abbreviated target
+	 * 
+	 * 
+	 * @param file
+	 * @param target_abbreviation
+	 * @return target_name
+	 * @throws FileNotFoundException 
+	 * @throws IOException
+	 */
+	//reads in the header file and sets up the map correct with the abbreviations and the non abbreviated names
+	private static void readHeaderFile(HashMap<String, String> header_file,File file) throws FileNotFoundException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String line;
+		try {
+			while((line = br.readLine()) != null)
+			{
+				int index = line.indexOf(" ");
+				if(index < 0)
+				{
+					br.close();
+					return;
+				}
+				else
+				{
+					header_file.put(line.substring(0, index), line.substring(index+1));
+				}
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
+
 	/**
 	 * Takes the enumerated classes in each class to generate the corresponding channel lists.
 	 * @param inputs_outputs
 	 * @param name
 	 * @param enumeration
+	 * 
 	 */
+	
 	private static void updateChannelLists(
 			HashMap<String, ArrayList<String[]>> inputs_outputs, String name,
-			Entry<String, String> enumeration) {
+			Entry<String, String> enumeration, HashMap<String, String> header_file) throws IOException {
 		ArrayList<String[]> channel_list = inputs_outputs.get(name);
 		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
 		String channel_name = enumeration.getKey();
+	
 		String channel_type = channel_name.substring(0, channel_name.indexOf('_'));
 		String[] channel = new String[]{channel_name,channel_type,"OUTPUT"};
 		if (!channel_list.contains(channel))
@@ -102,17 +165,7 @@ public class Interpreter {
 		inputs_outputs.put(name, channel_list);
 		String target = channel_name.substring(
 				channel_name.indexOf('_', channel_name.indexOf('_')+1)+1,channel_name.indexOf('_', channel_name.indexOf('_', channel_name.indexOf('_')+1)+1));
-		String target_name = "MM".equals(target)?"MissionManager":
-			"PS".equals(target)?"ParentSearch":
-				"OP".equals(target)?"Operator":
-					"UAV".equals(target)?"UAV":
-						"VO".equals(target)?"VideoOperator":
-							"OGUI".equals(target)?"OperatorGui":
-								"UAVBAT".equals(target)?"UAVBattery":
-									"UAVFP".equals(target)?"UAVFlightPLan":
-										"UAVVF".equals(target)?"UAVVideoFeed":
-											"VGUI".equals(target)?"VideoOperatorGui":
-												"";
+		String target_name = header_file.get(target);
 		channel_list = inputs_outputs.get(target_name);
 		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
 		channel = new String[]{channel_name,channel_type,"INPUT"};
@@ -135,7 +188,7 @@ public class Interpreter {
 	 */
 	private static void parseJTRFile(File file, StringBuilder memory,
 			String name, HashMap<String, String> initializers,
-			HashMap<String, String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs)
+			HashMap<String, String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs, HashMap<String, String> header_file)
 			throws FileNotFoundException, IOException {
 		Interpreter xml = new Interpreter();
 		BufferedReader br = new BufferedReader(new FileReader(file));
@@ -143,7 +196,7 @@ public class Interpreter {
 		while(line != null){
 			line = line.trim();
 			if(xml.correctFormat(line)){
-				String[] transition_state = xml.parseJTR(line, memory, name, enumerations, states, inputs_outputs);
+				String[] transition_state = xml.parseJTR(line, memory, name, enumerations, states, inputs_outputs,header_file);
 				String state = transition_state[0].substring(0, transition_state[0].indexOf('.')).trim();
 				if(initializers.containsKey(state)){
 					if(initializers.get(state).contains("State " + transition_state[1])){
@@ -266,7 +319,7 @@ public class Interpreter {
 	 * @param inputs_outputs 
 	 * @return the source code and the end state to be added into the file itself
 	 */
-	public String[] parseJTR(String s, StringBuilder memory, String name, HashMap<String,String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs){
+	public String[] parseJTR(String s, StringBuilder memory, String name, HashMap<String,String> enumerations, ArrayList<String> states, HashMap<String, ArrayList<String[]>> inputs_outputs, HashMap<String, String> header_file){
 //		if("(IDLE,[E=NEW_SEARCH_AREA_EVENT],[SEARCH_ACTIVE=FALSE],1,NEXT,1.0)x(POKE_MM,[D=PS_START_TRANSMIT_AOI_PS,A=PS_POKE_MM],[SEARCH_ACTIVE=TRUE,NEW_SEARCH_AOI=++])".equals(s))
 //			System.out.println(s);
 		StringBuilder transition = new StringBuilder();
@@ -327,7 +380,7 @@ public class Interpreter {
 			else
 				continue;
 			String[] division = input.split(comparator);
-			String[] value_channel = getValue_Channel(division);
+			String[] value_channel = getValue_Channel(division,header_file);
 
 			//adds to the enumerations if not already present
 			if(value_channel[0].length() > 0 && name.equals(value_channel[0].substring(0, value_channel[0].indexOf('.')))){
@@ -381,7 +434,7 @@ public class Interpreter {
 		for(String temp_output : temp_outputs){
 			if(temp_output.contains("=")){
 				String[] division = temp_output.split("=");
-				String[] value_channel = getValue_Channel(division);
+				String[] value_channel = getValue_Channel(division,header_file);
 				if(name.equals(value_channel[0].substring(0, value_channel[0].indexOf('.')))){
 					if(!enumerations.containsKey(value_channel[1])){
 						enumerations.put(value_channel[1], "\npublic enum " + value_channel[1] + "{\n\t" + division[1] + ",");
@@ -602,56 +655,60 @@ public class Interpreter {
 	 * @param division
 	 * @return
 	 */
-	private String[] getValue_Channel(String[] division) {
+	private String[] getValue_Channel(String[] division, HashMap<String, String> header_file) {
 		String[] value_channel = new String[2];
 		value_channel[0] = "";
 		String prefix = "";
-		if(division[1].startsWith("MM")){
-			value_channel[0] = "MissionManager.";
-			prefix = "MM";
-		} else if(division[1].startsWith("OP")){
-			value_channel[0] = "Operator.";
-			prefix = "OP";
-		} else if(division[1].startsWith("VO")){
-			value_channel[0] = "VideoOperator.";
-			prefix = "VO";
-		} else if(division[1].startsWith("VGUI")){
-			value_channel[0] = "VideoOperatorGui.";
-			prefix = "VGUI";
-		} else if(division[1].startsWith("OGUI")){
-			value_channel[0] = "OperatorGui.";
-			prefix = "OGUI";
-		} else if(division[1].startsWith("PS")){
-			value_channel[0] = "ParentSearch.";
-			prefix = "PS";
-		} else if(division[1].startsWith("UAVHAG")){
-			value_channel[0] = "UAVHeightAboveGround.";
-			prefix = "UAVHAG";
-		} else if(division[1].startsWith("UAVVF")){
-			value_channel[0] = "UAVVideoFeed.";
-			prefix = "UAVVF";
-		} else if(division[1].startsWith("UAVBAT")){
-			value_channel[0] = "UAVBattery.";
-			prefix = "UAVBAT";
-		} else if(division[1].startsWith("UAVFP")){
-			value_channel[0] = "UAVFlightPlan.";
-			prefix = "UAVFP";
-		} else if(division[1].startsWith("UAVS")){
-			value_channel[0] = "UAVSignal.";
-			prefix = "UAVS";
-		} else if(division[1].startsWith("UAV")){
-			value_channel[0] = "UAV.";
-			prefix = "UAV";
-		}
+		String temp = division[1];
+		prefix = temp.substring(0,temp.indexOf('_'));
+		value_channel[0] = header_file.get(prefix)+".";
+//		if(division[1].startsWith("MM")){
+//			value_channel[0] = "MissionManager.";
+//			prefix = "MM";
+//		} else if(division[1].startsWith("OP")){
+//			value_channel[0] = "Operator.";
+//			prefix = "OP";
+//		} else if(division[1].startsWith("VO")){
+//			value_channel[0] = "VideoOperator.";
+//			prefix = "VO";
+//		} else if(division[1].startsWith("VGUI")){
+//			value_channel[0] = "VideoOperatorGui.";
+//			prefix = "VGUI";
+//		} else if(division[1].startsWith("OGUI")){
+//			value_channel[0] = "OperatorGui.";
+//			prefix = "OGUI";
+//		} else if(division[1].startsWith("PS")){
+//			value_channel[0] = "ParentSearch.";
+//			prefix = "PS";
+//		} else if(division[1].startsWith("UAVHAG")){
+//			value_channel[0] = "UAVHeightAboveGround.";
+//			prefix = "UAVHAG";
+//		} else if(division[1].startsWith("UAVVF")){
+//			value_channel[0] = "UAVVideoFeed.";
+//			prefix = "UAVVF";
+//		} else if(division[1].startsWith("UAVBAT")){
+//			value_channel[0] = "UAVBattery.";
+//			prefix = "UAVBAT";
+//		} else if(division[1].startsWith("UAVFP")){
+//			value_channel[0] = "UAVFlightPlan.";
+//			prefix = "UAVFP";
+//		} else if(division[1].startsWith("UAVS")){
+//			value_channel[0] = "UAVSignal.";
+//			prefix = "UAVS";
+//		} else if(division[1].startsWith("UAV")){
+//			value_channel[0] = "UAV.";
+//			prefix = "UAV";
+//		}
 //		} else if(division[1].startsWith("HAG")){
 //			value_channel[0] = "HeightAboveGroundEvent.";
 //		} else if(division[1].startsWith("")){
 //			
 //		} else if(division[1].startsWith("")){
 //			
-//		}else{
-//			System.out.println("uncaught: " + division[1]);
 //		}
+		//else{
+		//	System.out.println("uncaught: " + division[1]);
+		//}
 		value_channel[1] = getChannel(division, prefix);
 		return value_channel;
 	}
@@ -665,7 +722,7 @@ public class Interpreter {
 		String channel = "";
 		switch(division[0]){
 		case "A": channel = "AUDIO_";break;
-		case "V": channel = "VIDEO_";break;
+		case "V": channel = "VISUAL_";break;
 		case "D": channel = "DATA_";break;
 		case "E": return "EVENT";
 		}
@@ -677,33 +734,35 @@ public class Interpreter {
 	 * @return
 	 */
 	private String extractSuffix(String[] division) {
-		String suffix = "";
-		if(division[1].endsWith("MM")){
-			suffix = "MM";
-		} else if(division[1].endsWith("OP")){
-			suffix = "OP";
-		} else if(division[1].endsWith("VO")){
-			suffix = "VO";
-		} else if(division[1].endsWith("VGUI")){
-			suffix = "VGUI";
-		} else if(division[1].endsWith("OGUI")){
-			suffix = "OGUI";
-		} else if(division[1].endsWith("PS")){
-			suffix = "PS";
-		} else if(division[1].endsWith("UAVBAT")){
-			suffix = "UAVBAT";
-		} else if(division[1].endsWith("UAVFP")){
-			suffix = "UAVFP";
-		} else if(division[1].endsWith("UAVS")){
-			suffix = "UAVS";
-		} else if(division[1].endsWith("UAVVF")){
-			suffix = "UAVVF";
-		} else if(division[1].endsWith("UAVHAG")){
-			suffix = "UAVHAG";
-		} else if(division[1].endsWith("UAV")){
-			suffix = "UAV";
-		}
-		return suffix;
+		String temp = division[1];
+		temp = temp.replaceAll("(\\w)+_(\\w)+_", "");
+		
+//		if(division[1].endsWith("MM")){
+//			suffix = "MM";
+//		} else if(division[1].endsWith("OP")){
+//			suffix = "OP";
+//		} else if(division[1].endsWith("VO")){
+//			suffix = "VO";
+//		} else if(division[1].endsWith("VGUI")){
+//			suffix = "VGUI";
+//		} else if(division[1].endsWith("OGUI")){
+//			suffix = "OGUI";
+//		} else if(division[1].endsWith("PS")){
+//			suffix = "PS";
+//		} else if(division[1].endsWith("UAVBAT")){
+//			suffix = "UAVBAT";
+//		} else if(division[1].endsWith("UAVFP")){
+//			suffix = "UAVFP";
+//		} else if(division[1].endsWith("UAVS")){
+//			suffix = "UAVS";
+//		} else if(division[1].endsWith("UAVVF")){
+//			suffix = "UAVVF";
+//		} else if(division[1].endsWith("UAVHAG")){
+//			suffix = "UAVHAG";
+//		} else if(division[1].endsWith("UAV")){
+//			suffix = "UAV";
+//		}
+		return temp;
 	}
 	
 	/**
@@ -772,7 +831,7 @@ public class Interpreter {
 		        if(channelDirection.equals("INPUT")){
 		        	text += "\n\t\tinputs.add(_com_channels.get(Channels." + channelName + ".name()));";
 		        }else{
-		        	text += "\n\t\tinputs.add(_com_channels.get(Channels." + channelName + ".name()));";
+		        	text += "\n\t\toutputs.add(_com_channels.get(Channels." + channelName + ".name()));";
 		        }
 	        }
 	        
@@ -931,7 +990,7 @@ public class Interpreter {
 		
 		//print the text
 		try {
-			PrintWriter writer = new PrintWriter("Channels.java", "UTF-8");
+			PrintWriter writer = new PrintWriter("src\\model\\team\\Channels.java", "UTF-8");
 			writer.println(text);
 			writer.close();
 		} catch (FileNotFoundException e) {
