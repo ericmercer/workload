@@ -94,7 +94,7 @@ public class WorkloadBuilder {
 
 		TreeMap<MetricKey, Metric> values = path.getValues();
 
-		String result = "Time, Active Inputs (Actor State [ActiveInput])*, Total Active Inputs, Enabled Transitions (Actor State [NumberOfEnabledTransitions])*, Total Enabled Transitions, Transition Durations (Actor State [TransitionDuration])*, Total Transitions, TaskStarts, TaskStops, Op Tempo";
+		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo";
 
 		int currentTime = 0;
 		int totalTime = values.lastEntry().getKey().getTime();
