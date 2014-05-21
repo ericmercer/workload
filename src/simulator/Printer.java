@@ -18,7 +18,7 @@ public class Printer {
 		//filename+= Calendar.getInstance();
 		System.out.println("printed " + filename + " with " + workload + " workload");
 		try {
-			FileWriter writer = new FileWriter( new File( "src/csvFiles/" + filename ) );
+			FileWriter writer = new FileWriter( new File( "src"+File.separator+"csvFiles"+File.separator + filename ) );
 	
 			writer.write( string );
 			
@@ -32,7 +32,7 @@ public class Printer {
 		//filename+= Calendar.getInstance();
 		//System.out.println("printed " + filename + " with " + workload + " workload");
 		try {
-			FileWriter writer = new FileWriter( new File( "src/csvFiles/" + filename ) );
+			FileWriter writer = new FileWriter( new File( "src"+File.separator+"csvFiles"+File.separator + filename ) );
 	
 			writer.write( string );
 			
@@ -45,7 +45,7 @@ public class Printer {
 	
 	public void print( String filename, String string ) {
 		try {
-			FileWriter writer = new FileWriter( new File( "src/txtFiles/" + filename ) );
+			FileWriter writer = new FileWriter( new File( "src"+File.separator+"txtFiles"+File.separator+ filename ) );
 	
 			writer.write( string );
 			
