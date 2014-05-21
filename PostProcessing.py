@@ -123,13 +123,14 @@ def main(argv):
                             total[x]=total[x].add(expand[x])
                         else:
                             total[x] = copy.deepcopy(expand[x])    
-        #prints out the totals file.     
-        with open(os.path.join(old_root,"Total.csv"),'wb') as outcsv:
-                    out = csv.writer(outcsv) 
-                    out.writerow(first)
-                    for x in sorted(total):
-                        temp = [x]
-                        temp.extend(total[x].getAllData())
-                        out.writerow(temp)
+        #prints out the totals file.   
+        if len(total) >0:  
+            with open(os.path.join(old_root,"Total.csv"),'wb') as outcsv:
+                out = csv.writer(outcsv) 
+                out.writerow(first)
+                for x in sorted(total):
+                    temp = [x]
+                    temp.extend(total[x].getAllData())
+                    out.writerow(temp)
 if __name__ =="__main__":
     main(sys.argv[1:])
