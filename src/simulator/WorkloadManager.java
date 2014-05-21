@@ -307,7 +307,7 @@ public class WorkloadManager{
 		
 		if( currentPath.getCumulativeDecisionWorkload( ) > HCDW) {
 			HCDW = currentPath.getCumulativeDecisionWorkload();
-			Printer.getInstance( ).print( "HCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			//Printer.getInstance( ).print( "HCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
 			for (String actor : actors.keySet())
 				{
 					Printer.getInstance().printNoOutput("HCDW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
@@ -317,7 +317,7 @@ public class WorkloadManager{
 		}
 		if( currentPath.getCumulativeResourceWorkload( ) > HCRW ) {
 			HCRW = currentPath.getCumulativeResourceWorkload( );
-			Printer.getInstance( ).print( "HCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			//Printer.getInstance( ).print( "HCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
 			for (String actor : actors.keySet())
 			{
 				Printer.getInstance().printNoOutput("HCRW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
@@ -327,7 +327,7 @@ public class WorkloadManager{
 		}
 		if( currentPath.getCumulativeTemporalWorkload( ) > HCTW) {
 			HCTW = currentPath.getCumulativeTemporalWorkload( );
-			Printer.getInstance( ).print( "HCTW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			//Printer.getInstance( ).print( "HCTW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
 			for (String actor : actors.keySet())
 			{
 				Printer.getInstance().printNoOutput("HCTW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
@@ -337,7 +337,7 @@ public class WorkloadManager{
 		}
 		if( currentPath.getCumulativeDecisionWorkload( ) < LCDW ) {
 			LCDW = currentPath.getCumulativeDecisionWorkload( );
-			Printer.getInstance( ).print( "LCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
+			//Printer.getInstance( ).print( "LCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
 			for (String actor : actors.keySet())
 			{
 				Printer.getInstance().printNoOutput("LCDW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
@@ -347,7 +347,7 @@ public class WorkloadManager{
 		}
 		if( currentPath.getCumulativeResourceWorkload( ) < LCRW) {
 			LCRW = currentPath.getCumulativeResourceWorkload( );
-			Printer.getInstance( ).print( "LCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
+			//Printer.getInstance( ).print( "LCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
 			for (String actor : actors.keySet())
 			{
 				Printer.getInstance().printNoOutput("LCRW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
@@ -357,7 +357,7 @@ public class WorkloadManager{
 		}
 		if(currentPath.getCumulativeTemporalWorkload( ) < LCTW) {
 			LCTW = currentPath.getCumulativeTemporalWorkload( );
-			Printer.getInstance( ).print( "LCTW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
+			//Printer.getInstance( ).print( "LCTW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeTemporalWorkload() );
 			for (String actor : actors.keySet())
 			{
 				Printer.getInstance().printNoOutput("LCTW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
