@@ -1,12 +1,8 @@
 package model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 
-import model.scaffold.Interpreter;
 import model.team.*;
 import simulator.*;
 import simulator.Simulator.*;
@@ -18,7 +14,7 @@ public class WiSARModel {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws InterruptedException, IOException {
-		RunsJPF forJPF = RunsJPF.YES;
+		RunsJPF forJPF = RunsJPF.NO;
 		int times = (forJPF == RunsJPF.NO) ? 500: 1;
 		for(int i = 0; i < times; i++)
 		{
@@ -43,8 +39,8 @@ public class WiSARModel {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		
-			String python = f;
+			System.out.println(f.substring(0, f.length()-2));
+			String python = f.substring(0, f.length()-2);
 			python+=File.separator+"PostProcessing.py";
 			Process p = Runtime.getRuntime().exec("python "+python +" 9");
 		}
