@@ -39,7 +39,6 @@ public class WiSARModel {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			System.out.println(f.substring(0, f.length()-2));
 			String python = f.substring(0, f.length()-2);
 			python+=File.separator+"PostProcessing.py";
 			Process p = Runtime.getRuntime().exec("python "+python +" 9");
