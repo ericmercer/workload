@@ -61,10 +61,14 @@ def main(argv):
     except getopt.GetoptError:
       sys.exit(2)
     for opt, arg in opts:
+        print (opt + "  " + arg)
         if opt == '-w':
-            OP_TEMP_WINDOW = arg
+            OP_TEMP_WINDOW = int(arg)
+            print("op = "+ str(OP_TEMP_WINDOW))
         elif opt in ("-a"):
-            actors.append( arg+".csv")
+            actors.append( str(arg+".csv"))
+    for x in actors:
+        print(x)
     #finds current directory
     loc = os.getcwd()
     loc=os.path.join(loc,"src","csvFiles")
