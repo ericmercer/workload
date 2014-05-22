@@ -75,8 +75,7 @@ def main(argv):
         total = {}
         for file in files:
             if file not in actors and ".csv" in file:
-                print(file)
-                os.remove(file)
+                os.remove(os.path.join(root,file))
                 continue
             old_root = root
             #prints the file it is working on
