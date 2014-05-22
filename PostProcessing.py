@@ -3,6 +3,7 @@ import csv
 import copy
 import os
 import sys
+import getopt
 
 #complex data structure for holding the row data
 class for_csv:
@@ -52,11 +53,18 @@ class for_csv:
         
 #main program
 def main(argv):
-    #if op temp parameter is not passed, defaults to 10
-    if len(sys.argv) == 1:
-        OP_TEMP_WINDOW = 10
-    else:
-        OP_TEMP_WINDOW = int(sys.argv[1])
+    OP_TEMP_WINDOW = 9
+    actors = []
+    #if op temp parameter is not passed, defaults to 9
+    try:
+      opts, args = getopt.getopt(argv,"w:a:")
+    except getopt.GetoptError:
+      sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-w':
+            OP_TEMP_WINDOW = arg
+        elif opt in ("-a"):
+            actors.append( arg+".csv")
     #finds current directory
     loc = os.getcwd()
     loc=os.path.join(loc,"src","csvFiles")
@@ -66,6 +74,10 @@ def main(argv):
     for root, dirs, files in os.walk(loc):
         total = {}
         for file in files:
+            if file not in actors and ".csv" in file:
+                print(file)
+                os.remove(file)
+                continue
             old_root = root
             #prints the file it is working on
             print (os.path.join(root,file))   

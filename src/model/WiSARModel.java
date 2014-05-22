@@ -1,6 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import model.team.*;
@@ -32,6 +35,7 @@ public class WiSARModel {
 		
 		if(forJPF == RunsJPF.NO)
 		{
+			//gets location to run python post processing correctly
 			String f = null;
 			try {
 				f = new File(".").getAbsolutePath();
@@ -41,7 +45,33 @@ public class WiSARModel {
 			}
 			String python = f.substring(0, f.length()-2);
 			python+=File.separator+"PostProcessing.py";
-			Process p = Runtime.getRuntime().exec("python "+python +" 9");
+			python ="python "+python +" -w 9";
+				
+			//gets actors and adds command line parameters
+			try {
+				f = new File(".").getAbsolutePath();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			f= f.substring(0, f.length()-2);
+			f+=File.separator+"src"+File.separator+"model"+File.separator+"Header.h";
+			File names = new File(f);
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(names));
+				String line;
+				while((line = br.readLine()) != null)
+				{
+					python+=" -a "+line;
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Process p = Runtime.getRuntime().exec(python);
 		}
 	}	
 }
