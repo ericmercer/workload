@@ -8,6 +8,11 @@ import gov.nasa.jpf.vm.MethodInfo;
 import gov.nasa.jpf.vm.ThreadInfo;
 import gov.nasa.jpf.vm.VM;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +39,8 @@ public class WorkloadListener extends ListenerAdapter {
 	WorkloadPath LowestCumulativeDescisionWorkloadPath;
 	WorkloadPath LowestCumulativeTemporalWorkloadPath;
 	WorkloadPath LowestCumulativeResourceWorkloadPath;
-
+	private boolean loaded = false;
+	private List<String> file_names = new ArrayList<String>();
 	
 	@Override
 	public void choiceGeneratorSet ( VM vm, ChoiceGenerator<?> newCG ) {
@@ -259,11 +265,38 @@ public class WorkloadListener extends ListenerAdapter {
 	}
 
 	private boolean notRecorded( String actorName ) {
-		if (actorName.contains("UAV"))
-			return true;
-		if (actorName.contains("ater"))
-			return true;
-		return false;
+		if (loaded == false)
+		{
+			String f = null;
+			try {
+				f = new File(".").getAbsolutePath();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			f= f.substring(0, f.length()-2);
+			f+=File.separator+"src"+File.separator+"model"+File.separator+"Header.h";
+			File names = new File(f);
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(names));
+				String line;
+				while((line = br.readLine()) != null)
+				{
+					file_names.add(line);
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loaded = true;
+		}
+		if (file_names.contains(actorName))
+			return false;
+		
+		return true;
 	}
 
 	private void storeMetric( MetricKey currentKey, Metric currentMetric) {

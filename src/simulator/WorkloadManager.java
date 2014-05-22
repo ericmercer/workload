@@ -232,6 +232,11 @@
  */
 package simulator;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -261,7 +266,6 @@ public class WorkloadManager{
 	{
 	}
 	
-	private List<Integer> test = new ArrayList<Integer>();
 	/**
 	 * stores the metrics
 	 */
@@ -279,7 +283,8 @@ public class WorkloadManager{
 	static int LCDW=Integer.MAX_VALUE;
 	static int LCTW=Integer.MAX_VALUE;
 	static int LCRW=Integer.MAX_VALUE;
-	
+	private boolean loaded = false;
+	private List<String> file_names = new ArrayList<String>();
 	
 	/**
 	 * acts whenever certain methods execute
@@ -384,17 +389,7 @@ public class WorkloadManager{
 		storeMetric(currentKey, currentMetric);
 
 		//do funky optempo stuff
-		test.add(time-duration);
-		for(int i = 0; i < test.size(); i++)
-		{
-			if((time-duration) - test.get(i) > 9)
-			{
-				test.remove(i);
-				i--;
-			}
-		}	
-		//System.out.println("\nt - d = "+(time - duration));
-		//System.out.println("size= "+test.size());
+
 		currentKey = new MetricKey(time-duration,actorName,stateName,MetricKey.Type.OP_TEMPO);
 		currentMetric = new Metric(1, 0);
 		storeMetric(currentKey,currentMetric);
@@ -467,12 +462,40 @@ public class WorkloadManager{
 
 
 	private boolean notRecorded( String actorName ) {
-		if (actorName.contains("UAV"))
-			return true;
-		if (actorName.contains("ater"))
-			return true;
-		return false;
+		if (loaded == false)
+		{
+			String f = null;
+			try {
+				f = new File(".").getAbsolutePath();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			f= f.substring(0, f.length()-2);
+			f+=File.separator+"src"+File.separator+"model"+File.separator+"Header.h";
+			File names = new File(f);
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(names));
+				String line;
+				while((line = br.readLine()) != null)
+				{
+					file_names.add(line);
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loaded = true;
+		}
+		if (file_names.contains(actorName))
+			return false;
+		
+		return true;
 	}
+
 
 	private void storeMetric( MetricKey currentKey, Metric currentMetric) {
 		Metric metric = currentPath.get( currentKey );
