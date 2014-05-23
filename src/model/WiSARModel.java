@@ -44,25 +44,45 @@ public class WiSARModel {
 				e1.printStackTrace();
 			}
 			String python = f.substring(0, f.length()-2);
-			python+=File.separator+"PostProcessing.py";
+			String graph = "python "+ f.substring(0, f.length()-2);
+			python+=File.separator+"src"+File.separator+"python"+File.separator+"PostProcessing.py";
+			graph += File.separator+"src"+File.separator+"python"+File.separator+"Graph.py";
 			python ="python "+python +" -w 9";
 				
 			//gets actors and adds command line parameters
-			try {
-				f = new File(".").getAbsolutePath();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 			f= f.substring(0, f.length()-2);
 			f+=File.separator+"src"+File.separator+"model"+File.separator+"Header.h";
 			File names = new File(f);
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(names));
 				String line;
+				boolean actor = false;
+				boolean graphs = false;
 				while((line = br.readLine()) != null)
 				{
-					python+=" -a "+line;
+					if(line.length() == 0)
+						continue;
+					else if (line.startsWith("\\"))
+						continue;
+					else if (line.equals( "Actors:"))
+					{
+						actor = true;
+						graphs = false;
+					}
+					else if (line.equals("Graphs:"))
+					{
+						actor = false;
+						graphs = true;
+					}
+					else if (actor)
+					{
+						python+=" -a "+line;
+					}
+					else if (graphs)
+					{
+						graph+=" "+File.separator+line.substring(0, 1) + "C"+line.substring(1, 2)+"W"+File.separator+line.substring(3)+".csv";
+					}
 				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -71,7 +91,9 @@ public class WiSARModel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Process p = Runtime.getRuntime().exec(python);
+			Runtime.getRuntime().exec(python);
+			Thread.sleep(5000);
+			Runtime.getRuntime().exec(graph);
 		}
 	}	
 }

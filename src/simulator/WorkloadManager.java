@@ -277,12 +277,12 @@ public class WorkloadManager{
 	WorkloadPath LowestCumulativeDescisionWorkloadPath;
 	WorkloadPath LowestCumulativeTemporalWorkloadPath;
 	WorkloadPath LowestCumulativeResourceWorkloadPath;
-	static int HCDW=0;
+	static int HCCW=0;
 	static int HCTW=0;
-	static int HCRW=0;
-	static int LCDW=Integer.MAX_VALUE;
+	static int HCPW=0;
+	static int LCCW=Integer.MAX_VALUE;
 	static int LCTW=Integer.MAX_VALUE;
-	static int LCRW=Integer.MAX_VALUE;
+	static int LCPW=Integer.MAX_VALUE;
 	private boolean loaded = false;
 	private List<String> file_names = new ArrayList<String>();
 	
@@ -310,24 +310,24 @@ public class WorkloadManager{
 		//gets actors to print out the stats for the individual ators
 		HashMap<String, TreeMap<MetricKey, Metric>> actors = currentPath.getActors();
 		
-		if( currentPath.getCumulativeDecisionWorkload( ) > HCDW) {
-			HCDW = currentPath.getCumulativeDecisionWorkload();
+		if( currentPath.getCumulativeDecisionWorkload( ) > HCCW) {
+			HCCW = currentPath.getCumulativeDecisionWorkload();
 			//Printer.getInstance( ).print( "HCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
 			for (String actor : actors.keySet())
 				{
-					Printer.getInstance().printNoOutput("HCDW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
+					Printer.getInstance().printNoOutput("HCCW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
 				}
-			Printer.getInstance( ).print( "HCDW.txt", pathData);
+			Printer.getInstance( ).print( "HCCW.txt", pathData);
 			HighestCumulativeDescisionWorkloadPath = currentPath;
 		}
-		if( currentPath.getCumulativeResourceWorkload( ) > HCRW ) {
-			HCRW = currentPath.getCumulativeResourceWorkload( );
+		if( currentPath.getCumulativeResourceWorkload( ) > HCPW ) {
+			HCPW = currentPath.getCumulativeResourceWorkload( );
 			//Printer.getInstance( ).print( "HCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
 			for (String actor : actors.keySet())
 			{
-				Printer.getInstance().printNoOutput("HCRW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
+				Printer.getInstance().printNoOutput("HCPW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
 			}
-			Printer.getInstance( ).print( "HCRW.txt", pathData);
+			Printer.getInstance( ).print( "HCPW.txt", pathData);
 			HighestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if( currentPath.getCumulativeTemporalWorkload( ) > HCTW) {
@@ -340,24 +340,24 @@ public class WorkloadManager{
 			Printer.getInstance( ).print( "HCTW.txt", pathData);
 			HighestCumulativeTemporalWorkloadPath = currentPath;
 		}
-		if( currentPath.getCumulativeDecisionWorkload( ) < LCDW ) {
-			LCDW = currentPath.getCumulativeDecisionWorkload( );
+		if( currentPath.getCumulativeDecisionWorkload( ) < LCCW ) {
+			LCCW = currentPath.getCumulativeDecisionWorkload( );
 			//Printer.getInstance( ).print( "LCDW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeDecisionWorkload() );
 			for (String actor : actors.keySet())
 			{
-				Printer.getInstance().printNoOutput("LCDW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
+				Printer.getInstance().printNoOutput("LCCW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
 			}
-			Printer.getInstance( ).print( "LCDW.txt", pathData);
+			Printer.getInstance( ).print( "LCCW.txt", pathData);
 			LowestCumulativeDescisionWorkloadPath = currentPath;
 		}
-		if( currentPath.getCumulativeResourceWorkload( ) < LCRW) {
-			LCRW = currentPath.getCumulativeResourceWorkload( );
+		if( currentPath.getCumulativeResourceWorkload( ) < LCPW) {
+			LCPW = currentPath.getCumulativeResourceWorkload( );
 			//Printer.getInstance( ).print( "LCRW/TOTAL.csv", WorkloadBuilder.build(currentPath), currentPath.getCumulativeResourceWorkload() );
 			for (String actor : actors.keySet())
 			{
-				Printer.getInstance().printNoOutput("LCRW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
+				Printer.getInstance().printNoOutput("LCPW/"+actor+".csv", WorkloadBuilder.buildActor(actors.get(actor)));
 			}
-			Printer.getInstance( ).print( "LCRW.txt", pathData);
+			Printer.getInstance( ).print( "LCPW.txt", pathData);
 			LowestCumulativeResourceWorkloadPath = currentPath;
 		}
 		if(currentPath.getCumulativeTemporalWorkload( ) < LCTW) {
