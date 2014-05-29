@@ -4,6 +4,7 @@ import copy
 import os
 import sys
 import getopt
+from Swimlane import swimlane
 
 #complex data structure for holding the row data
 class for_csv:
@@ -53,6 +54,13 @@ class for_csv:
         
 #main program
 def main(argv):
+    #data for swimlane file 
+    actor_lane_id = {}
+    swim = swimlane()
+    
+    #for swimline data
+    first_time = True
+    
     OP_TEMP_WINDOW = 9
     actors = []
     #if op temp parameter is not passed, defaults to 9
@@ -67,8 +75,17 @@ def main(argv):
             print("op = "+ str(OP_TEMP_WINDOW))
         elif opt in ("-a"):
             actors.append( str(arg+".csv"))
-    for x in actors:
-        print(x)
+            #for swimlanes, adds the actor names as lanes
+            if int(swim.getNumLane()) == 0:
+                actor_lane_id[arg] = str(swim.getNumLane())
+                swim.addLane("  {id: "+str(swim.getNumLane())+", label: '"+arg+"'}")
+            else:
+                actor_lane_id[arg] = str(swim.getNumLane())
+                swim.addLane(",\n\n  {id: "+str(swim.getNumLane())+", label: '"+arg+"'}")
+            #adds the different com channels to the lanes
+            swim.addLane(",\n\n  {id: "+str(swim.getNumLane())+", label: 'Audio'}" + ",\n\n  {id: "+str(swim.getNumLane()+1)+", label: 'Visual'}" + ",\n\n  {id: "+str(swim.getNumLane() + 2)+", label: 'Data'}")
+            swim.addNumLanes(2)
+    swim.addLane("\n\n];")
     #finds current directory
     loc = os.getcwd()
     loc=os.path.join(loc,"src","csvFiles")
@@ -78,6 +95,7 @@ def main(argv):
     for root, dirs, files in os.walk(loc):
         total = {}
         for file in files:
+            #deletes files not passed in as parameters
             if file not in actors and ".csv" in file:
                 os.remove(os.path.join(root,file))
                 continue
@@ -92,6 +110,10 @@ def main(argv):
                 os.remove(os.path.join(root,file))
                 continue
                 #opens the csv file to work on it
+            if first_time == False:
+                swim.addInfo(",\n\n")
+            first_time = False
+            swim.addInfo("{ id: '"+str(file[:-4])+" IDLE', lane: "+str(actor_lane_id.get(file[:-4]))+", start: yr(0), class: 'item', end: yr(")
             with open(os.path.join(root,file),'rb') as csvfile:
                 reader = csv.reader(csvfile, delimiter = ',')
                 expand = {}
@@ -99,6 +121,11 @@ def main(argv):
                 temp_place = 0;
                 temp_for_csv = []
                 for line in reader:
+                    if line[5] != "":
+                        swim.addInfo(str(line[0])+")},")
+                        first_loc = line[5].index(' ')
+                        second_loc = line[5].index(' ',first_loc+1)
+                        swim.addInfo("\n\n{ id: '"+str(file[:-4])+" "+line[5][first_loc:second_loc] +"', lane: "+str(actor_lane_id.get(file[:-4]))+", start: yr("+line[0]+"), class: 'item', end: yr(")
                     expand[int(line[0])] = for_csv(line[1:],first[1:])
                     if (int(line[0]) - temp_place) >1:
                         #this loop expands the data, and sets to 0 what should be set to zero
@@ -113,6 +140,7 @@ def main(argv):
                     temp_for_csv = line[1:]
                     temp_place = int(line[0])       
                 op_list = []
+                swim.addInfo(str(int(line[0])+1)+')}')
                 for x in sorted(expand):
                     #this fixes the total transitions so they dont spike, but so they put one ball in the bucket for each time unit
                     if expand[x].getData("Total Transitions") > 0:
@@ -139,7 +167,12 @@ def main(argv):
                         else:
                             total[x] = copy.deepcopy(expand[x])    
         #prints out the totals file.   
-        if len(total) >0:  
+        if len(total) >0: 
+            swim.addInfo("\n\n];") 
+            swimWriter =  open(os.path.join(old_root,"Swimlane.html"),'w')
+            swimWriter.write(swim.printFile())
+            swimWriter.close()
+            swim.resetItems()
             with open(os.path.join(old_root,"Total.csv"),'wb') as outcsv:
                 out = csv.writer(outcsv) 
                 out.writerow(first)

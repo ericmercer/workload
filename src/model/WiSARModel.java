@@ -27,7 +27,7 @@ public class WiSARModel {
 			//If you are not running JPF this sets up the manager to collect and interpret the metrics
 			manager = new WorkloadManager();
 
-			sim.setup(new NewWiSARTeam(), DebugMode.PROD, DurationMode.MIN_MAX, forJPF,manager);
+			sim.setup(new NewWiSARTeam(), DebugMode.PROD, DurationMode.RAND, forJPF,manager);
 			String checkSafe = sim.run();
 			sim.clean();
 		}
@@ -63,7 +63,7 @@ public class WiSARModel {
 				{
 					if(line.length() == 0)
 						continue;
-					else if (line.startsWith("\\"))
+					else if (line.startsWith("/"))
 						continue;
 					else if (line.equals( "Actors:"))
 					{
