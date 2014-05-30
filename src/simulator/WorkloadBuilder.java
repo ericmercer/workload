@@ -109,6 +109,7 @@ public class WorkloadBuilder {
 		String transitionDurations = "";
 		String taskStarts = "";
 		String taskStops = "";
+		String activeOutput = "";
 		int firedTransitions = 0;
 		int totalOpTempo = 0;
 		int interval = 1;
@@ -119,7 +120,7 @@ public class WorkloadBuilder {
 			if ( currentTime != metricKey.getTime() ) {
 				result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," 
 						+ enabledTransitions + "," + totalEnabledTransitions + "," + transitionDurations
-						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo;
+						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo + activeOutput;
 
 				totalActiveInputs = 0;
 				activeInputs = "";
@@ -130,7 +131,7 @@ public class WorkloadBuilder {
 				taskStarts = "";
 				taskStops = "";
 				totalOpTempo = 0;
-
+				activeOutput = "";
 				currentTime = metricKey.getTime();
 
 			}
@@ -154,6 +155,8 @@ public class WorkloadBuilder {
 				}else if ( metric.getData().toString().contains("_STOP_") ) {
 					taskStops += "(" + metric.getData() + ")";
 				}
+				else
+					activeOutput+= "(" + metric.getData() + ")";
 			} 
 
 			lastTime = currentTime;
@@ -161,14 +164,14 @@ public class WorkloadBuilder {
 		double opTempo = firedTransitions;// / window;
 		result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," + enabledTransitions 
 				+ "," + totalEnabledTransitions + "," + transitionDurations + "," + totalTransitionDurations + "," 
-				+ taskStarts + "," + taskStops + "," + totalOpTempo;
+				+ taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput;
 
 		return result;
 	}
 
 	public static String buildActor(TreeMap<MetricKey, Metric> values ) {
 
-		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo";
+		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo,Active Output";
 
 		int currentTime = 0;
 		int totalTime = values.lastEntry().getKey().getTime();
@@ -183,6 +186,7 @@ public class WorkloadBuilder {
 		String transitionDurations = "";
 		String taskStarts = "";
 		String taskStops = "";
+		String activeOutput = "";
 		int firedTransitions = 0;
 		int totalOpTempo = 0;
 		int interval = 1;
@@ -193,7 +197,7 @@ public class WorkloadBuilder {
 			if ( currentTime != metricKey.getTime() ) {
 				result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," 
 						+ enabledTransitions + "," + totalEnabledTransitions + "," + transitionDurations
-						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo;
+						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput;
 
 				totalActiveInputs = 0;
 				activeInputs = "";
@@ -204,7 +208,8 @@ public class WorkloadBuilder {
 				taskStarts = "";
 				taskStops = "";
 				totalOpTempo = 0;
-
+				activeOutput = "";
+				
 				currentTime = metricKey.getTime();
 
 			}
@@ -228,6 +233,8 @@ public class WorkloadBuilder {
 				}else if ( metric.getData().toString().contains("_STOP_") ) {
 					taskStops += "(" + metric.getData() + ")";
 				}
+				else
+					activeOutput+= "(" + metric.getData() + ")";
 			} 
 
 			lastTime = currentTime;
@@ -235,7 +242,7 @@ public class WorkloadBuilder {
 		double opTempo = firedTransitions;// / window;
 		result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," + enabledTransitions 
 				+ "," + totalEnabledTransitions + "," + transitionDurations + "," + totalTransitionDurations + "," 
-				+ taskStarts + "," + taskStops + "," + totalOpTempo;
+				+ taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput;
 		return result;
 	}
 }

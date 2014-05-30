@@ -1,4 +1,5 @@
-#written by Michael Sharp.  Last revision 5/15/2014
+#written by Michael Sharp.  Last revision 5/29/2014
+#Post processes the .csv files and expands the data, also creates the swimlanes.
 import csv
 import copy
 import os
@@ -60,6 +61,8 @@ def main(argv):
     
     #for swimline data
     first_time = True
+    previousChannel = ""
+    startTime = ""
     
     OP_TEMP_WINDOW = 9
     actors = []
@@ -126,6 +129,30 @@ def main(argv):
                         first_loc = line[5].index(' ')
                         second_loc = line[5].index(' ',first_loc+1)
                         swim.addInfo("\n\n{ id: '"+str(file[:-4])+" "+line[5][first_loc:second_loc] +"', lane: "+str(actor_lane_id.get(file[:-4]))+", start: yr("+line[0]+"), class: 'item', end: yr(")
+                    if line[10] !="" and previousChannel == "":
+                        previousChannel = line[10]
+                        startTime = line[0]
+                    elif line[10] == "" and previousChannel!="":
+                        tempLane = 0
+                        if line[10][0:0] == "A":
+                            tempLane =1
+                        elif line[10][0:0] == "V":
+                            tempLane = 2
+                        else:
+                            tempLane = 3
+                        swim.addChannelInfo("{ id: '"+previousChannel[4:-2] +"', lane: "+str(int(actor_lane_id.get(file[:-4])) + tempLane)+", start: yr("+startTime+"), class: 'item', end: yr("+line[0]+")}")
+                        previousChannel = ""
+                    elif line[10] != previousChannel:
+                        tempLane = 0
+                        if line[10][0:0] == "A":
+                            tempLane =1
+                        elif line[10][0:0] == "V":
+                            tempLane = 2
+                        else:
+                            tempLane = 3
+                        swim.addChannelInfo("{ id: '"+previousChannel[4:-2] +"', lane: "+str(int(actor_lane_id.get(file[:-4])) + tempLane)+", start: yr("+startTime+"), class: 'item', end: yr("+line[0]+")}")
+                        previousChannel = line[10]
+                        startTime = line[0]
                     expand[int(line[0])] = for_csv(line[1:],first[1:])
                     if (int(line[0]) - temp_place) >1:
                         #this loop expands the data, and sets to 0 what should be set to zero
@@ -141,6 +168,15 @@ def main(argv):
                     temp_place = int(line[0])       
                 op_list = []
                 swim.addInfo(str(int(line[0])+1)+')}')
+                if previousChannel!="":
+                    tempLane = 0
+                    if line[10][0:0] == "A":
+                        tempLane =1
+                    elif line[10][0:0] == "V":
+                        tempLane = 2
+                    else:
+                        tempLane = 3
+                    swim.addChannelInfo("{ id: '"+previousChannel[4:-2] +"', lane: "+str(int(actor_lane_id.get(file[:-4])) + tempLane)+", start: yr("+startTime+"), class: 'item', end: yr("+str(int(line[0])+1)+")}")
                 for x in sorted(expand):
                     #this fixes the total transitions so they dont spike, but so they put one ball in the bucket for each time unit
                     if expand[x].getData("Total Transitions") > 0:
@@ -167,8 +203,8 @@ def main(argv):
                         else:
                             total[x] = copy.deepcopy(expand[x])    
         #prints out the totals file.   
-        if len(total) >0: 
-            swim.addInfo("\n\n];") 
+        if len(total) >0:  
+            swim.finishInfo()
             swimWriter =  open(os.path.join(old_root,"Swimlane.html"),'w')
             swimWriter.write(swim.printFile())
             swimWriter.close()

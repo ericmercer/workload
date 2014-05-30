@@ -1,8 +1,11 @@
+#written by Michael Sharp.  Last revision 5/29/2014
+#Helper class to create the swimlane, called by PostProcessing.py
 class swimlane: 
     def __init__(self): 
         self.actor_lane_id = {}
         self.lanes = "var lanes = [\n"
         self.items = "var items = [\n"
+        self.itemOutput = ""
         self.for_lanes = 0
         self.part1 = '''<html>\n\n<head>\n\n<title>Swimlane using d3.js</title>\n\n<script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js"></script>
         \n<style>\n\n.chart {\n\n  shape-rendering: crispEdges;\n\n}\n\n\n\n.mini text {\n\n  font: 9px sans-serif; \n\n}
@@ -66,6 +69,10 @@ class swimlane:
         return self
     def getNumLane(self):
         return self.for_lanes
+    def addChannelInfo(self, info_to_add):
+        self.itemOutput +=",\n\n"+info_to_add
+    def resetChannels(self):
+        self.itemOutput =""
     def addInfo(self, info_to_add):
         self.items+=info_to_add
         return self  
@@ -75,3 +82,5 @@ class swimlane:
     def resetItems(self):
         self.items = "var items = [\n"
         return self
+    def finishInfo(self):
+        self.items+="\n\n"+self.itemOutput+"\n\n];"

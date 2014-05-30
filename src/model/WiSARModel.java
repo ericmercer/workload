@@ -92,8 +92,8 @@ public class WiSARModel {
 				e.printStackTrace();
 			}
 			Runtime.getRuntime().exec(python);
-			Thread.sleep(5000);
-			Runtime.getRuntime().exec(graph);
+			//Thread.sleep(5000);
+			//Runtime.getRuntime().exec(graph);
 		}
 	}	
 }
