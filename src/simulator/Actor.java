@@ -39,10 +39,10 @@ public abstract class Actor implements IActor {
 			if(nextTransition.priority() < enabledTransition.priority()){
 				nextTransition = enabledTransition;
 			}
-//			else if(nextTransition.priority() == enabledTransition.priority()){
-//				if (Verify.getIntFromList(0, 1) == 1)
-//					nextTransition = enabledTransition;
-//			}
+			else if(nextTransition.priority() == enabledTransition.priority()){
+				if (Math.random() > .5)
+					nextTransition = enabledTransition;
+			}
 		}
 		HashMap<IActor, ITransition> transitions = new HashMap<IActor, ITransition>();
 		transitions.put(this, nextTransition);

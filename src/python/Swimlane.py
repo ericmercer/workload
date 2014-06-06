@@ -40,7 +40,7 @@ class swimlane:
         \nvar itemRects = main.append('g')\n\n  .attr('clip-path', 'url(#clip)');\n\n\n\nmini.append('g').selectAll('miniItems')\n\n  .data(getPaths(items))\n\n  .enter().append('path')
         \n  .attr('class', function(d) { return 'miniItem ' + d.class; })\n\n  .attr('d', function(d) { return d.path; });\n\n\n\n// invisible hit area to move around the selection window
         \nmini.append('rect')\n\n  .attr('pointer-events', 'painted')\n\n  .attr('width', width)\n\n  .attr('height', miniHeight)\n\n  .attr('visibility', 'hidden')\n\n  .on('mouseup', moveBrush);
-        \n\n\n// draw the selection area\n\nvar brush = d3.svg.brush()\n\n  .x(x)\n\n  .extent([yr(0), yr(50)])\n\n  .on("brush", display);\n\n\n\nmini.append('g')\n\n  .attr('class', 'x brush')
+        \n\n\n// draw the selection area\n\nvar brush = d3.svg.brush()\n\n  .x(x)\n\n  .extent([yr(0), yr(10)])\n\n  .on("brush", display);\n\n\n\nmini.append('g')\n\n  .attr('class', 'x brush')
         \n  .call(brush)\n\n  .selectAll('rect')\n\n    .attr('y', 1)\n\n    .attr('height', miniHeight - 1);\n\n\n\nmini.selectAll('rect.background').remove();\n\ndisplay();
         \n\n\nfunction display () {\n\n\n\n  var rects, labels\n\n    , minExtent = brush.extent()[0]\n\n    , maxExtent = brush.extent()[1]
         \n    , visItems = items.filter(function (d) { return d.start < maxExtent && d.end > minExtent});\n\n\n\n  mini.select('.brush').call(brush.extent([minExtent, maxExtent]));   
