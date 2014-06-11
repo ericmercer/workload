@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
  * Operation := "++"||"--"
  */
 public class Interpreter {
+	public static HashMap<String, String> variable_assignments = new HashMap<String, String>();
 	public static void main(String[] args){
 
 		File f = getJTRFolder();
@@ -58,12 +59,12 @@ public class Interpreter {
 				
 				int i = file.getName().lastIndexOf('.');
 
-				//commented out to make anyfile name viable.  Only have the files in the package that you will be using
+				//Only have the files in the package that you will be using
 				if(i < 0|| !file.getName().substring(i+1).equals("txt") || file.length() == 0)
 					continue;
 				StringBuilder memory = new StringBuilder();
 				memory.append("\n@Override\nprotected void initializeInternalVariables() {");
-				
+				readVariables(file);
 				//get the actor name and check if it is valid
 				String name = file.getName();
 				name = name.substring(0, name.indexOf('.'));
@@ -127,6 +128,41 @@ public class Interpreter {
 				else
 				{
 					header_file.put(line.substring(0, index), line.substring(index+1));
+				}
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
+	
+	private static void readVariables(File file) throws FileNotFoundException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String line;
+		boolean proceed = false;
+		try {
+			if((line = br.readLine()).equals("Variables:"))
+				proceed = true;
+			while((line = br.readLine()) != "\n" && proceed)
+			{
+				int index = line.indexOf(" ");
+				if(index < 0)
+				{
+					br.close();
+					return;
+				}
+				else
+				{
+					variable_assignments.put(line.substring(0, index), line.substring(index+1));
 				}
 				
 			}
@@ -613,7 +649,12 @@ public class Interpreter {
 				value = "new Integer(" + Integer.parseInt(division[1]) + ")";
 				//add the source for the initializeInternalVariables method
 				if(add_to_memory)
-					memory.append("0);");
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
 			}catch(NumberFormatException e){
 				value = "\"" + division[1] + "\"";
 				//add the source for the initializeInternalVariables method
