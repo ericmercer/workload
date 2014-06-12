@@ -429,7 +429,7 @@ public class Interpreter {
 			}
 			//adds a check for transition prerequisites and the return false if those are not met
 			if(!value_channel[1].equals("EVENT")){
-				//if not event
+				//if not event_internal_vars.addVariable(
 				value_channel[0] += value_channel[1] + "." + division[1];
 				transition.append("\n\t\t\tif(");
 				if(comparator.equals("="))
@@ -638,12 +638,22 @@ public class Interpreter {
 		if (division[1].equals("++") || division[1].equals("--")){
 			value = "new Integer(" + division[0] + ")";
 			if(add_to_memory)
-				memory.append("0);");
+				if(variable_assignments.containsKey(division[0]))
+				{
+					memory.append(variable_assignments.get(division[0])+");");
+				}
+				else
+					memory.append("0);");
 		}else if(division[1].equalsIgnoreCase("true") || division[1].equalsIgnoreCase("false")){
 			value = "new Boolean(" + division[1].toLowerCase() + ")";
 			//add the source for the initializeInternalVariables method
 			if(add_to_memory)
-				memory.append("false);");
+				if(variable_assignments.containsKey(division[0]))
+				{
+					memory.append(variable_assignments.get(division[0])+");");
+				}
+				else
+					memory.append("false);");
 		} else {
 			try{
 				value = "new Integer(" + Integer.parseInt(division[1]) + ")";
@@ -659,7 +669,12 @@ public class Interpreter {
 				value = "\"" + division[1] + "\"";
 				//add the source for the initializeInternalVariables method
 				if(add_to_memory)
-					memory.append("\"\");");
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append("\""+variable_assignments.get(division[0])+"\""+");");
+					}
+					else
+						memory.append("\"\");");
 			}
 		}
 		
