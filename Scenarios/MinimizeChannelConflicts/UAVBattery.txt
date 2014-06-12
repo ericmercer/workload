@@ -1,0 +1,14 @@
+TASKS:
+	From the command to take off will by default deplete battery levels and send out signals indicating current battery life
+	If the UAV sends out a landed signal the battery will go back to IDLE
+
+
+//DEFAULT BEHAVIOUR
+(IDLE,[D=OP_TAKE_OFF_UAV],[],1,NEXT,1.0)X(GOOD,[D=UAVBAT_GOOD_UAV,D=UAV_BATTERY_GOOD_OGUI],[])
+(GOOD,[],[],1,UAVBAT_ACTIVE_TO_LOW,1.0)X(LOW,[D=UAVBAT_LOW_UAV,D=UAV_BATTERY_LOW_OGUI],[])
+(LOW,[],[],1,UAVBAT_LOW_TO_DEAD,1.0)X(DEAD,[D=UAVBAT_DEAD_UAV],[])
+
+//RESPONSES TO INPUT
+(GOOD,[V=UAV_LANDED_OP],[],2,NEXT,1.0)X(IDLE,[],[])
+(LOW,[V=UAV_LANDED_OP],[],2,NEXT,1.0)X(IDLE,[],[])
+(DEAD,[V=UAV_LANDED_OP],[],2,NEXT,1.0)X(IDLE,[],[])

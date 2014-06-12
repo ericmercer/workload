@@ -1,3 +1,5 @@
+// Simple scenario where the VO, PS and OP all communicate data to the MM
+
 TASKS:
 	TRANSMIT_SEARCH_COMPLETE
 	

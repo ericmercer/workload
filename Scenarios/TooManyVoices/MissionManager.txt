@@ -1,3 +1,5 @@
+// Simple scenario where the VO, PS and OP all communicate data to the MM
+
 TASKS:
 	LISTEN TO PS
 	LISTEN TO OP
