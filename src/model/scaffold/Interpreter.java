@@ -650,7 +650,7 @@ public class Interpreter {
 			if(add_to_memory)
 				if(variable_assignments.containsKey(division[0]))
 				{
-					memory.append(variable_assignments.get(division[0])+");");
+					memory.append(variable_assignments.get(division[0]).toLowerCase()+");");
 				}
 				else
 					memory.append("false);");
