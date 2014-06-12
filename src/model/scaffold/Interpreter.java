@@ -1046,7 +1046,7 @@ public class Interpreter {
 		
 		//print the text
 		try {
-			PrintWriter writer = new PrintWriter("src\\model\\team\\Channels.java", "UTF-8");
+			PrintWriter writer = new PrintWriter("src/model/team/Channels.java", "UTF-8");
 			writer.println(text);
 			writer.close();
 		} catch (FileNotFoundException e) {
