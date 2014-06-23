@@ -102,7 +102,7 @@ public class GraphParser
 				
 				//gets the output of the transition
 				tool_tip+="		Output: ";
-				tool_tip += line.substring(line.indexOf('[')+1,line.indexOf(']')-1);
+				tool_tip += line.substring(line.indexOf('[')+1,line.indexOf(']'));
 				tool_tip +="\"";
 				
 				writer.println(node + " -> " + to_what + "["+ tool_tip + "];");
