@@ -39,7 +39,7 @@ public class GraphParser
 		PrintWriter for_bat = new PrintWriter("src\\model\\scaffold\\graph\\graph.bat","ASCII");
 		
 		File temp_bat = new File(new File(Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
-		for_bat.println("cd "+ temp_bat.toString()+"\\src\\model\\scaffold\\graph\\");
+		for_bat.println("cd "+ temp_bat.toString()+"/src/model/scaffold/graph/");
 		
 		//for all the files in there, it parses and outputs the graph file
 		for(File file : f.listFiles())
@@ -49,7 +49,7 @@ public class GraphParser
 			if(i < 0|| !file.getName().substring(i+1).equals("txt") || file.length() == 0)
 				continue;
 			String name = (String) file.getName().subSequence(0, file.getName().indexOf('.'));
-			PrintWriter writer = new PrintWriter("src\\model\\scaffold\\graph\\"+name+".gv","ASCII");
+			PrintWriter writer = new PrintWriter("src/model/scaffold/graph/"+name+".gv","ASCII");
 			
 			writer.println("digraph " + name + '{');
 			writer.println("rankdir = LR;");
