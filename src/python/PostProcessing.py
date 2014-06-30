@@ -107,9 +107,9 @@ def main(argv):
                         startTime = x
                     elif expand[x].getData("Active Output") == "" and previousChannel!="":
                         tempLane = 0
-                        if expand[x].getData("Active Output")[0:0] == "A":
+                        if previousChannel[2:3] == "A":
                             tempLane =1
-                        elif expand[x].getData("Active Output")[0:0] == "V":
+                        elif previousChannel[2:3] == "V":
                             tempLane = 2
                         else:
                             tempLane = 3
@@ -117,15 +117,17 @@ def main(argv):
                         previousChannel = ""
                     elif expand[x].getData("Active Output") != previousChannel:
                         tempLane = 0
-                        if expand[x].getData("Active Output")[0:0] == "A":
+                        if previousChannel[2:3] == "A":
                             tempLane =1
-                        elif expand[x].getData("Active Output")[0:0] == "V":
+                        elif previousChannel[2:3] == "V":
                             tempLane = 2
                         else:
                             tempLane = 3
                         items.append("{ id: '"+previousChannel[4:-2] +"', lane: "+str(int(actor_lane_id.get(file[:-4])) + tempLane)+", start: yr("+str(startTime)+"), class: 'item', end: yr("+str(x)+")}")
                         previousChannel = expand[x].getData("Active Output")
-                        startTime = line[0]
+                        startTime = x
+                        print(startTime)
+
                     #this fixes the total transitions so they dont spike, but so they put one ball in the bucket for each time unit
                     if expand[x].getData("Total Transitions") > 0:
                         for y in range (x-int(expand[x].getData("Total Transitions")),x):
@@ -157,9 +159,9 @@ def main(argv):
             #finishes last channel out
             if previousChannel!="":
                 tempLane = 0
-                if expand[x].getData("Active Output")[0:0] == "A":
+                if expand[x].getData("Active Output")[2:3] == "A":
                     tempLane =1
-                elif expand[x].getData("Active Output")[0:0] == "V":
+                elif expand[x].getData("Active Output")[2:3] == "V":
                     tempLane = 2
                 else:
                     tempLane = 3
