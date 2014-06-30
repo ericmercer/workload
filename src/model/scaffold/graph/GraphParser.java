@@ -36,7 +36,7 @@ public class GraphParser
 		File f = getJTRFolder();
 		
 		//gets the info and sets up the printwriter for the bat file
-		PrintWriter for_bat = new PrintWriter("src\\model\\scaffold\\graph\\graph.bat","ASCII");
+		PrintWriter for_bat = new PrintWriter("src/model/scaffold/graph/graph.bat","ASCII");
 		
 		File temp_bat = new File(new File(Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
 		for_bat.println("cd "+ temp_bat.toString()+"/src/model/scaffold/graph/");
