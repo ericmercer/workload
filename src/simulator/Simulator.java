@@ -214,9 +214,9 @@ public class Simulator {
 			//Store active output data
 			for(ComChannel<?> output : actor.getCurrentState().getActiveOutputs()) {
 				if(_forJPF == RunsJPF.NO)
-					MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString(),manager);
+					MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getName().toString().substring(0, 1)+"_"+output.getValue().toString(),manager);
 				else
-					MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), output.getValue().toString());
+					MetricManager.getInstance().setActiveOutput(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(),output.getName().toString().substring(0, 1)+"_"+output.getValue().toString());
 			}
 			
 		}
