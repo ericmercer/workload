@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -256,7 +257,12 @@ public class Interpreter {
 					}else
 						initializers.put(state, "State " + transition_state[1] + ", " + initializers.get(state) + "\n\t// " + line + transition_state[0]);
 				}else{
-					initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
+					if(state.equals(transition_state[1]))
+					{
+						initializers.put(state, "State " + state + ") {" + "\n\t// " + line + transition_state[0]);
+					}
+					else
+						initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
 				}
 			}else if(line.length() > 0 && line.startsWith("("))
 				System.out.println("error with comment: " + line);
@@ -283,6 +289,7 @@ public class Interpreter {
 //						constructor.insert(0, "\n\tState " + transition.getKey() + " = new State(\"" + transition.getKey() + "\");");
 			String call_line = transition.getValue().split("\n")[0];
 			String parameters = call_line.substring(call_line.indexOf("State"), call_line.indexOf(')'));
+			//System.out.println(Arrays.toString(parameters.split(",")));
 			parameters = parameters.replaceAll("State ", "");
 			constructor.append("\n\tinitialize" + transition.getKey() + "(inputs, outputs, " + parameters + ");");
 			body.append("\n public void initialize" + transition.getKey() + "(ComChannelList inputs, ComChannelList outputs, ");
