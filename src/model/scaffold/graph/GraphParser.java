@@ -35,8 +35,12 @@ public class GraphParser
 		//gets the directory of the Interpreter.java
 		File f = getJTRFolder();
 		
-		//gets the info and sets up the printwriter for the bat file
-		PrintWriter for_bat = new PrintWriter("src/model/scaffold/graph/graph.bat","ASCII");
+		//gets the info and sets up the printwriter for the .bat or .sh file
+		PrintWriter for_bat = null;
+		if(System.getProperty("os.name").startsWith("Windows"))
+			for_bat = new PrintWriter("src/model/scaffold/graph/graph.bat","ASCII");
+		else if(System.getProperty("os.name").startsWith("Mac"))
+			for_bat = new PrintWriter("src/model/scaffold/graph/graph.sh","ASCII");
 		
 		File temp_bat = new File(new File(Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent());
 		for_bat.println("cd "+ temp_bat.toString()+"/src/model/scaffold/graph/");
@@ -56,11 +60,19 @@ public class GraphParser
 			writer.println("edge [weight = 1.0 penwidth=1.5];");
 			writer.println("node [nodesep = 20.0];");
 			
-			
-			
 			parseFile(file, writer, for_bat, name);
 		}
 		for_bat.close();
+		
+		if(System.getProperty("os.name").startsWith("Mac")) {
+			Runtime r = Runtime.getRuntime();
+			try {
+				r.exec("chmod 777 src/model/scaffold/graph/graph.sh");
+				//r.exec("sh src/model/scaffold/graph/graph.sh");
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
 	}
 	
 	
@@ -106,13 +118,17 @@ public class GraphParser
 				tool_tip +="\"";
 				
 				writer.println(node + " -> " + to_what + "["+ tool_tip + "];");
-				
 			}
 		}
 		br.close();
 		writer.print('}');
 		for_bat.println("dot -Tsvg -o " + name+".svg " + name+".gv");
-		for_bat.println("del "+name+".gv");
+		
+		if(System.getProperty("os.name").startsWith("Windows")) 
+			for_bat.println("del "+name+".gv");
+		else if(System.getProperty("os.name").startsWith("Mac"))
+			for_bat.println("rm "+name+".gv");
+		
 		writer.close();
 	}
 	
