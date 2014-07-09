@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -193,21 +194,37 @@ public class Interpreter {
 		ArrayList<String[]> channel_list = inputs_outputs.get(name);
 		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
 		String channel_name = enumeration.getKey();
-	
-		String channel_type = channel_name.substring(0, channel_name.indexOf('_'));
-		String[] channel = new String[]{channel_name,channel_type,"OUTPUT"};
-		if (!channel_list.contains(channel))
-			channel_list.add(channel);
-		inputs_outputs.put(name, channel_list);
-		String target = channel_name.substring(
-				channel_name.indexOf('_', channel_name.indexOf('_')+1)+1,channel_name.indexOf('_', channel_name.indexOf('_', channel_name.indexOf('_')+1)+1));
-		String target_name = header_file.get(target);
-		channel_list = inputs_outputs.get(target_name);
-		channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
-		channel = new String[]{channel_name,channel_type,"INPUT"};
-		if (!channel_list.contains(channel))
-			channel_list.add(channel);
-		inputs_outputs.put(target_name, channel_list);
+		if(!channel_name.contains("EVENT")){
+			String channel_type = channel_name.substring(0, channel_name.indexOf('_'));
+			String[] channel = new String[]{channel_name,channel_type,"OUTPUT"};
+			if (!channel_list.contains(channel))
+				channel_list.add(channel);
+			inputs_outputs.put(name, channel_list);
+			String target = channel_name.substring(
+					channel_name.indexOf('_', channel_name.indexOf('_')+1)+1,channel_name.indexOf('_', channel_name.indexOf('_', channel_name.indexOf('_')+1)+1));
+			String target_name = header_file.get(target);
+			channel_list = inputs_outputs.get(target_name);
+			channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
+			channel = new String[]{channel_name,channel_type,"INPUT"};
+			if (!channel_list.contains(channel))
+				channel_list.add(channel);
+			inputs_outputs.put(target_name, channel_list);
+		}
+		else
+		{
+			channel_list = (channel_list==null)?new ArrayList<String[]>():channel_list;
+			String[] channel = new String[]{channel_name,"AUDIO","INPUT"};
+			if (!channel_list.contains(channel))
+				channel_list.add(channel);
+			inputs_outputs.put(name, channel_list);
+			if(name.contains("EVENT") || name.contains("event")||name.contains("Event"))
+			{
+				channel = new String[]{channel_name,"AUDIO","OUTPUT"};
+				if (!channel_list.contains(channel))
+					channel_list.add(channel);
+				inputs_outputs.put(name, channel_list);
+			}
+		}
 	}
 
 	/**
@@ -240,7 +257,12 @@ public class Interpreter {
 					}else
 						initializers.put(state, "State " + transition_state[1] + ", " + initializers.get(state) + "\n\t// " + line + transition_state[0]);
 				}else{
-					initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
+					if(state.equals(transition_state[1]))
+					{
+						initializers.put(state, "State " + state + ") {" + "\n\t// " + line + transition_state[0]);
+					}
+					else
+						initializers.put(state, "State " + state + ", State " + transition_state[1] + ") {" + "\n\t// " + line + transition_state[0]);
 				}
 			}else if(line.length() > 0 && line.startsWith("("))
 				System.out.println("error with comment: " + line);
@@ -267,6 +289,7 @@ public class Interpreter {
 //						constructor.insert(0, "\n\tState " + transition.getKey() + " = new State(\"" + transition.getKey() + "\");");
 			String call_line = transition.getValue().split("\n")[0];
 			String parameters = call_line.substring(call_line.indexOf("State"), call_line.indexOf(')'));
+			//System.out.println(Arrays.toString(parameters.split(",")));
 			parameters = parameters.replaceAll("State ", "");
 			constructor.append("\n\tinitialize" + transition.getKey() + "(inputs, outputs, " + parameters + ");");
 			body.append("\n public void initialize" + transition.getKey() + "(ComChannelList inputs, ComChannelList outputs, ");
@@ -419,7 +442,7 @@ public class Interpreter {
 			String[] value_channel = getValue_Channel(division,header_file);
 
 			//adds to the enumerations if not already present
-			if(value_channel[0].length() > 0 && name.equals(value_channel[0].substring(0, value_channel[0].indexOf('.')))){
+			if(value_channel[0].length() > 0 && name.startsWith(value_channel[0].substring(0, value_channel[0].indexOf('.'))) && value_channel[0]!=null){
 				if(!enumerations.containsKey(value_channel[1])){
 					enumerations.put(value_channel[1], "\npublic enum " + value_channel[1] + "{\n\t" + division[1] + ",");
 				}else{
@@ -438,6 +461,8 @@ public class Interpreter {
 						value_channel[1] + ".name()).getValue())) {\n\t\t\t\treturn false;\n\t\t\t}");
 			}else{
 				//if event
+				if(!enumerations.containsKey(value_channel[1]))
+					enumerations.put(input.substring(input.indexOf('=')+1), "\npublic enum " + division[1] + "{\n\t" + division[1] + ",");
 				transition.append("\n\t\t\tif(_inputs.get(Channels." +
 						division[1] + ".name()).getValue() == null || !(Boolean)_inputs.get(Channels." +
 						division[1] + ".name()).getValue()) {\n\t\t\t\treturn false;\n\t\t\t}");
@@ -481,8 +506,14 @@ public class Interpreter {
 //							System.out.println(enumerations.get(value_channel[1]).toString());
 					}
 				}
-				value_channel[0] += value_channel[1] + "." + division[1];
-				transition.append("\n\t\t\tsetTempOutput(Channels." + value_channel[1] + ".name(), " + value_channel[0] + ");");
+				if(!value_channel[1].equals("EVENT")){
+					value_channel[0] += value_channel[1] + "." + division[1];
+					transition.append("\n\t\t\tsetTempOutput(Channels." + value_channel[1] + ".name(), " + value_channel[0] + ");");
+				}
+				else
+				{
+					transition.append("\n\t\t\tsetTempOutput(Channels." + division[1] + ".name(), " + "true" + ");");
+				}
 			}
 		}
 		
@@ -522,7 +553,7 @@ public class Interpreter {
 				+ "[xX]"
 				+ "\\([[A-Z0-9]_]*,"
 				+ "\\[([ADVE]*=[A-Z_~]*)?(,[ADVE]*=[A-Z_~]*)*\\],"
-				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
+				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\],[A-Z_]*\\)");
 		Matcher matcher = pattern.matcher(s);
 		boolean match = matcher.matches();
 		if(s.length() > 0 && s.startsWith("(")){
@@ -550,10 +581,12 @@ public class Interpreter {
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_~]*)?(,[A-Z_]*=[A-Z_~]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(8);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\]\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(9);
-			
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,.*\\,[A-Z_]*");
+			if(!pattern.matcher(s).find())
+				System.out.println(10);
 		}
 		return match;
 	}
@@ -576,21 +609,41 @@ public class Interpreter {
 			if(division[1].equalsIgnoreCase("true") || division[1].equalsIgnoreCase("false")){
 				value = division[1].toLowerCase();
 				if(add_to_memory)
-					memory.append("false);");
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0]).toLowerCase()+");");
+					}
+					else
+						memory.append("false);");
 			} else if(division[1].equals("++")){
 				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") + 1";
 				if(add_to_memory)
-					memory.append("0);");
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
 			} else if(division[1].equals("--")){
 				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") - 1";
 				if(add_to_memory)
-					memory.append("0);");
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
 			} else {
 			
 				try{
 					value = String.valueOf(Integer.parseInt(division[1]));
 					if(add_to_memory)
-						memory.append("0);");
+						if(variable_assignments.containsKey(division[0]))
+						{
+							memory.append(variable_assignments.get(division[0])+");");
+						}
+						else
+							memory.append("0);");
 				}catch(NumberFormatException e){
 					value = "\"" + division[1].toUpperCase() + "\"";
 					if(add_to_memory)
@@ -610,22 +663,41 @@ public class Interpreter {
 			StringBuilder transition, String internal) {
 		//check for any of the comparison operators and terminate the source generation if they aren't found
 		String operator = null;
+		String to_split="";
 		if(internal.contains("<="))
-			operator = "<=";
-		else if(internal.contains(">="))
-			operator = ">=";
-		else if(internal.contains("!="))
-			operator = "!=";
-		else if(internal.contains("="))
-			operator = "=";
-		else if(internal.contains("<"))
+		{
 			operator = "<";
-		else if(internal.contains(">"))
+			to_split = "<=";
+		}
+		else if(internal.contains(">="))
+		{
 			operator = ">";
+			to_split = ">=";
+		}
+		else if(internal.contains("!="))
+		{
+			operator = "!=";
+			to_split = "!=";
+		}
+		else if(internal.contains("="))
+		{
+			operator = "=";
+			to_split = "=";
+		}
+		else if(internal.contains("<"))
+		{
+			operator = "<=";
+			to_split = "<";
+		}
+		else if(internal.contains(">"))
+		{
+			operator = ">=";
+			to_split = ">";
+		}
 		else
 			return;
 		
-		String[] division = internal.split(operator);
+		String[] division = internal.split(to_split);
 		//add the source for the initializeInternalVariables method
 		boolean add_to_memory = false;
 		if(!memory.toString().contains(division[0])){
@@ -718,53 +790,7 @@ public class Interpreter {
 		String temp = division[1];
 		prefix = temp.substring(0,temp.indexOf('_'));
 		value_channel[0] = header_file.get(prefix)+".";
-//		if(division[1].startsWith("MM")){
-//			value_channel[0] = "MissionManager.";
-//			prefix = "MM";
-//		} else if(division[1].startsWith("OP")){
-//			value_channel[0] = "Operator.";
-//			prefix = "OP";
-//		} else if(division[1].startsWith("VO")){
-//			value_channel[0] = "VideoOperator.";
-//			prefix = "VO";
-//		} else if(division[1].startsWith("VGUI")){
-//			value_channel[0] = "VideoOperatorGui.";
-//			prefix = "VGUI";
-//		} else if(division[1].startsWith("OGUI")){
-//			value_channel[0] = "OperatorGui.";
-//			prefix = "OGUI";
-//		} else if(division[1].startsWith("PS")){
-//			value_channel[0] = "ParentSearch.";
-//			prefix = "PS";
-//		} else if(division[1].startsWith("UAVHAG")){
-//			value_channel[0] = "UAVHeightAboveGround.";
-//			prefix = "UAVHAG";
-//		} else if(division[1].startsWith("UAVVF")){
-//			value_channel[0] = "UAVVideoFeed.";
-//			prefix = "UAVVF";
-//		} else if(division[1].startsWith("UAVBAT")){
-//			value_channel[0] = "UAVBattery.";
-//			prefix = "UAVBAT";
-//		} else if(division[1].startsWith("UAVFP")){
-//			value_channel[0] = "UAVFlightPlan.";
-//			prefix = "UAVFP";
-//		} else if(division[1].startsWith("UAVS")){
-//			value_channel[0] = "UAVSignal.";
-//			prefix = "UAVS";
-//		} else if(division[1].startsWith("UAV")){
-//			value_channel[0] = "UAV.";
-//			prefix = "UAV";
-//		}
-//		} else if(division[1].startsWith("HAG")){
-//			value_channel[0] = "HeightAboveGroundEvent.";
-//		} else if(division[1].startsWith("")){
-//			
-//		} else if(division[1].startsWith("")){
-//			
-//		}
-		//else{
-		//	System.out.println("uncaught: " + division[1]);
-		//}
+
 		value_channel[1] = getChannel(division, prefix);
 		return value_channel;
 	}
@@ -793,31 +819,6 @@ public class Interpreter {
 		String temp = division[1];
 		temp = temp.replaceAll("(\\w)+_(\\w)+_", "");
 		
-//		if(division[1].endsWith("MM")){
-//			suffix = "MM";
-//		} else if(division[1].endsWith("OP")){
-//			suffix = "OP";
-//		} else if(division[1].endsWith("VO")){
-//			suffix = "VO";
-//		} else if(division[1].endsWith("VGUI")){
-//			suffix = "VGUI";
-//		} else if(division[1].endsWith("OGUI")){
-//			suffix = "OGUI";
-//		} else if(division[1].endsWith("PS")){
-//			suffix = "PS";
-//		} else if(division[1].endsWith("UAVBAT")){
-//			suffix = "UAVBAT";
-//		} else if(division[1].endsWith("UAVFP")){
-//			suffix = "UAVFP";
-//		} else if(division[1].endsWith("UAVS")){
-//			suffix = "UAVS";
-//		} else if(division[1].endsWith("UAVVF")){
-//			suffix = "UAVVF";
-//		} else if(division[1].endsWith("UAVHAG")){
-//			suffix = "UAVHAG";
-//		} else if(division[1].endsWith("UAV")){
-//			suffix = "UAV";
-//		}
 		return temp;
 	}
 	
@@ -891,11 +892,11 @@ public class Interpreter {
 		        }
 	        }
 	        
-	        if(Pattern.matches(".*[eE][vV][eE][nN][tT].*", actorName)){
-		        text += "\n\t\tthis.addEvent(new " + actorName + "(inputs, outputs), 1);";
-	        }else{
+	       // if(Pattern.matches(".*[eE][vV][eE][nN][tT].*", actorName)){
+		   //     text += "\n\t\tthis.addEvent(new " + actorName + "(inputs, outputs), 1);";
+	       // }else{
 	        	text += "\n\t\tthis.addActor(new " + actorName + "(inputs, outputs));";
-	        }
+	      //  }
 	        text += "\n";
 	    }
 		
