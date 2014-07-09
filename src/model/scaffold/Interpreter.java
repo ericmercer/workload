@@ -664,17 +664,17 @@ public class Interpreter {
 		//check for any of the comparison operators and terminate the source generation if they aren't found
 		String operator = null;
 		if(internal.contains("<="))
-			operator = "<=";
+			operator = "<";
 		else if(internal.contains(">="))
-			operator = ">=";
+			operator = ">";
 		else if(internal.contains("!="))
 			operator = "!=";
 		else if(internal.contains("="))
 			operator = "=";
 		else if(internal.contains("<"))
-			operator = "<";
+			operator = "<=";
 		else if(internal.contains(">"))
-			operator = ">";
+			operator = ">=";
 		else
 			return;
 		
