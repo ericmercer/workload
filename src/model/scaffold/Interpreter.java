@@ -663,22 +663,41 @@ public class Interpreter {
 			StringBuilder transition, String internal) {
 		//check for any of the comparison operators and terminate the source generation if they aren't found
 		String operator = null;
+		String to_split="";
 		if(internal.contains("<="))
+		{
 			operator = "<";
+			to_split = "<=";
+		}
 		else if(internal.contains(">="))
+		{
 			operator = ">";
+			to_split = ">=";
+		}
 		else if(internal.contains("!="))
+		{
 			operator = "!=";
+			to_split = "!=";
+		}
 		else if(internal.contains("="))
+		{
 			operator = "=";
+			to_split = "=";
+		}
 		else if(internal.contains("<"))
+		{
 			operator = "<=";
+			to_split = "<";
+		}
 		else if(internal.contains(">"))
+		{
 			operator = ">=";
+			to_split = ">";
+		}
 		else
 			return;
 		
-		String[] division = internal.split(operator);
+		String[] division = internal.split(to_split);
 		//add the source for the initializeInternalVariables method
 		boolean add_to_memory = false;
 		if(!memory.toString().contains(division[0])){
