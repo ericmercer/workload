@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -269,6 +269,7 @@ public class Interpreter {
 			line = br.readLine();
 		}
 		memory.append("\n}");
+		br.close();
 	}
 	
 	/**
@@ -669,32 +670,38 @@ public class Interpreter {
 		String to_split="";
 		if(internal.contains("<="))
 		{
-			operator = "<=";
+			operator = "<";
+			to_split = "<=";
 		}
 		else if(internal.contains(">="))
 		{
-			operator = ">=";
+			operator = ">";
+			to_split = ">=";
 		}
 		else if(internal.contains("!="))
 		{
 			operator = "!=";
+			to_split = "!=";
 		}
 		else if(internal.contains("="))
 		{
 			operator = "=";
+			to_split = "=";
 		}
 		else if(internal.contains("<"))
 		{
-			operator = "<";
+			operator = "<=";
+			to_split = "<";
 		}
 		else if(internal.contains(">"))
 		{
-			operator = ">";
+			operator = ">=";
+			to_split = ">";
 		}
 		else
 			return;
 		
-		String[] division = internal.split(operator);
+		String[] division = internal.split(to_split);
 		//add the source for the initializeInternalVariables method
 		boolean add_to_memory = false;
 		if(!memory.toString().contains(division[0])){
@@ -754,21 +761,19 @@ public class Interpreter {
 			transition.append("!" + value + ".equals(");
 			break;
 		case "<":
-			//change the order of the variables and add an = because we return false when this is true. 
-			//	i.e., this is when it won't fire the transition
-			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " <= (Integer) ");
+			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " < (Integer) ");
 			break;
 		case ">":
-			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " >= (Integer) ");
+			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " > (Integer) ");
 			break;
 		case "!=":
 			transition.append(value + ".equals(");
 			break;
 		case "<=":
-			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " < (Integer) ");
+			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " <= (Integer) ");
 			break;
 		case ">=":
-			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " > (Integer) ");
+			transition.append("_internal_vars.getVariable(\"" + division[0] + "\") instanceof Integer && " + value + " >= (Integer) ");
 			break;
 		}
 		if(transition.toString().endsWith("("))
