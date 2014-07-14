@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -269,6 +269,7 @@ public class Interpreter {
 			line = br.readLine();
 		}
 		memory.append("\n}");
+		br.close();
 	}
 	
 	/**
@@ -464,7 +465,10 @@ public class Interpreter {
 				if(!enumerations.containsKey(value_channel[1]))
 					enumerations.put(input.substring(input.indexOf('=')+1), "\npublic enum " + division[1] + "{\n\t" + division[1] + ",");
 				transition.append("\n\t\t\tif(_inputs.get(Channels." +
-						division[1] + ".name()).getValue() == null || !(Boolean)_inputs.get(Channels." +
+						division[1] + ".name()).getValue() == null || ");
+				if(comparator.equals("="))
+					transition.append("!");
+				transition.append("(Boolean)_inputs.get(Channels." +
 						division[1] + ".name()).getValue()) {\n\t\t\t\treturn false;\n\t\t\t}");
 			}
 		}
