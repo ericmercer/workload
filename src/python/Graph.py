@@ -16,16 +16,19 @@ def main(argv):
         plt.subplot(4,1,1)
         plt.title("Perception")
         plt.plot(v,w)
+        plt.grid(b=True, which='major', color='k', linestyle='--')
         plt.subplot(4,1,2)
         plt.title("Cognition")
         plt.plot(v,x+y)
+        plt.grid(b=True, which='major', color='k', linestyle='--')
         plt.subplot(4,1,3)
         plt.title("Temporal")
         plt.plot(v,z)
-        
+        plt.grid(b=True, which='major', color='k', linestyle='--')
         plt.subplot(4,1,4)
         plt.title("Combined")
         plt.plot(v,w+x+y+z)
+        plt.grid(b=True, which='major', color='k', linestyle='--')
         
     plt.show()
 if __name__ =="__main__":
