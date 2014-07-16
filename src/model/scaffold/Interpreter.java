@@ -396,8 +396,16 @@ public class Interpreter {
 		if(!states.contains(endState))
 			states.add(endState);
 		String[] endingValues = s.substring(0,s.indexOf(')')).split(",");
+		String[] tran_data = s.substring(s.indexOf('x')+2).split(",");
 		String probability = endingValues[endingValues.length-1].trim();
 		String duration = endingValues[endingValues.length-2].trim();
+		String description = tran_data[tran_data.length-1];
+		description.trim();
+		if (description.endsWith(")"))
+			description = description.substring(0, description.length()-1);
+			
+		description.trim();
+		
 		boolean persistent = false;
 		if(duration.contains("[")){
 			String[] ints = duration.substring(1, duration.length()-1).split("-");
@@ -414,7 +422,7 @@ public class Interpreter {
 			duration = "Duration." + duration + ".getRange()";
 		}
 		String priority = endingValues[endingValues.length-3].trim();
-		transition.append(endState + ", " + duration + ", "  + priority + ", "+ probability);
+		transition.append(endState + ", " + duration + ", "  + priority + ", "+ probability + ", \"" + description + "\"");
 		if(persistent){
 			transition.append(", true");
 		}
@@ -557,7 +565,7 @@ public class Interpreter {
 				+ "[xX]"
 				+ "\\([[A-Z0-9]_]*,"
 				+ "\\[([ADVE]*=[A-Z_~]*)?(,[ADVE]*=[A-Z_~]*)*\\],"
-				+ "\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\],[A-Z_]*\\)");
+				+ "\\[([A-Z_]*[=][A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*[=][A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],[A-Z_]*\\)");
 		Matcher matcher = pattern.matcher(s);
 		boolean match = matcher.matches();
 		if(s.length() > 0 && s.startsWith("(")){
@@ -585,7 +593,7 @@ public class Interpreter {
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_~]*)?(,[A-Z_]*=[A-Z_~]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(8);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)(\\-1)]*)*\\],.*\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(9);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,.*\\,[A-Z_]*");

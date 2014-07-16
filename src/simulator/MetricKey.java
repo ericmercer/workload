@@ -8,6 +8,7 @@ public class MetricKey implements Comparable<MetricKey>{
 		ACTIVE_INPUT,
 		ACTIVE_OUTPUT,
 		UNKNOWN, OP_TEMPO,
+		TRANSITION_DESCRIPTION
 	}
 	
 	private int _time = -1;

@@ -18,7 +18,7 @@ class swimlane:
         self.part2 = '''\n\n\n// items is an array of item objects that have the following properties\n\n//    id:    the unique id for this item\n\n//    lane:  the id of the lane that this item belongs in
         \n//    start: the starting value for this item\n\n//    end:   the end value for this item\n\n//    class: the css class that should be applied to this item
         \n//    \n\n// these define the actual items that are displayed on the chart'''
-        self.part3 = """\n\n\n\n// define the chart extents\n\nvar margin = {top: 20, right: 15, bottom: 15, left: 100}\n\n  , width = 1880 - margin.left - margin.right\n\n  , height = 1080 - margin.top - margin.bottom
+        self.part3 = """\n\n\n\n// define the chart extents\n\nvar margin = {top: 20, right: 15, bottom: 15, left: 100}\n\n  , width = 1880 - margin.left - margin.right\n\n  , height = lanes.length * 75 - margin.top - margin.bottom
         \n  , miniHeight = lanes.length * 12 + 50\n\n  , mainHeight = height - miniHeight - 50;\n\n\n\nvar x = d3.time.scale()\n\n  .domain([d3.min(items, function(d) { return d.start - 100000; }),
         \n       d3.max(items, function(d) { return d.end; })])\n\n  .range([0, width]);\n\nvar x1 = d3.time.scale().range([0, width]);\n\n\n\nvar ext = d3.extent(lanes, function(d) { return d.id; });
         \nvar y1 = d3.scale.linear().domain([ext[0], ext[1] + 1]).range([0, mainHeight]);\n\nvar y2 = d3.scale.linear().domain([ext[0], ext[1] + 1]).range([0, miniHeight]);

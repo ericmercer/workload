@@ -21,7 +21,7 @@ public class Transition implements ITransition {
 	private HashMap<String, Object> _temp_internal_vars;
 	private int _transition_number;
 	private boolean _persistent_durations;
-
+	private String _description;
 
 	/**
 	 * a transition is used by an agent (state machine) to formally define state transitions 
@@ -30,10 +30,11 @@ public class Transition implements ITransition {
 	 * @param output the output the transition produces
 	 * @param curState the current state of the actor
 	 * @param priority the priority level of the transition
+	 * @param the description of the transition
 	 * todo add a duration that represents how long it takes to move between states
 	 * @return 
 	 */
-	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability) {
+	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability, String description) {
 		_persistent_durations = false;
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
@@ -49,12 +50,12 @@ public class Transition implements ITransition {
 		probability(probability);
 		
 		_internal_vars = internalVars;
-		
+		_description = description;
 		buildTempInternalVars();
 		buildTempOutput();
 	}
 	
-	public Transition(ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability, boolean persistent) {
+	public Transition(ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, double probability, boolean persistent, String description) {
 		
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
@@ -71,12 +72,12 @@ public class Transition implements ITransition {
 		_persistent_durations = persistent;
 		
 		_internal_vars = internalVars;
-		
+		_description = description;
 		buildTempInternalVars();
 		buildTempOutput();
 	}
 	
-	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority) {
+	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, int priority, String description) {
 		_persistent_durations = false;
 		_inputs = new ComChannelList();
 		for(Entry<String, ComChannel<?>> chan : inputs.entrySet()){
@@ -92,12 +93,12 @@ public class Transition implements ITransition {
 		probability(1);
 		
 		_internal_vars = internalVars;
-		
+		_description = description;
 		buildTempInternalVars();
 		buildTempOutput();
 	}
 	
-	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, double probability) {
+	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, double probability, String description) {
 
 		_persistent_durations = false;
 		_inputs = new ComChannelList();
@@ -114,12 +115,12 @@ public class Transition implements ITransition {
 		probability(probability);
 		
 		_internal_vars = internalVars;
-		
+		_description = description;
 		buildTempInternalVars();
 		buildTempOutput();
 	}
 	
-	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range) {
+	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, Range duration_range, String description) {
 
 		_persistent_durations = false;
 		_internal_vars = internalVars;
@@ -136,12 +137,12 @@ public class Transition implements ITransition {
 		setDurationRange(duration_range);
 		priority(1);
 		probability(1);
-		
+		_description = description;
 		buildTempInternalVars();
 		buildTempOutput();
 	}
 	
-	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState) {
+	public Transition (ActorVariableWrapper internalVars, ComChannelList inputs, ComChannelList outputs, State endState, String description) {
 
 		_persistent_durations = false;
 		_internal_vars = internalVars;
@@ -156,6 +157,7 @@ public class Transition implements ITransition {
 		}
 		_endState = endState;
 		_range = new Range();
+		_description = description;
 		priority(1);
 		probability(1);
 		
@@ -173,7 +175,7 @@ public class Transition implements ITransition {
 		_range = t.getDurationRange();
 		_priority = t._priority;
 		_probability = t._probability;
-
+		_description =t._description;
 		buildTempInternalVars();
 		buildTempOutput();
 		
@@ -438,4 +440,11 @@ public class Transition implements ITransition {
 	{
 		return _transition_number;
 	}
+	
+	@Override
+	public String getDescription()
+	{
+		return _description;
+	}
 }
+
