@@ -565,7 +565,7 @@ public class Interpreter {
 				+ "[xX]"
 				+ "\\([[A-Z0-9]_]*,"
 				+ "\\[([ADVE]*=[A-Z_~]*)?(,[ADVE]*=[A-Z_~]*)*\\],"
-				+ "\\[([A-Z_]*[=][A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*[=][A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],[A-Z_]*\\)");
+				+ "\\[([A-Z_]*(=|-=|\\+=|\\*=|/=)[A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*(=|-=|\\+=|\\*=|/=)[A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],[A-Z_]*\\)");
 		Matcher matcher = pattern.matcher(s);
 		boolean match = matcher.matches();
 		if(s.length() > 0 && s.startsWith("(")){
@@ -593,7 +593,7 @@ public class Interpreter {
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,\\[([A-Z_]*=[A-Z_~]*)?(,[A-Z_]*=[A-Z_~]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(8);
-			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*[=><(!=)(<=)(>=)][A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],.*\\)");
+			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,\\[([A-Z_]*(=|-=|\\+=|\\*=|/=)[A-Z_(++)(--)[0-9]+(\\-1)]*)?(,[A-Z_]*(=|-=|\\+=|\\*=|/=)[A-Z_(++)(--)[0-9]+(\\-1)]*)*\\],.*\\)");
 			if(!pattern.matcher(s).find())
 				System.out.println(9);
 			pattern = Pattern.compile("\\(.*,.*,.*,.*,.*,.*\\)[xX]\\(.*,.*,.*\\,[A-Z_]*");
@@ -610,7 +610,107 @@ public class Interpreter {
 	 */
 	private void generateTempInternalAssignment(StringBuilder memory,
 			StringBuilder transition, String temp_internal) {
-		if(temp_internal.contains("=")){
+		if(temp_internal.contains("-="))
+		{
+			String[] division = temp_internal.split("-=");
+			boolean add_to_memory = false;
+			if(!memory.toString().contains(division[0])){
+				memory.append("\n\t_internal_vars.addVariable(\"" + division[0] + "\", ");
+				add_to_memory = true;
+			}
+			String value = "";
+			try{
+				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") - " + String.valueOf(Integer.parseInt(division[1]));
+				if(add_to_memory)
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
+			}catch(NumberFormatException e){
+				value = "\"" + division[1].toUpperCase() + "\"";
+				if(add_to_memory)
+					memory.append("null);");
+			}
+			transition.append("\n\t\t\tsetTempInternalVar(\"" + division[0] + "\", " + value + ");");
+		}
+		else if (temp_internal.contains("+="))
+		{
+			String[] division = temp_internal.split("\\+=");
+			boolean add_to_memory = false;
+			if(!memory.toString().contains(division[0])){
+				memory.append("\n\t_internal_vars.addVariable(\"" + division[0] + "\", ");
+				add_to_memory = true;
+			}
+			String value = "";
+			try{
+				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") + " + String.valueOf(Integer.parseInt(division[1]));
+				if(add_to_memory)
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
+			}catch(NumberFormatException e){
+				value = "\"" + division[1].toUpperCase() + "\"";
+				if(add_to_memory)
+					memory.append("null);");
+			}
+			transition.append("\n\t\t\tsetTempInternalVar(\"" + division[0] + "\", " + value + ");");
+		}
+		else if (temp_internal.contains("*="))
+		{
+			String[] division = temp_internal.split("\\*=");
+			boolean add_to_memory = false;
+			if(!memory.toString().contains(division[0])){
+				memory.append("\n\t_internal_vars.addVariable(\"" + division[0] + "\", ");
+				add_to_memory = true;
+			}
+			String value = "";
+			try{
+				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") * " + String.valueOf(Integer.parseInt(division[1]));
+				if(add_to_memory)
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
+			}catch(NumberFormatException e){
+				value = "\"" + division[1].toUpperCase() + "\"";
+				if(add_to_memory)
+					memory.append("null);");
+			}
+			transition.append("\n\t\t\tsetTempInternalVar(\"" + division[0] + "\", " + value + ");");
+		}
+		else if (temp_internal.contains("/="))
+		{
+			String[] division = temp_internal.split("/=");
+			boolean add_to_memory = false;
+			if(!memory.toString().contains(division[0])){
+				memory.append("\n\t_internal_vars.addVariable(\"" + division[0] + "\", ");
+				add_to_memory = true;
+			}
+			String value = "";
+			try{
+				value = "(Integer)_internal_vars.getVariable(\"" + division[0] + "\") / " + String.valueOf(Integer.parseInt(division[1]));
+				if(add_to_memory)
+					if(variable_assignments.containsKey(division[0]))
+					{
+						memory.append(variable_assignments.get(division[0])+");");
+					}
+					else
+						memory.append("0);");
+			}catch(NumberFormatException e){
+				value = "\"" + division[1].toUpperCase() + "\"";
+				if(add_to_memory)
+					memory.append("null);");
+			}
+			transition.append("\n\t\t\tsetTempInternalVar(\"" + division[0] + "\", " + value + ");");
+		}
+		else if(temp_internal.contains("=")){
 			String[] division = temp_internal.split("=");
 			boolean add_to_memory = false;
 			if(!memory.toString().contains(division[0])){
