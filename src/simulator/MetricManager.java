@@ -20,6 +20,12 @@ public class MetricManager {
 	}
 	
 	//these are for the non JPF runs
+	public void setTransitionDescriptionDuration(int time, String actorName, String transition_description, int duration,WorkloadManager manager) {
+		manager.executeInstruction(new MetricKey(time, actorName, transition_description, MetricKey.Type.TRANSITION_DESCRIPTION),new Metric(duration, duration));
+
+
+	}
+	
 	public void setTransitionDuration(int time, String actorName, String stateName, int duration,WorkloadManager manager) {
 		manager.executeInstruction(new MetricKey(time, actorName, stateName, MetricKey.Type.TRANSITION_DURATION),new Metric(duration, duration));
 
@@ -51,6 +57,9 @@ public class MetricManager {
 	
 	
 	//these below are for JPF
+	public void setTransitionDescriptionDuration(int time, String actorName, String transition_duration, int duration) {	
+		//Do nothing, JPF handles this.
+	}
 	
 	public void setTransitionDuration(int time, String actorName, String stateName, int duration) {	
 		//Do nothing, JPF handles this.

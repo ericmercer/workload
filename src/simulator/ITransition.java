@@ -47,4 +47,6 @@ public interface ITransition {
 	List getActiveInputs();
 
 	List getActiveOutputs();
+
+	String getDescription();
 }

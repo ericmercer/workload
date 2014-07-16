@@ -304,6 +304,8 @@ public class WorkloadManager{
 			storeActiveInputs( metrickey,metric );
 		else if ( fullMethodName.contains( "ACTIVE_OUTPUT" ) )
 			storeActiveOutputs( metrickey,metric );
+		else if ( fullMethodName.contains( "TRANSITION_DESCRIPTION" ) )
+			storeTransitionDescription( metrickey,metric );
 	}
 
 	private void printCurrentPath(String pathData) {
@@ -394,6 +396,30 @@ public class WorkloadManager{
 		currentMetric = new Metric(1, 0);
 		storeMetric(currentKey,currentMetric);
 	}
+	
+	private void storeTransitionDescription(MetricKey metrickey,Metric metric) {
+		//get parameters
+		int time = metrickey.getTime();
+		String actorName = metrickey.getActor();
+		String stateName = metrickey.getState();
+		int duration = metric.getValue();
+
+		//don't measure mock (watered down) model objects
+		if( notRecorded( actorName ) )
+			return;
+		
+		//form metrics and keys
+		MetricKey currentKey = new MetricKey( time, actorName, stateName, MetricKey.Type.TRANSITION_DESCRIPTION );
+		Metric currentMetric = new Metric( duration, duration );
+		storeMetric(currentKey, currentMetric);
+
+		//do funky optempo stuff
+
+		//currentKey = new MetricKey(time-duration,actorName,stateName,MetricKey.Type.OP_TEMPO);
+		//currentMetric = new Metric(1, 0);
+		//storeMetric(currentKey,currentMetric);
+	}
+	
 
 	private void storeEnabledTransitions(MetricKey metrickey,Metric metric) {
 

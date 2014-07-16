@@ -94,7 +94,7 @@ public class WorkloadBuilder {
 
 		TreeMap<MetricKey, Metric> values = path.getValues();
 
-		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo";
+		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo,Active Output,Transition Description";
 
 		int currentTime = 0;
 		int totalTime = values.lastEntry().getKey().getTime();
@@ -171,7 +171,7 @@ public class WorkloadBuilder {
 
 	public static String buildActor(TreeMap<MetricKey, Metric> values ) {
 
-		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo,Active Output";
+		String result = "Time,Active Inputs (Actor State [ActiveInput])*,Total Active Inputs,Enabled Transitions (Actor State [NumberOfEnabledTransitions])*,Total Enabled Transitions,Transition Durations (Actor State [TransitionDuration])*,Total Transitions,TaskStarts,TaskStops,Op Tempo,Active Output,Transition Description";
 
 		int currentTime = 0;
 		int totalTime = values.lastEntry().getKey().getTime();
@@ -187,6 +187,7 @@ public class WorkloadBuilder {
 		String taskStarts = "";
 		String taskStops = "";
 		String activeOutput = "";
+		String transitionDescription="";
 		int firedTransitions = 0;
 		int totalOpTempo = 0;
 		int interval = 1;
@@ -197,7 +198,7 @@ public class WorkloadBuilder {
 			if ( currentTime != metricKey.getTime() ) {
 				result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," 
 						+ enabledTransitions + "," + totalEnabledTransitions + "," + transitionDurations
-						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput;
+						+ "," + totalTransitionDurations + "," + taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput+","+transitionDescription;
 
 				totalActiveInputs = 0;
 				activeInputs = "";
@@ -209,7 +210,7 @@ public class WorkloadBuilder {
 				taskStops = "";
 				totalOpTempo = 0;
 				activeOutput = "";
-				
+				transitionDescription="";
 				currentTime = metricKey.getTime();
 
 			}
@@ -221,7 +222,13 @@ public class WorkloadBuilder {
 				totalTransitionDurations += metric.getValue();
 				transitionDurations += "(" + metricKey.getActor() + " " + metricKey.getState() + " " + metric.getData() + ")";
 				firedTransitions++;
-			} else if (metricKey.getType() == MetricKey.Type.OP_TEMPO) {
+			} 
+			else if ( metricKey.getType() == MetricKey.Type.TRANSITION_DESCRIPTION ) {
+				//totalTransitionDurations += metric.getValue();
+				transitionDescription += "(" + metricKey.getActor() + " " + metricKey.getState()+ ")";
+				//firedTransitions++;
+			} 
+			else if (metricKey.getType() == MetricKey.Type.OP_TEMPO) {
 				totalOpTempo += metric.getValue();
 			}
 			else if ( metricKey.getType() == MetricKey.Type.ENABLED_TRANSITION ) {
@@ -242,7 +249,7 @@ public class WorkloadBuilder {
 		double opTempo = firedTransitions;// / window;
 		result += "\n" + currentTime + "," + activeInputs + "," + totalActiveInputs + "," + enabledTransitions 
 				+ "," + totalEnabledTransitions + "," + transitionDurations + "," + totalTransitionDurations + "," 
-				+ taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput;
+				+ taskStarts + "," + taskStops + "," + totalOpTempo+","+activeOutput+","+transitionDescription;
 		return result;
 	}
 }

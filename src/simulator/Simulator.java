@@ -242,8 +242,9 @@ public class Simulator {
 			}
 			
 			IActor actor = (IActor) readyTransition.getKey();
+			
 			ITransition transition = (ITransition) readyTransition.getValue();
-		
+			//System.out.println(transition.getDescription());
 			
 			
 			
@@ -253,9 +254,15 @@ public class Simulator {
 	
 			//Store transition duration data
 			if(_forJPF == RunsJPF.NO)
+			{
 				MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration, manager);
+				MetricManager.getInstance().setTransitionDescriptionDuration(_clock.getElapsedTime(), actor.getName(), transition.getDescription(), duration, manager);
+			}
 			else
+			{
 				MetricManager.getInstance().setTransitionDuration(_clock.getElapsedTime(), actor.getName(), actor.getCurrentState().getName(), duration);
+				MetricManager.getInstance().setTransitionDescriptionDuration(_clock.getElapsedTime(), actor.getName(), transition.getDescription(), duration);
+			}
 		}
 	
 	}
