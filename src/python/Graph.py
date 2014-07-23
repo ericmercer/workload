@@ -29,7 +29,13 @@ def main(argv):
         plt.title("Combined")
         plt.plot(v,w+x+y+z)
         plt.grid(b=True, which='major', color='k', linestyle='--')
-        
+        plt.tight_layout()
+        plt.subplots_adjust(top=0.9)
+	        
     plt.show()
 if __name__ =="__main__":
     main(sys.argv[1:])
+
+
+
+
