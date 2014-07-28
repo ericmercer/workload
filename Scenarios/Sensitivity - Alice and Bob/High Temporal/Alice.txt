@@ -1,0 +1,3 @@
+(IDLE,[],[APATHY>=10],0,[1-1],1.0)X(WAVE,[V=AL_WAVE_BO],[],SKILL)
+(IDLE,[],[APATHY<10],0,[1-1],1.0)X(IDLE,[],[APATHY=++],SKILL)
+(WAVE,[],[],0,[2-2],1.0)X(DONE,[],[],SKILL)
