@@ -312,7 +312,8 @@ public class Transition implements ITransition {
 	{
 		_temp_outputs = new HashMap<String, Object>();
 		for( ComChannel<?> c : _outputs.values()) {
-			_temp_outputs.put(c.getName(), null);
+//			_temp_outputs.put(c.getName(), null);
+			_temp_outputs.put(c.getName(), false);
 		}
 	}
 	
