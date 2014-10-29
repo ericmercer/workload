@@ -1,0 +1,18 @@
+/This is where you list the actors that you want to have their workload monitored.  Start the list with "Actors:"
+Actors:
+
+Kim
+Bank
+ATM
+Clock
+
+/after you list actors, list the graphs you want graphed.  You will also need to list the folder type H for highest, L for Lowest.  and then what 
+/ type of workload you want.  P for perception, C for cognition, T for temporal, then list the actors you want graphed from those folders.
+/ I.E. HP Bob
+
+Graphs:
+HP Total
+HP Kim
+HP ATM
+HP Bank
+
