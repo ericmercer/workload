@@ -1,0 +1,24 @@
+STEPS TO FULLY RUN PROGRAM
+
+1) CREATE TEXT FILES OF SCENARIO
+	a) Create a separate text file for each actor in the scenario
+	b) follow this format for each transition(write everything in all caps):
+		 Transition := (CurrentState,[Channel=InputData*],[Memory{=||>||<...}InputValue*],Priority,Duration,Probability)x(NextState,[Channel=OutputData*],[Memory=OutputValue*], Transition_Description)
+		
+2) CREATE/UPDATE NECESSARY HEADER FILES
+	a) In model.scaffold, include a Header.h file listing all actors abbreviations used in in/out channels and their file name; only one actor per line
+		i.e. AL Alice
+	b) In model, include a Header.h file where you list all actors to be ran in simulation and then all the graphs you want to have created
+		
+3) RUN INTERPRETER
+	a) Make sure all text files of the actors in the scenario are in the model.scaffold package
+	b) Make sure Header.h file in model.scaffold
+	c) Run Interpreter.java
+
+4) RUN WISARMODEL
+	a) Make sure Header.h file is in model package
+	b) Make sure WiSARModel.jpf file is in model package with correct file paths
+	b) To run WISARModel using JPF, make sure line 20 has RunsJPF.YES
+		- In order to create graphs, JPF must be set to NO
+	c) To run WISARModel without using JPF, make sure line 20 has RunsJPF.NO
+	d) Run WISARModel.java
