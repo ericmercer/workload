@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE CLASS SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/class.dtd"> 
+<!-- Generated at Tue Feb 03 11:53:24 MST 2015 -->
+
+<CLASS name="UavInterface" serializable="false" display="UavInterface">
+	<EXTENDS ref="brahms.base.BaseClass" />
+	<ATTRIBUTES>
+		<ATTRIBUTE name="UavInterface.terrain" display="terrain" scope="public" type="string"/>
+		<ATTRIBUTE name="UavInterface.currentUavTab" display="currentUavTab" scope="public" type="int"/>
+		<ATTRIBUTE name="UavInterface.dots" display="dots" scope="public" type="int"/>
+	</ATTRIBUTES>
+	<BELIEFS>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.terrain" evalOp="eq" value="" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.dots" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.currentUavTab" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+	</BELIEFS>
+	<FACTS>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.terrain" evalOp="eq" value="" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.dots" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UavInterface.currentUavTab" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+	</FACTS>
+</CLASS>

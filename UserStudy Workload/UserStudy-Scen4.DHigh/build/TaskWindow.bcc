@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE CLASS SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/class.dtd"> 
+<!-- Generated at Tue Feb 03 11:51:25 MST 2015 -->
+
+<CLASS name="TaskWindow" serializable="false" display="TaskWindow">
+	<EXTENDS ref="brahms.base.BaseClass" />
+</CLASS>
