@@ -1,0 +1,24 @@
+Column Key
+---------------------------------------------------------------------
+0: time
+1: physical
+2: perception
+3: visual
+4: decision
+5: activity
+
+
+Activity Key
+---------------------------------------------------------------------
+0: null
+1: checkMessageWindow
+2: checkIfOpMessage
+3: readingLong
+4: readingShort
+5: checkTaskWindow
+6: completeShortTask
+7: checkOffTask
+8: completeMediumTask
+9: reportTaskComplete
+10: completeLongTask
+
