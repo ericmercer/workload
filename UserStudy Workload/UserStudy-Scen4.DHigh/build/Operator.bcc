@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <!DOCTYPE AGENT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/agent.dtd"> 
-<!-- Generated at Tue Feb 03 11:51:25 MST 2015 -->
+<!-- Generated at Thu Feb 05 00:04:14 MST 2015 -->
 
 <AGENT name="Operator" serializable="false" display="Operator">
 	<MEMBEROF ref="brahms.base.BaseGroup" />
@@ -63,6 +63,9 @@
 		<BELIEF>
 			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
 		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Map" lObjType="Object" attRef="UavInterface.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
+		</BELIEF>
 	</BELIEFS>
 	<FACTS>
 		<FACT>
@@ -91,6 +94,9 @@
 		</FACT>
 		<FACT>
 			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Map" lObjType="Object" attRef="UavInterface.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
 		</FACT>
 	</FACTS>
 	<ACTIVITIES>
@@ -719,10 +725,44 @@
 						</SEND>
 					</ABOUT>
 				</COMM_ACT>
-				<PRIM_ACT name="Operator.performTasks$completeShortTask" descriptor="completeShortTask()" display="completeShortTask" priority="6" random="true" minDuration="20" maxDuration="30">
-				</PRIM_ACT>
-				<PRIM_ACT name="Operator.performTasks$completeMediumTask" descriptor="completeMediumTask()" display="completeMediumTask" priority="6" random="true" minDuration="35" maxDuration="60">
-				</PRIM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeShortTask" descriptor="completeShortTask()" display="completeShortTask" priority="6" random="true" minDuration="20" maxDuration="30" when="end">
+					<WITH>
+						<WITHREF ref="Map" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeMediumTask" descriptor="completeMediumTask()" display="completeMediumTask" priority="6" random="true" minDuration="35" maxDuration="60" when="end">
+					<WITH>
+						<WITHREF ref="Map" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
 				<COMM_ACT name="Operator.performTasks$checkOffTask" descriptor="checkOffTask()" display="checkOffTask" random="true" minDuration="10" maxDuration="20" when="end">
 					<WITH>
 						<WITHREF ref="Tasks" objType="Object" />
@@ -742,8 +782,25 @@
 						</SEND>
 					</ABOUT>
 				</COMM_ACT>
-				<PRIM_ACT name="Operator.performTasks$completeLongTask" descriptor="completeLongTask()" display="completeLongTask" priority="6" random="true" minDuration="45" maxDuration="80">
-				</PRIM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeLongTask" descriptor="completeLongTask()" display="completeLongTask" priority="6" random="true" minDuration="45" maxDuration="80" when="end">
+					<WITH>
+						<WITHREF ref="Map" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
 				<COMM_ACT name="Operator.performTasks$checkTaskWindow" descriptor="checkTaskWindow()" display="checkTaskWindow" random="true" minDuration="8" maxDuration="12" when="end">
 					<WITH>
 						<WITHREF ref="Tasks" objType="Object" />

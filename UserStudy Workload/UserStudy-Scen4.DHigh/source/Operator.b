@@ -27,6 +27,7 @@ agent Operator{
 		(Scenario_Chat.operatorMessages = 0);
 		(Scenario_Chat.incompleteTasks = 0);
 		(Scenario_Chat.messageList = unknown);
+		(Map.terrain = unknown);
 	
 	initial_facts:
 		(current.incompleteTasks = 0);
@@ -38,6 +39,7 @@ agent Operator{
 		(Scenario_Chat.operatorMessages = 0);
 		(Scenario_Chat.incompleteTasks = 0);
 		(Scenario_Chat.messageList = unknown);
+		(Map.terrain = unknown);
 	
 	activities:
 	
@@ -97,25 +99,58 @@ agent Operator{
 					when: end;
 				}
 			
-				primitive_activity completeLongTask() {
+//				primitive_activity completeLongTask() {
+//					priority: 6;
+//					random: true;
+//					min_duration: 45;
+//					max_duration: 80;
+//				}
+//				
+//				primitive_activity completeMediumTask() {
+//					priority: 6;
+//					random: true;
+//					min_duration: 35;
+//					max_duration: 60;
+//				}
+//				
+//				primitive_activity completeShortTask() {
+//					priority: 6;
+//					random: true;
+//					min_duration: 20;
+//					max_duration: 30;
+//				}
+				
+				communicate completeLongTask() {
 					priority: 6;
 					random: true;
 					min_duration: 45;
 					max_duration: 80;
+					with: Map;
+					about:
+						receive(Map.terrain = unknown);
+					when: end;
 				}
 				
-				primitive_activity completeMediumTask() {
+				communicate completeMediumTask() {
 					priority: 6;
 					random: true;
 					min_duration: 35;
 					max_duration: 60;
+					with: Map;
+					about:
+						receive(Map.terrain = unknown);
+					when: end;
 				}
 				
-				primitive_activity completeShortTask() {
+				communicate completeShortTask() {
 					priority: 6;
 					random: true;
 					min_duration: 20;
 					max_duration: 30;
+					with: Map;
+					about:
+						receive(Map.terrain = unknown);
+					when: end;
 				}
 				
 				communicate reportTaskComplete() {

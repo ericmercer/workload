@@ -30,20 +30,19 @@
   </LIBRARY_FOLDERS>
   
   <SOURCE_FILES>
-    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1422560461000"/>
-    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1422913329000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1423119215000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1423118722000"/>
     <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Uav.b" modified="1420659834000"/>
-    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/UavInterface.b" modified="1420659887000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/UavInterface.b" modified="1423118477000"/>
     <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/TaskWindow.b" modified="1421457752000"/>
     <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/UserStudy.b" modified="1417714175000"/>
-    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1422560508000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1423119182000"/>
   </SOURCE_FILES>
   
   <OPEN_FILES>
-    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1422560461000"/>
-    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1422560508000"/>
-    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/TaskWindow.b" modified="1421457752000"/>
-    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1422913329000"/>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1423119215000"/>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1423119182000"/>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1423118722000"/>
   </OPEN_FILES>
   
 </PROJECT>

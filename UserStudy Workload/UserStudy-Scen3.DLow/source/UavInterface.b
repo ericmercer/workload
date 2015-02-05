@@ -25,20 +25,20 @@ class UavInterface {
 
 }
 
-//object Scenario1 instanceof UavInterface {
-//
-//	initial_beliefs:
-//		(current.terrain = "nature");
-//		(current.dots = 6);
-//		(current.currentUavTab = 0);
-//	
-//	initial_facts:
-//		(current.terrain = "nature");
-//		(current.dots = 6);
-//		(current.currentUavTab = 0);
-//
-//}
-//
+object Map instanceof UavInterface {
+
+	initial_beliefs:
+		(current.terrain = "nature");
+		(current.dots = 6);
+		(current.currentUavTab = 0);
+	
+	initial_facts:
+		(current.terrain = "nature");
+		(current.dots = 6);
+		(current.currentUavTab = 0);
+
+}
+
 //object Scenario2 instanceof UavInterface {
 //
 //	initial_beliefs:

@@ -26,7 +26,7 @@ class MyClock  {
 			workframe wf_asTimeGoesBy {
 					repeat: true;
 				            
-					when(knownval(current.time < 451))	// (Scenario,length): (1,512), (2,541), (3,517), (4,451)
+					when(knownval(current.time < 517))	// (Scenario,length): (1,512), (2,541), (3,517), (4,451)
 
 					do {
 						asTimeGoesBy(1);

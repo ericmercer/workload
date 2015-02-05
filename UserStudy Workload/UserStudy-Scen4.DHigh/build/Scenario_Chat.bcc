@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <!DOCTYPE OBJECT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/object.dtd"> 
-<!-- Generated at Tue Feb 03 11:51:25 MST 2015 -->
+<!-- Generated at Thu Feb 05 00:04:14 MST 2015 -->
 
 <OBJECT name="Scenario_Chat" serializable="false" display="Scenario_Chat">
 	<INSTANCEOF ref="ChatWindow" />
