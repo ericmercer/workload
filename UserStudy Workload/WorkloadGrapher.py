@@ -41,7 +41,7 @@ class Grapher():
             fig = plt.figure(c,figsize=(35,7))
 
             ax = plt.subplot(111)
-            plt.subplots_adjust(bottom=0.04,left=0.01,right=0.99,top=0.96)
+            plt.subplots_adjust(bottom=0.04,left=0.02,right=0.99,top=0.96)
             
             ax.xaxis.set_major_locator(majorLocator)
             ax.xaxis.set_major_formatter(majorFormatter)
