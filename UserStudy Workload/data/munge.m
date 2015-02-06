@@ -12,8 +12,8 @@ title('Instantaneous Workload')
 grid off;
 hold on;
 
-%y = filter(w, 1, M(:,2));
-%plot(x,y,'-')
+y = filter(w, 1, M(:,2));
+plot(x,y,'-')
 
 y = filter(w, 1, M(:,3));
 plot(x,y,'-')
@@ -36,5 +36,5 @@ for i = E
 end
 
 %legend('Physical', 'Perception', 'Visual', 'Decision', 'Activity')
-legend('Perceptual', 'Decision')
+legend('Temporal', 'Perceptual', 'Decision')
 hold off;
