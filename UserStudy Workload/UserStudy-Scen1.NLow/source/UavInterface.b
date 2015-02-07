@@ -1,5 +1,9 @@
 class UavInterface {
-												// UavInterface will communicate with operator (visually, not actually sending comms to him)
+												// UavInterface will communicate with operator (visually, not actually sending comms to him
+}
+
+object UserMap instanceof UavInterface {
+
 	attributes:
 		public string terrain;
 		public int dots;
@@ -25,19 +29,19 @@ class UavInterface {
 
 }
 
-object Map instanceof UavInterface {
-
-	initial_beliefs:
-		(current.terrain = "nature");
-		(current.dots = 6);
-		(current.currentUavTab = 0);
-	
-	initial_facts:
-		(current.terrain = "nature");
-		(current.dots = 6);
-		(current.currentUavTab = 0);
-
-}
+//object Map Scenario1 UavInterface {
+//
+//	initial_beliefs:
+//		(current.terrain = "nature");
+//		(current.dots = 6);
+//		(current.currentUavTab = 0);
+//	
+//	initial_facts:
+//		(current.terrain = "nature");
+//		(current.dots = 6);
+//		(current.currentUavTab = 0);
+//
+//}
 
 //object Scenario2 instanceof UavInterface {
 //

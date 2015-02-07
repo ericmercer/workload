@@ -11,7 +11,7 @@ agent Operator{
 		public boolean seenFirstMessage; 		
 	
 	initial_beliefs:
-		(current.incompleteTasks = 0);
+		(current.incompleteTasks = 0);	// workload during performance of task
 		(current.checkMessages = true);
 		(current.internalTimer = 5);		// this value gets incremented in t_f; once clock time equals this, operator will check message window
 		(current.increment = 3);				// change this value to change how often operator will check message window
@@ -27,7 +27,7 @@ agent Operator{
 		(Scenario_Chat.operatorMessages = 0);
 		(Scenario_Chat.incompleteTasks = 0);
 		(Scenario_Chat.messageList = unknown);
-		(Map.terrain = unknown);
+		(UserMap.terrain = unknown);
 	
 	initial_facts:
 		(current.incompleteTasks = 0);
@@ -39,7 +39,7 @@ agent Operator{
 		(Scenario_Chat.operatorMessages = 0);
 		(Scenario_Chat.incompleteTasks = 0);
 		(Scenario_Chat.messageList = unknown);
-		(Map.terrain = unknown);
+		(UserMap.terrain = unknown);
 	
 	activities:
 	
@@ -98,36 +98,15 @@ agent Operator{
 						
 					when: end;
 				}
-			
-//				primitive_activity completeLongTask() {
-//					priority: 6;
-//					random: true;
-//					min_duration: 45;
-//					max_duration: 80;
-//				}
-//				
-//				primitive_activity completeMediumTask() {
-//					priority: 6;
-//					random: true;
-//					min_duration: 35;
-//					max_duration: 60;
-//				}
-//				
-//				primitive_activity completeShortTask() {
-//					priority: 6;
-//					random: true;
-//					min_duration: 20;
-//					max_duration: 30;
-//				}
 				
 				communicate completeLongTask() {
 					priority: 6;
 					random: true;
 					min_duration: 45;
 					max_duration: 80;
-					with: Map;
+					with: UserMap;
 					about:
-						receive(Map.terrain = unknown);
+						receive(UserMap.terrain = unknown);
 					when: end;
 				}
 				
@@ -136,9 +115,9 @@ agent Operator{
 					random: true;
 					min_duration: 35;
 					max_duration: 60;
-					with: Map;
+					with: UserMap;
 					about:
-						receive(Map.terrain = unknown);
+						receive(UserMap.terrain = unknown);
 					when: end;
 				}
 				
@@ -147,9 +126,9 @@ agent Operator{
 					random: true;
 					min_duration: 20;
 					max_duration: 30;
-					with: Map;
+					with: UserMap;
 					about:
-						receive(Map.terrain = unknown);
+						receive(UserMap.terrain = unknown);
 					when: end;
 				}
 				
@@ -176,7 +155,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeShortTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -191,7 +170,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeShortTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -207,6 +186,7 @@ agent Operator{
 						completeShortTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -223,6 +203,7 @@ agent Operator{
 						completeShortTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -238,7 +219,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeMediumTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -253,7 +234,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeMediumTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -269,6 +250,7 @@ agent Operator{
 						completeMediumTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -285,6 +267,7 @@ agent Operator{
 						completeMediumTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -300,7 +283,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeLongTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -315,7 +298,7 @@ agent Operator{
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 						completeLongTask();
 						checkOffTask();
-						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
 				}
@@ -331,6 +314,7 @@ agent Operator{
 						completeLongTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -347,6 +331,7 @@ agent Operator{
 						completeLongTask();
 						reportTaskComplete();
 						checkOffTask();
+						conclude((Tasks.incompleteTasks = Tasks.incompleteTasks - 1));
 						conclude((Scenario_Chat.incompleteTasks = Scenario_Chat.incompleteTasks - 1));
 						conclude((current.incompleteTasks = current.incompleteTasks - time));
 					}
@@ -370,6 +355,29 @@ agent Operator{
 				}
 
 				communicate readingLong() {
+					priority: 6;
+					random: true;
+					min_duration: 65;
+					max_duration: 90;
+					with: Scenario_Chat;
+					about:
+						receive(Scenario_Chat.messageLength = unknown);
+					when: end;
+				}
+				
+				communicate readingShortTask() {
+					priority: 6;
+					random: true;
+					min_duration: 30;
+					max_duration: 55;
+					with: Scenario_Chat;
+					about:
+						receive(Scenario_Chat.messageLength = unknown);
+						
+					when: end;
+				}
+
+				communicate readingLongTask() {
 					priority: 6;
 					random: true;
 					min_duration: 65;
@@ -408,7 +416,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage shortTask"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -419,7 +427,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage shortTask report"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -430,7 +438,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage mediumTask"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -441,7 +449,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage mediumTask report"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -452,7 +460,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage longTask"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -463,7 +471,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "shortMessage longTask report"))
 							
 					do {
-						readingShort();
+						readingShortTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -474,7 +482,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage shortTask"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -485,7 +493,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage shortTask report"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -496,7 +504,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage mediumTask"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -507,7 +515,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage mediumTask report"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -518,7 +526,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage longTask"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}
@@ -529,7 +537,7 @@ agent Operator{
 					when(knownval(Scenario_Chat.messageList(time) = "longMessage longTask report"))	
 					
 					do {
-						readingLong();
+						readingLongTask();
 						conclude((current.incompleteTasks = current.incompleteTasks + time));
 					}
 				}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <!DOCTYPE AGENT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/agent.dtd"> 
-<!-- Generated at Thu Feb 05 00:00:38 MST 2015 -->
+<!-- Generated at Fri Feb 06 20:59:40 MST 2015 -->
 
 <AGENT name="Operator" serializable="false" display="Operator">
 	<MEMBEROF ref="brahms.base.BaseGroup" />
@@ -64,7 +64,7 @@
 			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
 		</BELIEF>
 		<BELIEF>
-			<OAV lObjRef="Map" lObjType="Object" attRef="UavInterface.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
+			<OAV lObjRef="UserMap" lObjType="Object" attRef="UserMap.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
 		</BELIEF>
 	</BELIEFS>
 	<FACTS>
@@ -96,7 +96,7 @@
 			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
 		</FACT>
 		<FACT>
-			<OAV lObjRef="Map" lObjType="Object" attRef="UavInterface.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
+			<OAV lObjRef="UserMap" lObjType="Object" attRef="UserMap.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
 		</FACT>
 	</FACTS>
 	<ACTIVITIES>
@@ -191,7 +191,45 @@
 						</RECEIVE>
 					</ABOUT>
 				</COMM_ACT>
+				<COMM_ACT name="Operator.readMessage$readingShortTask" descriptor="readingShortTask()" display="readingShortTask" priority="6" random="true" minDuration="30" maxDuration="55" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
 				<COMM_ACT name="Operator.readMessage$readingShort" descriptor="readingShort()" display="readingShort" priority="6" random="true" minDuration="30" maxDuration="55" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.readMessage$readingLongTask" descriptor="readingLongTask()" display="readingLongTask" priority="6" random="true" minDuration="65" maxDuration="90" when="end">
 					<WITH>
 						<WITHREF ref="Scenario_Chat" objType="Object" />
 					</WITH>
@@ -248,7 +286,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -281,7 +319,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -314,7 +352,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -347,7 +385,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -380,7 +418,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -413,7 +451,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -446,7 +484,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -479,7 +517,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -512,7 +550,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -545,7 +583,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -578,7 +616,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingLong()">
+						<ACTIVITYREF ref="readingLongTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -611,7 +649,7 @@
 						</PRECONDITION>
 					</WHEN>
 					<WF_DO>
-						<ACTIVITYREF ref="readingShort()">
+						<ACTIVITYREF ref="readingShortTask()">
 						</ACTIVITYREF>
 						<CONSEQUENCE>
 							<CONDITION>
@@ -727,14 +765,14 @@
 				</COMM_ACT>
 				<COMM_ACT name="Operator.performTasks$completeShortTask" descriptor="completeShortTask()" display="completeShortTask" priority="6" random="true" minDuration="20" maxDuration="30" when="end">
 					<WITH>
-						<WITHREF ref="Map" objType="Object" />
+						<WITHREF ref="UserMap" objType="Object" />
 					</WITH>
 					<ABOUT>
 						<RECEIVE contentType="condition">
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
 									</EXPRESSION>
 									<EXPRESSION>
 										<OPERAND type="UNKNOWN"/>
@@ -746,14 +784,14 @@
 				</COMM_ACT>
 				<COMM_ACT name="Operator.performTasks$completeMediumTask" descriptor="completeMediumTask()" display="completeMediumTask" priority="6" random="true" minDuration="35" maxDuration="60" when="end">
 					<WITH>
-						<WITHREF ref="Map" objType="Object" />
+						<WITHREF ref="UserMap" objType="Object" />
 					</WITH>
 					<ABOUT>
 						<RECEIVE contentType="condition">
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
 									</EXPRESSION>
 									<EXPRESSION>
 										<OPERAND type="UNKNOWN"/>
@@ -784,14 +822,14 @@
 				</COMM_ACT>
 				<COMM_ACT name="Operator.performTasks$completeLongTask" descriptor="completeLongTask()" display="completeLongTask" priority="6" random="true" minDuration="45" maxDuration="80" when="end">
 					<WITH>
-						<WITHREF ref="Map" objType="Object" />
+						<WITHREF ref="UserMap" objType="Object" />
 					</WITH>
 					<ABOUT>
 						<RECEIVE contentType="condition">
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Map" attRef="UavInterface.terrain"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
 									</EXPRESSION>
 									<EXPRESSION>
 										<OPERAND type="UNKNOWN"/>
@@ -861,10 +899,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
@@ -924,10 +962,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
@@ -987,10 +1025,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
@@ -1048,6 +1086,19 @@
 						</ACTIVITYREF>
 						<ACTIVITYREF ref="checkOffTask()">
 						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
 						<CONSEQUENCE>
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
@@ -1117,6 +1168,19 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
 										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
@@ -1178,6 +1242,19 @@
 						</ACTIVITYREF>
 						<ACTIVITYREF ref="checkOffTask()">
 						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
 						<CONSEQUENCE>
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
@@ -1247,6 +1324,19 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
 										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
@@ -1308,6 +1398,19 @@
 						</ACTIVITYREF>
 						<ACTIVITYREF ref="checkOffTask()">
 						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
 						<CONSEQUENCE>
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
@@ -1377,6 +1480,19 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
 										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
@@ -1440,10 +1556,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
@@ -1503,10 +1619,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
@@ -1566,10 +1682,10 @@
 							<CONDITION>
 								<VALUECOMPARISON relation="eq">
 									<EXPRESSION>
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 									</EXPRESSION>
 									<EXPRESSION operator="minus">
-										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
 										<OPERAND type="V" valueType="int" value="1"/>
 									</EXPRESSION>
 								</VALUECOMPARISON>
