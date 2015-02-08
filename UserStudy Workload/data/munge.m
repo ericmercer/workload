@@ -1,10 +1,14 @@
-function a = munge(f,fevents,win)
+function a = munge(f,fevents, fphases,span,method)
 M = csvread(f);
-w = ones(1,win)/win;
 
 % Time is in 1/10 of a second
 x = (1:length(M))/10;
 E = csvread(fevents);
+P = csvread(fphases);
+
+temporal = M(:,3);
+perception = M(:,4);
+decision = M(:,6);
 
 figure
 hax = axes;
@@ -12,29 +16,41 @@ title('Instantaneous Workload')
 grid off;
 hold on;
 
-y = filter(w, 1, M(:,2));
+y = smooth(temporal, span, method);
 plot(x,y,'-')
 
-y = filter(w, 1, M(:,3));
+y = smooth(perception, span, method);
 plot(x,y,'-')
 
-%y = filter(w, 1, M(:,4));
-%plot(x,y,'-')
-
-y = filter(w, 1, M(:,5));
+y = smooth(decision, span, method);
 plot(x,y,'-')
-
-%y = filter(w, 1, M(:,6));
-%plot(x,y,'-')
 
 for i = E
     line([i i], get(hax,'YLim'), ...
-        'Color', [.5,.5,.5], ...
-        'LineWidth', .5, ...
+        'Color', [.8,.8,.8], ...
+        'LineWidth', .3, ...
         'LineStyle', '--');
-    %plot(i, y(i*10), 'ro');
 end
 
-%legend('Physical', 'Perception', 'Visual', 'Decision', 'Activity')
+for i = P
+    line([i i], get(hax,'YLim'), ...
+        'Color', [.8,0,0], ...
+        'LineWidth', 1, ...
+        'LineStyle', '--');
+    prev = min(i*10, length(M));
+end
+
 legend('Temporal', 'Perceptual', 'Decision')
 hold off;
+
+p1 = (sum(temporal(1:prev(1))) + ...
+      sum(perception(1:prev(1))) + ... 
+      sum(decision(1:prev(1))))/prev(1);
+p2 = (sum(temporal(prev(1):prev(2))) + ...
+      sum(perception(prev(1):prev(2))) + ...
+      sum(decision(prev(1):prev(2))))/(prev(2) - prev(1) + 1);
+p3 = (sum(temporal(prev(2):prev(3))) + ...
+      sum(perception(prev(2):prev(3))) + ...
+      sum(decision(prev(2):prev(3))))/(prev(3) - prev(2) + 1);
+
+sprintf('%s = %d\n', 'Phase 1', p1, 'Phase2', p2, 'Phase 3', p3)
