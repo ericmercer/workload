@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE OBJECT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/object.dtd"> 
+<!-- Generated at Mon Feb 09 14:28:28 MST 2015 -->
+
+<OBJECT name="UserMap" serializable="false" display="UserMap">
+	<INSTANCEOF ref="UavInterface" />
+	<ATTRIBUTES>
+		<ATTRIBUTE name="UserMap.terrain" display="terrain" scope="public" type="string"/>
+		<ATTRIBUTE name="UserMap.currentUavTab" display="currentUavTab" scope="public" type="int"/>
+		<ATTRIBUTE name="UserMap.dots" display="dots" scope="public" type="int"/>
+	</ATTRIBUTES>
+	<BELIEFS>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.terrain" evalOp="eq" value="" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.dots" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.currentUavTab" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+	</BELIEFS>
+	<FACTS>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.terrain" evalOp="eq" value="" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.dots" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="UserMap.currentUavTab" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+	</FACTS>
+</OBJECT>

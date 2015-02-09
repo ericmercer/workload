@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE OBJECT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/object.dtd"> 
+<!-- Generated at Mon Feb 09 14:37:40 MST 2015 -->
+
+<OBJECT name="Scenario_Chat" serializable="false" display="Scenario_Chat">
+	<INSTANCEOF ref="ChatWindow" />
+	<BELIEFS>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.operatorMessages" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.newOpMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.newMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageLength" evalOp="eq" value="null" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Tasks" lObjType="Object" attRef="Tasks.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="1" evalOp="eq" value="long opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="5" evalOp="eq" value="short opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="10" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="15" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="20" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="25" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="30" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="40" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="50" evalOp="eq" value="long message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="58" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="65" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="75" evalOp="eq" value="long message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="81" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="86" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="96" evalOp="eq" value="short opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="106" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="111" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="126" evalOp="eq" value="long message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="133" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="141" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="156" evalOp="eq" value="long opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="161" evalOp="eq" value="long opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="166" evalOp="eq" value="short opMessage" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="206" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="211" evalOp="eq" value="longMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="221" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="226" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="236" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="241" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="246" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="251" evalOp="eq" value="long message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="261" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="266" evalOp="eq" value="shortMessage mediumTask report" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="271" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="276" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="281" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="289" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="294" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="299" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="309" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="314" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="319" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="324" evalOp="eq" value="shortMessage longTask report" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="344" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="349" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="354" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="359" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="369" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="374" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="384" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="389" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="394" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="399" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="409" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="414" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="424" evalOp="eq" value="long message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="429" evalOp="eq" value="short message" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="434" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="439" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="444" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</BELIEF>
+	</BELIEFS>
+	<FACTS>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.operatorMessages" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.newOpMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.newMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageLength" evalOp="eq" value="null" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Tasks" lObjType="Object" attRef="Tasks.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="1" evalOp="eq" value="long opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="5" evalOp="eq" value="short opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="10" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="15" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="20" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="25" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="30" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="40" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="50" evalOp="eq" value="long message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="58" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="65" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="75" evalOp="eq" value="long message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="81" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="86" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="96" evalOp="eq" value="short opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="106" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="111" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="126" evalOp="eq" value="long message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="133" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="141" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="156" evalOp="eq" value="long opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="161" evalOp="eq" value="long opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="166" evalOp="eq" value="short opMessage" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="206" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="211" evalOp="eq" value="longMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="221" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="226" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="236" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="241" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="246" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="251" evalOp="eq" value="long message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="261" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="266" evalOp="eq" value="shortMessage mediumTask report" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="271" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="276" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="281" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="289" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="294" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="299" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="309" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="314" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="319" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="324" evalOp="eq" value="shortMessage longTask report" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="344" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="349" evalOp="eq" value="shortMessage longTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="354" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="359" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="369" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="374" evalOp="eq" value="shortMessage mediumTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="384" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="389" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="394" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="399" evalOp="eq" value="shortMessage shortTask report" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="409" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="414" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="424" evalOp="eq" value="long message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="429" evalOp="eq" value="short message" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="434" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="439" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="ChatWindow.messageList" collectionIndexType="int" collectionIndex="444" evalOp="eq" value="shortMessage shortTask" valueType="string"/>
+		</FACT>
+	</FACTS>
+</OBJECT>

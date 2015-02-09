@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE CLASS SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/class.dtd"> 
+<!-- Generated at Mon Feb 09 14:37:39 MST 2015 -->
+
+<CLASS name="UavInterface" serializable="false" display="UavInterface">
+	<EXTENDS ref="brahms.base.BaseClass" />
+</CLASS>

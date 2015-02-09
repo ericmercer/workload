@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE PROJECT SYSTEM "file:////Applications/Brahms/AgentEnvironment/IDE/composer/dtds/ideproject.dtd">
+<PROJECT
+	name="UserStudy"
+	package=""
+	release="176"
+	modelFile="/Applications/Brahms/Projects/UserStudy/source/UserStudy.b" 
+  vmcfg="/Applications/Brahms/AgentEnvironment/config/vm.cfg"
+  srcdir="/Applications/Brahms/Projects/UserStudy/source"
+  builddir="/Applications/Brahms/Projects/UserStudy/build"
+  barname="UserStudy.bar"
+  bardir="/Applications/Brahms/Projects/UserStudy/lib"
+  generatebar="false"
+  idedir="/Applications/Brahms/Projects/UserStudy/ide_UserStudy">
+  
+  <MODELS>
+    <MODEL type="agentmodel" file="agentmodel.xml"/>
+    <MODEL type="objectmodel" file="objectmodel.xml"/>
+    <MODEL type="conceptualobjectmodel" file="conceptualobjectmodel.xml"/>
+    <MODEL type="geographymodel" file="geographymodel.xml"/>
+    <MODEL type="activitymodel" file="activitymodel.xml"/>
+  </MODELS>
+  
+  <SOURCE_FOLDERS>
+    <SOURCE_FOLDER name="/Applications/Brahms/Projects/UserStudy/source"/>
+  </SOURCE_FOLDERS>
+  
+  <LIBRARY_FOLDERS>
+    <LIBRARY_FOLDER name="/Applications/Brahms/AgentEnvironment/bin/../Models/lib"/>
+  </LIBRARY_FOLDERS>
+  
+  <SOURCE_FILES>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1423517299000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1423270806000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/Uav.b" modified="1420659834000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/UavInterface.b" modified="1423121434000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/TaskWindow.b" modified="1421457752000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/UserStudy.b" modified="1417714175000"/>
+    <SOURCE_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1423517289000"/>
+  </SOURCE_FILES>
+  
+  <OPEN_FILES>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Clock.b" modified="1423517299000"/>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/ChatWindow.b" modified="1423517289000"/>
+    <OPEN_FILE name="/Applications/Brahms/Projects/UserStudy/source/Operator.b" modified="1423270806000"/>
+  </OPEN_FILES>
+  
+</PROJECT>

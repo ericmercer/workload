@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE CLASS SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/class.dtd"> 
+<!-- Generated at Mon Feb 09 14:20:47 MST 2015 -->
+
+<CLASS name="Uav" serializable="false" display="Uav">
+	<EXTENDS ref="brahms.base.BaseClass" />
+	<ATTRIBUTES>
+		<ATTRIBUTE name="Uav.control" display="control" scope="public" type="string"/>
+		<ATTRIBUTE name="Uav.status" display="status" scope="public" type="string"/>
+		<ATTRIBUTE name="Uav.selfDestruct" display="selfDestruct" scope="public" type="boolean"/>
+		<ATTRIBUTE name="Uav.batteryLevel" display="batteryLevel" scope="public" type="int"/>
+		<ATTRIBUTE name="Uav.active" display="active" scope="public" type="boolean"/>
+	</ATTRIBUTES>
+	<ACTIVITIES>
+		<PRIM_ACT name="Uav.decreaseBattery" descriptor="decreaseBattery()" display="decreaseBattery" priority="1" maxDuration="100">
+		</PRIM_ACT>
+		<PRIM_ACT name="Uav.selfDestruct" descriptor="selfDestruct()" display="selfDestruct" priority="3" maxDuration="30">
+		</PRIM_ACT>
+		<PRIM_ACT name="Uav.travelToDestination" descriptor="travelToDestination()" display="travelToDestination" priority="2" maxDuration="100">
+		</PRIM_ACT>
+	</ACTIVITIES>
+	<WORKFRAMES>
+		<WORKFRAME name="Uav.wf_becomeActive" display="wf_becomeActive" wftype="2">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="start flight"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.status"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="in the air"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value=""/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+		<WORKFRAME name="Uav.wf_selfDestruct" display="wf_selfDestruct" wftype="2">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="initiate countdown"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<ACTIVITYREF ref="selfDestruct()">
+				</ACTIVITYREF>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.status"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="exploded"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value=""/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.active"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+		<WORKFRAME name="Uav.wf_setDestination" display="wf_setDestination" wftype="2" repeat="true">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="set destination"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.control"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value=""/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<ACTIVITYREF ref="travelToDestination()">
+				</ACTIVITYREF>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+							</EXPRESSION>
+							<EXPRESSION operator="minus">
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+								<OPERAND type="V" valueType="int" value="1"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+		<WORKFRAME name="Uav.wf_flying" display="wf_flying" wftype="2" repeat="true">
+			<DETECTABLES>
+				<DETECTABLE name="deadBattery" when="whenever" action="abort">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="int" value="0"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</DETECTABLE>
+			</DETECTABLES>
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.status"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="in the air"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<ACTIVITYREF ref="decreaseBattery()">
+				</ACTIVITYREF>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+							</EXPRESSION>
+							<EXPRESSION operator="minus">
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+								<OPERAND type="V" valueType="int" value="1"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+		<WORKFRAME name="Uav.wf_explode" display="wf_explode" wftype="2">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.batteryLevel"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="int" value="0"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.status"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="string" value="exploded"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Uav.active"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+	</WORKFRAMES>
+</CLASS>

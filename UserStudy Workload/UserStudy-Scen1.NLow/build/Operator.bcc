@@ -1,0 +1,1960 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE AGENT SYSTEM "file:////Applications/Brahms/AgentEnvironment/bin/../DTD/agent.dtd"> 
+<!-- Generated at Mon Feb 09 14:20:47 MST 2015 -->
+
+<AGENT name="Operator" serializable="false" display="Operator">
+	<MEMBEROF ref="brahms.base.BaseGroup" />
+	<ATTRIBUTES>
+		<ATTRIBUTE name="Operator.seenFirstMessage" display="seenFirstMessage" scope="public" type="boolean"/>
+		<ATTRIBUTE name="Operator.checkMessages" display="checkMessages" scope="public" type="boolean"/>
+		<ATTRIBUTE name="Operator.internalTimer" display="internalTimer" scope="public" type="int"/>
+		<ATTRIBUTE name="Operator.lastCheckedMessages" display="lastCheckedMessages" scope="public" type="int"/>
+		<ATTRIBUTE name="Operator.incompleteTasks" display="incompleteTasks" scope="public" type="int"/>
+		<ATTRIBUTE name="Operator.messageIterator" display="messageIterator" scope="public" type="int"/>
+		<ATTRIBUTE name="Operator.dontInterrupt" display="dontInterrupt" scope="public" type="boolean"/>
+		<ATTRIBUTE name="Operator.increment" display="increment" scope="public" type="int"/>
+	</ATTRIBUTES>
+	<BELIEFS>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.checkMessages" evalOp="eq" value="true" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.internalTimer" evalOp="eq" value="5" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.increment" evalOp="eq" value="3" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.dontInterrupt" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.lastCheckedMessages" evalOp="eq" value="1" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.messageIterator" evalOp="eq" value="1" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.seenFirstMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Clock" lObjType="Object" attRef="MyClock.time" evalOp="eq" value="1" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Tasks" lObjType="Object" attRef="Tasks.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageLength" evalOp="eq" value="null" valueType="string"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.newMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.newOpMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.operatorMessages" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
+		</BELIEF>
+		<BELIEF>
+			<OAV lObjRef="UserMap" lObjType="Object" attRef="UserMap.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
+		</BELIEF>
+	</BELIEFS>
+	<FACTS>
+		<FACT>
+			<OAV lObjRef="current" lObjType="Current" attRef="Operator.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Clock" lObjType="Object" attRef="MyClock.time" evalOp="eq" value="1" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Tasks" lObjType="Object" attRef="Tasks.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageLength" evalOp="eq" value="null" valueType="string"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.newMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.newOpMessage" evalOp="eq" value="false" valueType="boolean"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.operatorMessages" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.incompleteTasks" evalOp="eq" value="0" valueType="int"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="Scenario_Chat" lObjType="Object" attRef="ChatWindow.messageList" evalOp="eq" value="unknown" valueType="unknown"/>
+		</FACT>
+		<FACT>
+			<OAV lObjRef="UserMap" lObjType="Object" attRef="UserMap.terrain" evalOp="eq" value="unknown" valueType="unknown"/>
+		</FACT>
+	</FACTS>
+	<ACTIVITIES>
+		<COMM_ACT name="Operator.checkMessageWindow" descriptor="checkMessageWindow()" display="checkMessageWindow" maxDuration="4" when="end">
+			<WITH>
+				<WITHREF ref="Scenario_Chat" objType="Object" />
+			</WITH>
+			<ABOUT>
+				<RECEIVE contentType="condition">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.newOpMessage"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="UNKNOWN"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</RECEIVE>
+				<RECEIVE contentType="condition">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.newMessage"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="UNKNOWN"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</RECEIVE>
+				<RECEIVE contentType="condition">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="UNKNOWN"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</RECEIVE>
+				<RECEIVE contentType="condition">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="UNKNOWN"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</RECEIVE>
+				<RECEIVE contentType="condition">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="UNKNOWN"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</RECEIVE>
+			</ABOUT>
+		</COMM_ACT>
+		<COMP_ACT name="Operator.readMessage" descriptor="readMessage(I)" display="readMessage" endCondition="nowork">
+			<PARAMETERS>
+				<PARAMETER name="time" type="int" />
+			</PARAMETERS>
+			<ACTIVITIES>
+				<COMM_ACT name="Operator.readMessage$readingLong" descriptor="readingLong()" display="readingLong" priority="6" random="true" minDuration="65" maxDuration="90" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.readMessage$readingShortTask" descriptor="readingShortTask()" display="readingShortTask" priority="6" random="true" minDuration="30" maxDuration="55" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.readMessage$readingShort" descriptor="readingShort()" display="readingShort" priority="6" random="true" minDuration="30" maxDuration="55" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.readMessage$readingLongTask" descriptor="readingLongTask()" display="readingLongTask" priority="6" random="true" minDuration="65" maxDuration="90" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageLength"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+			</ACTIVITIES>
+			<WORKFRAMES>
+				<WORKFRAME name="Operator.readMessage.wf_readingShort" display="wf_readingShort" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="short opMessage"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShort()">
+						</ACTIVITYREF>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_LoRep" display="wf_readingShortTask_LoRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage longTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_ShRep" display="wf_readingShortTask_ShRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage shortTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_Med" display="wf_readingShortTask_Med" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage mediumTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_Lo" display="wf_readingShortTask_Lo" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage longTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_Sh" display="wf_readingShortTask_Sh" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage shortTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_Lo" display="wf_readingLongTask_Lo" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage longTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_MedRep" display="wf_readingLongTask_MedRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage mediumTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_Sh" display="wf_readingLongTask_Sh" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage shortTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_Med" display="wf_readingLongTask_Med" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage mediumTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_LoRep" display="wf_readingLongTask_LoRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage longTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLongTask_ShRep" display="wf_readingLongTask_ShRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage shortTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLongTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingShortTask_MedRep" display="wf_readingShortTask_MedRep" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage mediumTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingShortTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.readMessage.wf_readingLong" display="wf_readingLong" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="long opMessage"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="readingLong()">
+						</ACTIVITYREF>
+					</WF_DO>
+				</WORKFRAME>
+			</WORKFRAMES>
+		</COMP_ACT>
+		<COMP_ACT name="Operator.checkIfOpMessage" descriptor="checkIfOpMessage(I)" display="checkIfOpMessage" endCondition="nowork">
+			<PARAMETERS>
+				<PARAMETER name="time" type="int" />
+			</PARAMETERS>
+			<ACTIVITIES>
+				<COMM_ACT name="Operator.checkIfOpMessage$checkIfOpMessage" descriptor="checkIfOpMessage()" display="checkIfOpMessage" maxDuration="2" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.newOpMessage"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+			</ACTIVITIES>
+			<WORKFRAMES>
+				<WORKFRAME name="Operator.checkIfOpMessage.wf_checkIfOpMessage" display="wf_checkIfOpMessage" wftype="1">
+					<VARIABLES>
+						<VARIABLE name="message" display="message" quantification="forone" type="string"/>
+					</VARIABLES>
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="O" objType="variable" objRef="message"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkIfOpMessage()">
+						</ACTIVITYREF>
+					</WF_DO>
+				</WORKFRAME>
+			</WORKFRAMES>
+		</COMP_ACT>
+		<COMP_ACT name="Operator.performTasks" descriptor="performTasks(I)" display="performTasks" endCondition="nowork">
+			<PARAMETERS>
+				<PARAMETER name="time" type="int" />
+			</PARAMETERS>
+			<ACTIVITIES>
+				<COMM_ACT name="Operator.performTasks$reportTaskComplete" descriptor="reportTaskComplete()" display="reportTaskComplete" random="true" minDuration="15" maxDuration="50" when="end">
+					<WITH>
+						<WITHREF ref="Scenario_Chat" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<SEND contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</SEND>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeShortTask" descriptor="completeShortTask()" display="completeShortTask" priority="6" random="true" minDuration="20" maxDuration="30" when="end">
+					<WITH>
+						<WITHREF ref="UserMap" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeMediumTask" descriptor="completeMediumTask()" display="completeMediumTask" priority="6" random="true" minDuration="35" maxDuration="60" when="end">
+					<WITH>
+						<WITHREF ref="UserMap" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$checkOffTask" descriptor="checkOffTask()" display="checkOffTask" random="true" minDuration="10" maxDuration="20" when="end">
+					<WITH>
+						<WITHREF ref="Tasks" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<SEND contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</SEND>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$completeLongTask" descriptor="completeLongTask()" display="completeLongTask" priority="6" random="true" minDuration="45" maxDuration="80" when="end">
+					<WITH>
+						<WITHREF ref="UserMap" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="UserMap" attRef="UserMap.terrain"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+				<COMM_ACT name="Operator.performTasks$checkTaskWindow" descriptor="checkTaskWindow()" display="checkTaskWindow" random="true" minDuration="8" maxDuration="12" when="end">
+					<WITH>
+						<WITHREF ref="Tasks" objType="Object" />
+					</WITH>
+					<ABOUT>
+						<RECEIVE contentType="condition">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="UNKNOWN"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</RECEIVE>
+					</ABOUT>
+				</COMM_ACT>
+			</ACTIVITIES>
+			<WORKFRAMES>
+				<WORKFRAME name="Operator.performTasks.wf_performingShortTask1" display="wf_performingShortTask1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage shortTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeShortTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingMediumTask2" display="wf_performingMediumTask2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage mediumTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeMediumTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingMediumTask1" display="wf_performingMediumTask1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage mediumTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeMediumTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingLongTaskReport2" display="wf_performingLongTaskReport2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage longTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeLongTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingLongTaskReport1" display="wf_performingLongTaskReport1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage longTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeLongTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingMediumTaskReport2" display="wf_performingMediumTaskReport2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage mediumTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeMediumTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingMediumTaskReport1" display="wf_performingMediumTaskReport1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage mediumTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeMediumTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingShortTaskReport2" display="wf_performingShortTaskReport2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage shortTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeShortTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingShortTaskReport1" display="wf_performingShortTaskReport1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage shortTask report"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeShortTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="reportTaskComplete()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingLongTask2" display="wf_performingLongTask2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage longTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeLongTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingLongTask1" display="wf_performingLongTask1" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="shortMessage longTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeLongTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+				<WORKFRAME name="Operator.performTasks.wf_performingShortTask2" display="wf_performingShortTask2" wftype="1">
+					<WHEN>
+						<PRECONDITION modifier="knownval">
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Chat" attRef="ChatWindow.messageList" collectionIndexType="parameter" collectionIndex="time"/>
+									</EXPRESSION>
+									<EXPRESSION>
+										<OPERAND type="V" valueType="string" value="longMessage shortTask"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</PRECONDITION>
+					</WHEN>
+					<WF_DO>
+						<ACTIVITYREF ref="checkTaskWindow()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="plus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<ACTIVITYREF ref="completeShortTask()">
+						</ACTIVITYREF>
+						<ACTIVITYREF ref="checkOffTask()">
+						</ACTIVITYREF>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Tasks" attRef="Tasks.incompleteTasks"/>
+										<OPERAND type="V" valueType="int" value="1"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+						<CONSEQUENCE>
+							<CONDITION>
+								<VALUECOMPARISON relation="eq">
+									<EXPRESSION>
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+									</EXPRESSION>
+									<EXPRESSION operator="minus">
+										<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.incompleteTasks"/>
+										<OPERAND type="O" objType="parameter" objRef="time"/>
+									</EXPRESSION>
+								</VALUECOMPARISON>
+							</CONDITION>
+						</CONSEQUENCE>
+					</WF_DO>
+				</WORKFRAME>
+			</WORKFRAMES>
+		</COMP_ACT>
+	</ACTIVITIES>
+	<WORKFRAMES>
+		<WORKFRAME name="Operator.wf_handleMessages" display="wf_handleMessages" wftype="1" repeat="true">
+			<VARIABLES>
+				<VARIABLE name="curPosition" display="curPosition" quantification="forone" type="int"/>
+			</VARIABLES>
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="lteq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.messageIterator"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.lastCheckedMessages"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="O" objType="variable" objRef="curPosition"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.messageIterator"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.seenFirstMessage"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="true"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.dontInterrupt"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="true"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<ACTIVITYREF ref="checkIfOpMessage(I)">
+					<PARAMVALS>
+						<PARAMVAL value="curPosition" valueType="Variable"/>
+					</PARAMVALS>
+				</ACTIVITYREF>
+				<ACTIVITYREF ref="readMessage(I)">
+					<PARAMVALS>
+						<PARAMVAL value="curPosition" valueType="Variable"/>
+					</PARAMVALS>
+				</ACTIVITYREF>
+				<ACTIVITYREF ref="performTasks(I)">
+					<PARAMVALS>
+						<PARAMVAL value="curPosition" valueType="Variable"/>
+					</PARAMVALS>
+				</ACTIVITYREF>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.messageIterator"/>
+							</EXPRESSION>
+							<EXPRESSION operator="plus">
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.messageIterator"/>
+								<OPERAND type="V" valueType="int" value="1"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.dontInterrupt"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+		<WORKFRAME name="Operator.wf_checkMessages" display="wf_checkMessages" wftype="1" repeat="true">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.checkMessages"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="true"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<WF_DO>
+				<ACTIVITYREF ref="checkMessageWindow()">
+				</ACTIVITYREF>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.lastCheckedMessages"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Clock" attRef="MyClock.time"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.checkMessages"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.seenFirstMessage"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="true"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE factCertainty="0" beliefCertainty="50">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.increment"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="int" value="3"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE factCertainty="0" beliefCertainty="25">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.increment"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="int" value="5"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</WF_DO>
+		</WORKFRAME>
+	</WORKFRAMES>
+	<THOUGHTFRAMES>
+		<THOUGHTFRAME name="Operator.tf_thinkToCheckMessages" display="tf_thinkToCheckMessages" repeat="true">
+			<WHEN>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="gteq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Clock" attRef="MyClock.time"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.internalTimer"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.checkMessages"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+				<PRECONDITION modifier="knownval">
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.dontInterrupt"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="false"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</PRECONDITION>
+			</WHEN>
+			<TF_DO>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.internalTimer"/>
+							</EXPRESSION>
+							<EXPRESSION operator="plus">
+								<OPERAND type="OA" objType="concept" objTypeDetail="Object" objRef="Scenario_Clock" attRef="MyClock.time"/>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.increment"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+				<CONSEQUENCE>
+					<CONDITION>
+						<VALUECOMPARISON relation="eq">
+							<EXPRESSION>
+								<OPERAND type="OA" objType="current" objRef="current" attRef="Operator.checkMessages"/>
+							</EXPRESSION>
+							<EXPRESSION>
+								<OPERAND type="V" valueType="boolean" value="true"/>
+							</EXPRESSION>
+						</VALUECOMPARISON>
+					</CONDITION>
+				</CONSEQUENCE>
+			</TF_DO>
+		</THOUGHTFRAME>
+	</THOUGHTFRAMES>
+</AGENT>
