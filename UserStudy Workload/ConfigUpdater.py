@@ -1,12 +1,13 @@
 import os
 import sys
+import time
 
 class ConfigUpdater():
 
 	def __init__(self):
 		filename = os.getcwd() + '/brahms-translate/examples/UserStudy/config.cfg'
 
-		weights = ['0.5','0.5','0.5','0.75','0.5','0.75','0.5','0.75','0.5','0.75','0.5','0.75','0.5','1.0','0.5','1.0','0.5','1.0','0.5','1.0','0.5','1.0','0.5','1.0','1.0','1.0','0.5','0.75','0.25','0.25','0.5','1.5','0.5','2.5','0.5','2.5','0.5','4.0','0.5','4.0','0.5','3.0','0.5','3.0','0.5','2.0','0.5','2.0','0.5','3.5','0.5','3.5','0.5','1.5','0.5','0.5','0.25','0.25','1.0','1.0','1.0','1.0','1.0','1.0','1.0','1.0','1.0','1.0','1.0','1.0','0.15','1.0','1.0','0.15','1.0','1.0','0.15','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','1.0','0.15','1.0','1.0','0.15','1.0','1.0','0.15','1.0','1.0','0.0','0.5','0.0','0.0','0.0','0.0','0.1','0.0','0.0','0.0','0.25','0.0','2.5','0.0','2.0','0.0','1.5','0.0','3.0','0.0','0.25','0.0','0.75','0.0','2.0','0.0','4.0','0.0','0.5','0.0','5.0','0.0','0.5','0.0']
+		weights = ['1','1','1','2','1','2','1','2','1','2','1','2','1','4','1','4','1','4','1','4','1','4','1','4','1','2','1','3','1','1','1','3','1','4','1','4','1','6','1','6','1','5','1','5','1','4','1','4','1','5','1','5','1','3','1','3','1','1','3','3','2','2','2','4','5','4','4','5','5','3','1','2','1','1','2','1','1','2','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','1','1','2','1','1','2','1','0','1','0','0','0','0','1','0','0','0','1','0','3','0','2','0','1','0','4','0','1','0','5','0','3','0','4','0','2','0','5','0','2','0']
 
 		checkMessageWindow = [] # (line: 234)
 		readingShortTask = []   # (lines: 114,116,118,120,122,136)
@@ -96,8 +97,8 @@ class ConfigUpdater():
 		        checkTaskWindow.append(temp[loc1:loc2])
 
 		    elif i == 246:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(checkMessageWindow)):
 		        	if i < len(checkMessageWindow) - 1:
 			            fil += checkMessageWindow[i] + ','
@@ -106,8 +107,8 @@ class ConfigUpdater():
 		        fil += '}\n'
 
 		    elif i == 256:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(readingShortTask)):
 		        	if i < len(readingShortTask) - 1:
 		        		fil += readingShortTask[i] + ','
@@ -116,8 +117,8 @@ class ConfigUpdater():
 		        fil += '}\n'
 
 		    elif i == 266:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(readingLongTask)):
 		        	if i < len(readingLongTask) - 1:
 		        		fil += readingLongTask[i] + ','
@@ -126,8 +127,8 @@ class ConfigUpdater():
 		        fil += '}\n'
 
 		    elif i == 276:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(reportTaskComplete)):
 		        	if i < len(reportTaskComplete) - 1:
 						fil += reportTaskComplete[i] + ','
@@ -135,9 +136,14 @@ class ConfigUpdater():
 		        		fil += reportTaskComplete[i]
 		        fil += '}\n'
 
+		    elif i == 279:
+		    	loc = temp.find('\n')
+		    	fil += temp[:loc] + ' // Disney is 5\n'
+
+
 		    elif i == 281:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(completeShortTask)):
 		        	if i < len(completeShortTask) - 1:
 						fil += completeShortTask[i] + ','
@@ -145,9 +151,13 @@ class ConfigUpdater():
 		        		fil += completeShortTask[i]
 		        fil += '}\n'
 
+		    elif i == 284:
+		    	loc = temp.find('\n')
+		    	fil += temp[:loc] + ' // Disney is 6\n'
+
 		    elif i == 286:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(completeMediumTask)):
 		        	if i < len(completeMediumTask) - 1:
 						fil += completeMediumTask[i] + ','
@@ -156,8 +166,8 @@ class ConfigUpdater():
 		        fil += '}\n'
 
 		    elif i == 291:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(checkOffTask)):
 		        	if i < len(checkOffTask) - 1:
 						fil += checkOffTask[i] + ','
@@ -165,9 +175,13 @@ class ConfigUpdater():
 		        		fil += checkOffTask[i]
 		        fil += '}\n'
 
+		    elif i == 294:
+		    	loc = temp.find('\n')
+		    	fil += temp[:loc] + ' // Disney is 7\n'
+
 		    elif i == 296:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(completeLongTask)):
 		        	if i < len(completeLongTask) - 1:
 						fil += completeLongTask[i] + ','
@@ -176,8 +190,8 @@ class ConfigUpdater():
 		        fil += '}\n'
 
 		    elif i == 301:
-		        loc = temp.find('}')
-		        fil += temp[:loc]
+		        loc = temp.find('{')
+		        fil += temp[:loc+1]
 		        for i in range(0,len(checkTaskWindow)):
 		        	if i < len(checkTaskWindow) - 1:
 						fil += checkTaskWindow[i] + ','
