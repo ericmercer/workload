@@ -21,4 +21,20 @@ Activity Key
 8: completeMediumTask
 9: reportTaskComplete
 10: completeLongTask
+11: readingLongTask
+
+Workframe weight Key
+---------------------------------------------------------------------
+0: null
+1: checkMessageWindow
+1: checkIfOpMessage
+3: readingLong
+3: readingShort
+1: checkTaskWindow
+2: completeShortTask
+1: checkOffTask
+3: completeMediumTask
+4: reportTaskComplete
+4: completeLongTask
+4: readingLongTask
 

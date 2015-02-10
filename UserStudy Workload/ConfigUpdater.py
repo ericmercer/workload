@@ -5,9 +5,155 @@ import time
 class ConfigUpdater():
 
 	def __init__(self):
-		filename = os.getcwd() + '/brahms-translate/examples/UserStudy/config.cfg'
-
-		weights = ['1','1','1','2','1','2','1','2','1','2','1','2','1','4','1','4','1','4','1','4','1','4','1','4','1','2','1','3','1','1','1','3','1','4','1','4','1','6','1','6','1','5','1','5','1','4','1','4','1','5','1','5','1','3','1','3','1','1','3','3','2','2','2','4','5','4','4','5','5','3','1','2','1','1','2','1','1','2','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','5','1','1','2','1','1','2','1','1','2','1','0','1','0','0','0','0','1','0','0','0','1','0','3','0','2','0','1','0','4','0','1','0','5','0','3','0','4','0','2','0','5','0','2','0']
+		#filename = os.getcwd() + '/brahms-translate/examples/UserStudy/config.cfg'
+                filename = '/Users/egm/Documents/bitbucket/brahms-verification/examples/UserStudy/config.cfg'
+                
+		weights = ['1', # wf_readingShort.decisionWeight = 1
+                           '1', # wf_readingShort.temporalWeight = 1
+                           '1', # wf_readingShortTask_LoRep.decisionWeight = 1
+                           '2', # wf_readingShortTask_LoRep.temporalWeight = 2
+                           '1', # wf_readingShortTask_ShRep.decisionWeight = 1
+                           '2', # wf_readingShortTask_ShRep.temporalWeight = 2
+                           '1', # wf_readingShortTask_Med.decisionWeight = 1
+                           '2', # wf_readingShortTask_Med.temporalWeight = 2
+                           '1', # wf_readingShortTask_Lo.decisionWeight = 1
+                           '2', # wf_readingShortTask_Lo.temporalWeight = 2
+                           '1', # wf_readingShortTask_Sh.decisionWeight = 1
+                           '2', # wf_readingShortTask_Sh.temporalWeight = 2
+                           '1', # wf_readingLongTask_Lo.decisionWeight = 1
+                           '4', # wf_readingLongTask_Lo.temporalWeight = 4
+                           '1', # wf_readingLongTask_MedRep.decisionWeight = 1
+                           '4', # wf_readingLongTask_MedRep.temporalWeight = 4
+                           '1', # wf_readingLongTask_Sh.decisionWeight = 1
+                           '4', # wf_readingLongTask_Sh.temporalWeight = 4
+                           '1', # wf_readingLongTask_Med.decisionWeight = 1
+                           '4', # wf_readingLongTask_Med.temporalWeight = 4
+                           '1', # wf_readingLongTask_LoRep.decisionWeight = 1
+                           '4', # wf_readingLongTask_LoRep.temporalWeight = 4
+                           '1', # wf_readingLongTask_ShRep.decisionWeight = 1
+                           '4', # wf_readingLongTask_ShRep.temporalWeight = 4
+                           '1', # wf_readingShortTask_MedRep.decisionWeight = 1
+                           '2', # wf_readingShortTask_MedRep.temporalWeight = 2
+                           '1', # wf_readingLong.decisionWeight = 1
+                           '3', # wf_readingLong.temporalWeight = 3
+                           '1', # wf_checkIfOpMessage.decisionWeight = 1
+                           '1', # wf_checkIfOpMessage.temporalWeight = 1
+                           '1', # wf_performingShortTask1.decisionWeight = 1
+                           '3', # wf_performingShortTask1.temporalWeight = 3
+                           '1', # wf_performingMediumTask2.decisionWeight = 1
+                           '4', # wf_performingMediumTask2.temporalWeight = 4
+                           '1', # wf_performingMediumTask1.decisionWeight = 1
+                           '4', # wf_performingMediumTask1.temporalWeight = 4
+                           '1', # wf_performingLongTaskReport2.decisionWeight = 1
+                           '6', # wf_performingLongTaskReport2.temporalWeight = 6
+                           '1', # wf_performingLongTaskReport1.decisionWeight = 1
+                           '6', # wf_performingLongTaskReport1.temporalWeight = 6
+                           '1', # wf_performingMediumTaskReport2.decisionWeight = 1
+                           '5', # wf_performingMediumTaskReport2.temporalWeight = 5
+                           '1', # wf_performingMediumTaskReport1.decisionWeight = 1
+                           '5', # wf_performingMediumTaskReport1.temporalWeight = 5
+                           '1', # wf_performingShortTaskReport2.decisionWeight = 1
+                           '4', # wf_performingShortTaskReport2.temporalWeight = 4
+                           '1', # wf_performingShortTaskReport1.decisionWeight = 1
+                           '4', # wf_performingShortTaskReport1.temporalWeight = 4
+                           '1', # wf_performingLongTask2.decisionWeight = 1
+                           '5', # wf_performingLongTask2.temporalWeight = 5
+                           '1', # wf_performingLongTask1.decisionWeight = 1
+                           '5', # wf_performingLongTask1.temporalWeight = 5
+                           '1', # wf_performingShortTask2.decisionWeight = 1
+                           '3', # wf_performingShortTask2.temporalWeight = 3
+                           '1', # wf_handleMessages.decisionWeight = 1
+                           '3', # wf_handleMessages.temporalWeight = 3
+                           '1', # wf_checkMessages.decisionWeight = 1
+                           '1', # wf_checkMessages.temporalWeight = 1
+                           '3', # {Operator_wf_readingShortTask_LoRep_xox35=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 3
+                           '3', # {Operator_wf_readingShortTask_ShRep_xox42=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 3
+                           '2', # {Operator_wf_readingShortTask_Med_xox49=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 2
+                           '2', # {Operator_wf_readingShortTask_Lo_xox56=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 2
+                           '2', # {Operator_wf_readingShortTask_Sh_xox63=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 2
+                           '4', # {Operator_wf_readingLongTask_Lo_xox70=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 4
+                           '5', # {Operator_wf_readingLongTask_MedRep_xox77=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 5
+                           '4', # {Operator_wf_readingLongTask_Sh_xox84=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 4
+                           '4', # {Operator_wf_readingLongTask_Med_xox91=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 4
+                           '5', # {Operator_wf_readingLongTask_LoRep_xox98=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 5
+                           '5', # {Operator_wf_readingLongTask_ShRep_xox105=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 5
+                           '3', # {Operator_wf_readingShortTask_MedRep_xox112=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 3
+                           '1', # {Operator_wf_performingShortTask1_xox149=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingShortTask1_xox152=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingShortTask1_xox155=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingMediumTask2_xox162=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingMediumTask2_xox165=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingMediumTask2_xox168=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingMediumTask1_xox175=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingMediumTask1_xox178=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingMediumTask1_xox181=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingLongTaskReport2_xox188=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingLongTaskReport2_xox191=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingLongTaskReport2_xox194=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingLongTaskReport2_xox197=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingLongTaskReport1_xox204=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingLongTaskReport1_xox207=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingLongTaskReport1_xox210=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingLongTaskReport1_xox213=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingMediumTaskReport2_xox220=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingMediumTaskReport2_xox223=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingMediumTaskReport2_xox226=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingMediumTaskReport2_xox229=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingMediumTaskReport1_xox236=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingMediumTaskReport1_xox239=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingMediumTaskReport1_xox242=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingMediumTaskReport1_xox245=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingShortTaskReport2_xox252=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingShortTaskReport2_xox255=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingShortTaskReport2_xox258=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingShortTaskReport2_xox261=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingShortTaskReport1_xox268=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingShortTaskReport1_xox271=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '5', # {Operator_wf_performingShortTaskReport1_xox274=Scenario_Chat.incompleteTasks EQ var(Scenario_Chat).incompleteTasks MINUS 1}.weight = 5
+                           '1', # {Operator_wf_performingShortTaskReport1_xox277=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingLongTask2_xox284=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingLongTask2_xox287=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingLongTask2_xox290=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingLongTask1_xox297=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1 
+                           '2', # {Operator_wf_performingLongTask1_xox300=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingLongTask1_xox303=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_wf_performingShortTask2_xox310=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '2', # {Operator_wf_performingShortTask2_xox313=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
+                           '1', # {Operator_wf_performingShortTask2_xox316=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
+                           '1', # {Operator_tf_thinkToCheckMessages_xox10=current.internalTimer EQ var(Scenario_Clock).time PLUS var(current).increment}.weight = 1
+                           '1', # {Operator_tf_thinkToCheckMessages_xox13=current.checkMessages EQ true}.weight = 1
+                           '0', # {Operator_wf_handleMessages_xox11=current.dontInterrupt EQ true}.weight = 0
+                           '0', # {Operator_wf_handleMessages_xox14=current.messageIterator EQ var(current).messageIterator PLUS 1}.weight = 0
+                           '0', # {Operator_wf_handleMessages_xox17=current.dontInterrupt EQ false}.weight = 0
+                           '0', # {Operator_wf_checkMessages_xox24=current.lastCheckedMessages EQ var(Scenario_Clock).time}.weight = 0
+                           '1', # {Operator_wf_checkMessages_xox27=current.checkMessages EQ false}.weight = 1
+                           '0', # {Operator_wf_checkMessages_xox30=current.seenFirstMessage EQ true}.weight = 0
+                           '0', # {Operator_wf_checkMessages_xox33=current.increment EQ 3}.weight = 0
+                           '0', # {Operator_wf_checkMessages_xox36=current.increment EQ 5}.weight = 0
+                           '1', # checkMessageWindow.perceptionWeight = 1
+                           '0', # checkMessageWindow.weight = 0
+                           '270', # readingLong.perceptionWeight = 3
+                           '0', # readingLong.weight = 0
+                           '110', # readingShortTask.perceptionWeight = 20
+                           '0', # readingShortTask.weight = 0
+                           '55', # readingShort.perceptionWeight = 10
+                           '0', # readingShort.weight = 0
+                           '360', # readingLongTask.perceptionWeight = 40
+                           '0', # readingLongTask.weight = 0
+                           '2', # checkIfOpMessage.perceptionWeight = 10
+                           '0', # checkIfOpMessage.weight = 0
+                           '50', # reportTaskComplete.perceptionWeight = 50
+                           '0', # reportTaskComplete.weight = 0
+                           '90', # completeShortTask.perceptionWeight = 30
+                           '0', # completeShortTask.weight = 0
+                           '720', # completeMediumTask.perceptionWeight = 40 // Disney is 6
+                           '0', # completeMediumTask.weight = 0
+                           '40', # checkOffTask.perceptionWeight = 20
+                           '0', # checkOffTask.weight = 0
+                           '1200', # completeLongTask.perceptionWeight = 50 // Disney is 7
+                           '0', # completeLongTask.weight = 0
+                           '24', # checkTaskWindow.perceptionWeight = 20
+                           '1'] # checkTaskWindow.weight = 1
 
 		checkMessageWindow = [] # (line: 234)
 		readingShortTask = []   # (lines: 114,116,118,120,122,136)
@@ -30,12 +176,18 @@ class ConfigUpdater():
 		    	loc = newtemp.find('= ')
 		    	temp = newtemp[:loc+2] + weights[j] + '\n'
 		    	j += 1
-		    
+
+                    if j >= len(weights):
+                       break;
+               
 		    if i < 301 and i > 243 and temp != '\n' and temp[-2:-1] != 'L' and temp[-2:-1] != ')' and temp[-2:-1] != '}' and temp[-2:-1] != 'O':
 		    	newtemp = temp
 		    	loc = newtemp.find('= ')
 		    	temp = newtemp[:loc+2] + weights[j] + '\n'
 		    	j += 1
+
+                    if j >= len(weights):
+                       break;
 
 		    if i > 242 and i < 300 and temp[-2:-1] == 'O':
 		    	newtemp = temp
@@ -136,11 +288,6 @@ class ConfigUpdater():
 		        		fil += reportTaskComplete[i]
 		        fil += '}\n'
 
-		    elif i == 279:
-		    	loc = temp.find('\n')
-		    	fil += temp[:loc] + ' // Disney is 5\n'
-
-
 		    elif i == 281:
 		        loc = temp.find('{')
 		        fil += temp[:loc+1]
@@ -150,10 +297,6 @@ class ConfigUpdater():
 		        	else:
 		        		fil += completeShortTask[i]
 		        fil += '}\n'
-
-		    elif i == 284:
-		    	loc = temp.find('\n')
-		    	fil += temp[:loc] + ' // Disney is 6\n'
 
 		    elif i == 286:
 		        loc = temp.find('{')
@@ -174,10 +317,6 @@ class ConfigUpdater():
 		        	else:
 		        		fil += checkOffTask[i]
 		        fil += '}\n'
-
-		    elif i == 294:
-		    	loc = temp.find('\n')
-		    	fil += temp[:loc] + ' // Disney is 7\n'
 
 		    elif i == 296:
 		        loc = temp.find('{')

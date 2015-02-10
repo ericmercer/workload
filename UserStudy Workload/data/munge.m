@@ -6,7 +6,7 @@ x = (1:length(M))/10;
 E = csvread(fevents);
 P = csvread(fphases);
 
-temporal = M(:,3);
+temporal = M(:,7);
 perception = M(:,4);
 decision = M(:,6);
 
