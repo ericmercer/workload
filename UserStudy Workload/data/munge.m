@@ -42,6 +42,7 @@ for i = P
         'LineStyle', '--');
     prev = min(i*10, length(M));
 end
+%prev
 
 legend('Temporal', 'Perceptual', 'Decision')
 hold off;
