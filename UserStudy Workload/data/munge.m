@@ -6,7 +6,7 @@ x = (1:length(M))/10;
 E = csvread(fevents);
 P = csvread(fphases);
 
-temporal = M(:,7);
+temporal = M(:,3);
 perception = M(:,4);
 decision = M(:,6);
 
@@ -17,12 +17,15 @@ grid off;
 hold on;
 
 y = smooth(temporal, span, method);
+%y = temporal;
 plot(x,y,'-')
 
 y = smooth(perception, span, method);
+%y = perception;
 plot(x,y,'-')
 
 y = smooth(decision, span, method);
+%y = decision;
 plot(x,y,'-')
 
 for i = E

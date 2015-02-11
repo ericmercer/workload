@@ -120,7 +120,7 @@ class ConfigUpdater():
                            '1', # {Operator_wf_performingShortTask2_xox310=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
                            '2', # {Operator_wf_performingShortTask2_xox313=Tasks.incompleteTasks EQ var(Tasks).incompleteTasks MINUS 1}.weight = 2
                            '1', # {Operator_wf_performingShortTask2_xox316=current.incompleteTasks EQ var(current).incompleteTasks}.weight = 1
-                           '1', # {Operator_tf_thinkToCheckMessages_xox10=current.internalTimer EQ var(Scenario_Clock).time PLUS var(current).increment}.weight = 1
+                           '0', # {Operator_tf_thinkToCheckMessages_xox10=current.internalTimer EQ var(Scenario_Clock).time PLUS var(current).increment}.weight = 1
                            '1', # {Operator_tf_thinkToCheckMessages_xox13=current.checkMessages EQ true}.weight = 1
                            '0', # {Operator_wf_handleMessages_xox11=current.dontInterrupt EQ true}.weight = 0
                            '0', # {Operator_wf_handleMessages_xox14=current.messageIterator EQ var(current).messageIterator PLUS 1}.weight = 0
@@ -132,27 +132,27 @@ class ConfigUpdater():
                            '0', # {Operator_wf_checkMessages_xox36=current.increment EQ 5}.weight = 0
                            '1', # checkMessageWindow.perceptionWeight = 1
                            '0', # checkMessageWindow.weight = 0
-                           '270', # readingLong.perceptionWeight = 3
+                           '3', # readingLong.perceptionWeight = 3
                            '0', # readingLong.weight = 0
-                           '110', # readingShortTask.perceptionWeight = 20
+                           '2', # readingShortTask.perceptionWeight = 2
                            '0', # readingShortTask.weight = 0
-                           '55', # readingShort.perceptionWeight = 10
+                           '1', # readingShort.perceptionWeight = 1
                            '0', # readingShort.weight = 0
-                           '360', # readingLongTask.perceptionWeight = 40
+                           '4', # readingLongTask.perceptionWeight = 4
                            '0', # readingLongTask.weight = 0
-                           '2', # checkIfOpMessage.perceptionWeight = 10
+                           '1', # checkIfOpMessage.perceptionWeight = 1
                            '0', # checkIfOpMessage.weight = 0
-                           '50', # reportTaskComplete.perceptionWeight = 50
+                           '5', # reportTaskComplete.perceptionWeight = 5
                            '0', # reportTaskComplete.weight = 0
-                           '90', # completeShortTask.perceptionWeight = 30
+                           '3', # completeShortTask.perceptionWeight = 3
                            '0', # completeShortTask.weight = 0
-                           '720', # completeMediumTask.perceptionWeight = 40 // Disney is 6
+                           '4', # completeMediumTask.perceptionWeight = 4 // Disney is 6
                            '0', # completeMediumTask.weight = 0
-                           '40', # checkOffTask.perceptionWeight = 20
+                           '2', # checkOffTask.perceptionWeight = 20
                            '0', # checkOffTask.weight = 0
-                           '1200', # completeLongTask.perceptionWeight = 50 // Disney is 7
+                           '5', # completeLongTask.perceptionWeight = 5 // Disney is 7
                            '0', # completeLongTask.weight = 0
-                           '24', # checkTaskWindow.perceptionWeight = 20
+                           '2', # checkTaskWindow.perceptionWeight = 2
                            '1'] # checkTaskWindow.weight = 1
 
 		checkMessageWindow = [] # (line: 234)
