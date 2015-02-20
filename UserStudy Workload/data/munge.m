@@ -2,7 +2,10 @@ function a = munge(f,fevents, fphases,span,method)
 M = csvread(f);
 
 % Time is in 1/10 of a second
-x = (1:length(M))/10;
+%x = (1:length(M))/10;
+% Time is 1 second
+x = (1:length(M));
+
 E = csvread(fevents);
 P = csvread(fphases);
 
@@ -40,7 +43,10 @@ for i = P
         'Color', [.8,0,0], ...
         'LineWidth', 1, ...
         'LineStyle', '--');
-    prev = min(i*10, length(M));
+% Time is 1/10th of a second
+%    prev = min(i*10, length(M));
+% Time is 1 second
+    prev = min(i, length(M));
 end
 %prev
 
