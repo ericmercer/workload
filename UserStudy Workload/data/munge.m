@@ -15,6 +15,7 @@ decision = M(:,6);
 
 figure
 hax = axes;
+axis([0 350 -1 5])
 title('Instantaneous Workload')
 grid off;
 hold on;
